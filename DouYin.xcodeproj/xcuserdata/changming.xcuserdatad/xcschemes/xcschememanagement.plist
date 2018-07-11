@@ -7,7 +7,25 @@
 		<key>DouYin.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>6</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7018B13320CFC0BE0040CCB0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7018B14720CFC0C00040CCB0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7018B15220CFC0C00040CCB0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
