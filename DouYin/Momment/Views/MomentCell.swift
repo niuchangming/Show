@@ -139,8 +139,13 @@ class MomentCell: UITableViewCell {
                                                           height: picHeight))
                     picIV.sd_setImage(with: URL(string: moment.pictures[index]), placeholderImage: UIImage(named: "placeholder.png"))
                     picIV.clipsToBounds = true
+                    picIV.tag = index
                     picIV.contentMode = .scaleAspectFill
                     self.picContainerView.addSubview(picIV)
+                    
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+                    picIV.isUserInteractionEnabled = true
+                    picIV.addGestureRecognizer(tapGestureRecognizer)
                 }
             }
 
@@ -165,6 +170,24 @@ class MomentCell: UITableViewCell {
             self.bodyPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
         }
 
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)  {
+        let tappedImageView = tapGestureRecognizer.view as! UIImageView
+        
+        var photoImages: [ViewerImageProtocol] = []
+        for view in self.picContainerView.subviews{
+            if(view.isKind(of: UIImageView.self)){
+                let imv = view as! UIImageView
+                let appImage = ViewerImage.appImage(forImage: imv.image!)
+                photoImages.append(appImage)
+            }
+        }
+
+        let viewer = AppImageViewer(originImage: tappedImageView.image!, photos: photoImages, animatedFromView: tappedImageView)
+        viewer.currentPageIndex = tappedImageView.tag
+        let relatedVC = Utils.viewController(responder: tappedImageView)
+        relatedVC?.present(viewer, animated: true, completion: nil)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

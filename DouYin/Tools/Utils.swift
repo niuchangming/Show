@@ -61,4 +61,16 @@ class Utils: NSObject {
         }
         return false
     }
+    
+    static func viewController(responder: UIResponder) -> UIViewController? {
+        if let vc = responder as? UIViewController {
+            return vc
+        }
+        
+        if let next = responder.next {
+            return viewController(responder: next)
+        }
+    
+        return nil
+    }
 }

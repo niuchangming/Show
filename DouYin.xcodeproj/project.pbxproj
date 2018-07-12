@@ -68,6 +68,20 @@
 		7098234620F7083C00B1292E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7098234520F7083B00B1292E /* CoreTelephony.framework */; };
 		7098234820F7084F00B1292E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7098234720F7084F00B1292E /* libsqlite3.0.tbd */; };
 		7098234C20F73E0600B1292E /* WXAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098234B20F73E0600B1292E /* WXAuth.swift */; };
+		7098236020F7517F00B1292E /* AppImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098234F20F7517E00B1292E /* AppImageViewer.swift */; };
+		7098236120F7517F00B1292E /* ViewerActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235020F7517E00B1292E /* ViewerActionView.swift */; };
+		7098236220F7517F00B1292E /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235120F7517E00B1292E /* AppHelper.swift */; };
+		7098236320F7517F00B1292E /* ViewerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235220F7517E00B1292E /* ViewerImage.swift */; };
+		7098236520F7517F00B1292E /* ViewerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235420F7517E00B1292E /* ViewerButton.swift */; };
+		7098236620F7517F00B1292E /* ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235520F7517E00B1292E /* ViewAnimator.swift */; };
+		7098236720F7517F00B1292E /* TapDetectingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235620F7517E00B1292E /* TapDetectingImageView.swift */; };
+		7098236820F7517F00B1292E /* ViewerPagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235720F7517E00B1292E /* ViewerPagingScrollView.swift */; };
+		7098236920F7517F00B1292E /* ViewerZoomingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235820F7517E00B1292E /* ViewerZoomingScrollView.swift */; };
+		7098236A20F7517F00B1292E /* ViewerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235920F7517E00B1292E /* ViewerToolbar.swift */; };
+		7098236B20F7517F00B1292E /* ViewerScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235A20F7517E00B1292E /* ViewerScale.swift */; };
+		7098236C20F7517F00B1292E /* TapDetectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235B20F7517E00B1292E /* TapDetectingView.swift */; };
+		7098236D20F7517F00B1292E /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235C20F7517E00B1292E /* AppExtensions.swift */; };
+		7098236E20F7517F00B1292E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7098235E20F7517F00B1292E /* Media.xcassets */; };
 		70E5812420E1015100F50B5E /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812320E1015100F50B5E /* MessageVC.swift */; };
 		70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812920E1F38500F50B5E /* LiveCell.swift */; };
 		70E5812C20E2194900F50B5E /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812B20E2194900F50B5E /* LiveData.swift */; };
@@ -170,6 +184,20 @@
 		7098234520F7083B00B1292E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		7098234720F7084F00B1292E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		7098234B20F73E0600B1292E /* WXAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXAuth.swift; sourceTree = "<group>"; };
+		7098234F20F7517E00B1292E /* AppImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppImageViewer.swift; sourceTree = "<group>"; };
+		7098235020F7517E00B1292E /* ViewerActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerActionView.swift; sourceTree = "<group>"; };
+		7098235120F7517E00B1292E /* AppHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
+		7098235220F7517E00B1292E /* ViewerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerImage.swift; sourceTree = "<group>"; };
+		7098235420F7517E00B1292E /* ViewerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerButton.swift; sourceTree = "<group>"; };
+		7098235520F7517E00B1292E /* ViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAnimator.swift; sourceTree = "<group>"; };
+		7098235620F7517E00B1292E /* TapDetectingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapDetectingImageView.swift; sourceTree = "<group>"; };
+		7098235720F7517E00B1292E /* ViewerPagingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerPagingScrollView.swift; sourceTree = "<group>"; };
+		7098235820F7517E00B1292E /* ViewerZoomingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerZoomingScrollView.swift; sourceTree = "<group>"; };
+		7098235920F7517E00B1292E /* ViewerToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerToolbar.swift; sourceTree = "<group>"; };
+		7098235A20F7517E00B1292E /* ViewerScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewerScale.swift; sourceTree = "<group>"; };
+		7098235B20F7517E00B1292E /* TapDetectingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapDetectingView.swift; sourceTree = "<group>"; };
+		7098235C20F7517E00B1292E /* AppExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		7098235E20F7517F00B1292E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		70E5812320E1015100F50B5E /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		70E5812920E1F38500F50B5E /* LiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCell.swift; sourceTree = "<group>"; };
 		70E5812B20E2194900F50B5E /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
@@ -431,6 +459,7 @@
 		7072A95520E24727000ECA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7098234D20F750ED00B1292E /* AppImageViewer */,
 				704E961F20DCEEA4002881FA /* PlayScrollView.swift */,
 				702793AC20F5A7DC00D4FA91 /* InsetTextField.swift */,
 			);
@@ -496,6 +525,43 @@
 				7098234B20F73E0600B1292E /* WXAuth.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7098234D20F750ED00B1292E /* AppImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				7098235D20F7517F00B1292E /* Assets */,
+				7098234E20F7517E00B1292E /* Classes */,
+			);
+			path = AppImageViewer;
+			sourceTree = "<group>";
+		};
+		7098234E20F7517E00B1292E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7098234F20F7517E00B1292E /* AppImageViewer.swift */,
+				7098235020F7517E00B1292E /* ViewerActionView.swift */,
+				7098235120F7517E00B1292E /* AppHelper.swift */,
+				7098235220F7517E00B1292E /* ViewerImage.swift */,
+				7098235420F7517E00B1292E /* ViewerButton.swift */,
+				7098235520F7517E00B1292E /* ViewAnimator.swift */,
+				7098235620F7517E00B1292E /* TapDetectingImageView.swift */,
+				7098235720F7517E00B1292E /* ViewerPagingScrollView.swift */,
+				7098235820F7517E00B1292E /* ViewerZoomingScrollView.swift */,
+				7098235920F7517E00B1292E /* ViewerToolbar.swift */,
+				7098235A20F7517E00B1292E /* ViewerScale.swift */,
+				7098235B20F7517E00B1292E /* TapDetectingView.swift */,
+				7098235C20F7517E00B1292E /* AppExtensions.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		7098235D20F7517F00B1292E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7098235E20F7517F00B1292E /* Media.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		70E5812220E1012700F50B5E /* Message */ = {
@@ -655,6 +721,7 @@
 				7027939C20F4BB7B00D4FA91 /* LoginVC.xib in Resources */,
 				7018B14220CFC0C00040CCB0 /* LaunchScreen.storyboard in Resources */,
 				7072AA2320E61F50000ECA1C /* LiveCollectionCellBottom.xib in Resources */,
+				7098236E20F7517F00B1292E /* Media.xcassets in Resources */,
 				7018B13F20CFC0C00040CCB0 /* Assets.xcassets in Resources */,
 				7011EB1720EE29F600D1A033 /* BroadcastVC.xib in Resources */,
 				7018B13D20CFC0BE0040CCB0 /* Main.storyboard in Resources */,
@@ -735,15 +802,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				7018B17C20D21D600040CCB0 /* Work.swift in Sources */,
+				7098236620F7517F00B1292E /* ViewAnimator.swift in Sources */,
 				702793C120F60C0A00D4FA91 /* AuthUtils.swift in Sources */,
 				70663DEB20D251E000707F87 /* FlowLayout.swift in Sources */,
 				7027939B20F4BB7B00D4FA91 /* LoginVC.swift in Sources */,
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
+				7098236020F7517F00B1292E /* AppImageViewer.swift in Sources */,
 				7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */,
+				7098236820F7517F00B1292E /* ViewerPagingScrollView.swift in Sources */,
+				7098236520F7517F00B1292E /* ViewerButton.swift in Sources */,
 				7018B17720D20C7C0040CCB0 /* WorkCollectionCell.swift in Sources */,
 				702793AD20F5A7DC00D4FA91 /* InsetTextField.swift in Sources */,
+				7098236B20F7517F00B1292E /* ViewerScale.swift in Sources */,
+				7098236120F7517F00B1292E /* ViewerActionView.swift in Sources */,
 				7011EB1520EE06AA00D1A033 /* Utils.swift in Sources */,
 				70E5812420E1015100F50B5E /* MessageVC.swift in Sources */,
+				7098236C20F7517F00B1292E /* TapDetectingView.swift in Sources */,
 				7072A97420E3A7D9000ECA1C /* UIImageView+NDExtension.swift in Sources */,
 				7098234C20F73E0600B1292E /* WXAuth.swift in Sources */,
 				704E961D20DCACDE002881FA /* WorkDetailVC.swift in Sources */,
@@ -752,19 +826,25 @@
 				7011EB5020F091AC00D1A033 /* Moment.swift in Sources */,
 				7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */,
 				7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */,
+				7098236920F7517F00B1292E /* ViewerZoomingScrollView.swift in Sources */,
+				7098236720F7517F00B1292E /* TapDetectingImageView.swift in Sources */,
 				70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */,
 				704E960B20DBAC1F002881FA /* Constants.swift in Sources */,
 				7018B13820CFC0BE0040CCB0 /* AppDelegate.swift in Sources */,
 				7072A98320E5D31A000ECA1C /* LiveCollectionViewCell.swift in Sources */,
 				7072A97F20E5D1BF000ECA1C /* LiveCVFlowLayout.swift in Sources */,
+				7098236320F7517F00B1292E /* ViewerImage.swift in Sources */,
 				7072AA2220E61F50000ECA1C /* LiveCollectionCellBottom.swift in Sources */,
 				7072A97D20E4EBE4000ECA1C /* LiveListVC.swift in Sources */,
 				704E962020DCEEA4002881FA /* PlayScrollView.swift in Sources */,
 				704E95F520D8AAE4002881FA /* MainVC.swift in Sources */,
 				704E95F720D8B334002881FA /* UIView+constraints.swift in Sources */,
 				7072A97720E3AC8E000ECA1C /* UIImage+NDImage.swift in Sources */,
+				7098236220F7517F00B1292E /* AppHelper.swift in Sources */,
 				70E5812C20E2194900F50B5E /* LiveData.swift in Sources */,
 				704E961920DCAB00002881FA /* WorkVC.swift in Sources */,
+				7098236A20F7517F00B1292E /* ViewerToolbar.swift in Sources */,
+				7098236D20F7517F00B1292E /* AppExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
