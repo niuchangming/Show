@@ -9,6 +9,8 @@
 import UIKit
 import AVKit
 import AVFoundation
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class LoginVC: UIViewController {
 
@@ -96,26 +98,58 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func wechatBtnClicked(_ sender: Any) {
+        NotificationCenter.default.addObserver(self, selector: #selector(wechatAuthSuccess(notification:)), name: .wechatAuthSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wechatAuthFail(notification:)), name: .wechatAuthSuccess, object: nil)
+        
+        let req: SendAuthReq = SendAuthReq()
+        req.scope = "snsapi_userinfo"
+        req.state = "show_wechat_auth";
+        WXApi.send(req)
+    }
+    
+    @objc func wechatAuthSuccess(notification: NSNotification)  {
+        let code = notification.userInfo!["code"] as! String        
+        let wxAuth: WXAuth = WXAuth(code: code)
+        wxAuth.getData { (message) in
+            if message == "Success" {
+                AuthUtils.shareManager.saveWechatInfo(result: wxAuth)
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                let alertController = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func wechatAuthFail(notification: NSNotification)  {
         
     }
     
     @IBAction func facebookBtnClicked(_ sender: Any) {
+        let loginManager = FBSDKLoginManager()
         
+        loginManager.logIn(withReadPermissions: [ "public_profile", "email" ], from: self) { (loginResult, error) in
+            if error != nil {
+                let alertController = UIAlertController(title: "Login Failed", message: error.debugDescription, preferredStyle: .alert)
+                self.present(alertController, animated: true, completion: nil)
+                return;
+            }
+            
+            if loginResult?.isCancelled == false {
+                AuthUtils.shareManager.saveFacebookInfo(result: loginResult!)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+}
 
+extension Notification.Name {
+    static let wechatAuthSuccess = Notification.Name("wechat_auth_success")
+    static let wechatAuthFailed = Notification.Name("wechat_auth_failed")
 }

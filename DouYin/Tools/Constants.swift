@@ -12,6 +12,11 @@ import UIKit
 struct Constants {
     static let BAMBUSER_APP_ID = "g9spSwNrRb1bR8soIE9OUA"
     static let FACEBOOK_APP_ID = "482413155516644"
+    static let WECHAT_APP_ID = "wx761c050f021c979c"
+    static let WECHAT_SECRET = "ae4c46579f27a5bc5224743d18f3ea80"
+    static let FACEBOOK_LOGGED = "facebook"
+    static let WECHAT_LOGGED = "wechat"
+    static let MOBILE_LOGGED = "mobile"
     
     static let IS_IPHONE: Bool = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone
     static let IS_IPHONE_4: Bool = IS_IPHONE && (Dimension.SCREEN_HEIGHT == 480.0)
@@ -45,4 +50,13 @@ struct Constants {
         static let TEXT_SIZE_SMALL: CGFloat = 13.0
     }
     
+    struct Auth {
+        static let LOGGED_IN = "logged_in"
+        static let ACCESS_TOKEN = "access_token"
+        static let LOGIN_TYPE = "logged_type"
+        static let FB_TOKEN_EXPIRED = "fb_expired"
+        static let FB_ACCESS_TOKEN = "fb_access_token"
+        static let WX_TOKEN_EXPIRED = "wx_expired"
+        static let WX_ACCESS_TOKEN = "wx_access_token"
+    }
 }

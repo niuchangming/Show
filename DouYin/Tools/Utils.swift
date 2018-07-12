@@ -20,4 +20,45 @@ class Utils: NSObject {
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: object.frame.size.width, height: object.frame.size.height)
         return gradient
     }
+    
+    static func isNotNil(obj: Any?) -> Bool {
+        if obj is String {
+            if (obj as? String) != nil {
+                return true
+            }else {
+                return false
+            }
+        }else if obj is Array<Any> {
+            if (obj as? Array<Any>) != nil {
+                return true
+            }else {
+                return false
+            }
+        }else if obj is Dictionary<AnyHashable, Any> {
+            if (obj as? Dictionary<String, Any>) != nil {
+                return true
+            }else {
+                return false
+            }
+        }else if obj is Data {
+            if (obj as? Data) != nil {
+                return true
+            }else {
+                return false
+            }
+        }else if obj is NSNumber {
+            if (obj as? NSNumber) != nil{
+                return true
+            }else {
+                return false
+            }
+        }else if obj is UIImage {
+            if (obj as? UIImage) != nil {
+                return true
+            }else {
+                return false
+            }
+        }
+        return false
+    }
 }

@@ -7,17 +7,43 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-//        [[FBSDKApplicationDelegate sharedInstance] application:application
-//            didFinishLaunchingWithOptions:launchOptions];
+
+        WXApi.registerApp(Constants.WECHAT_APP_ID)
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) && WXApi.handleOpen(url, delegate: self)
+        
+        return handled
+    }
+    
+    func onReq(_ req: BaseReq!) {
+        
+    }
+    
+    func onResp(_ resp: BaseResp!) {
+        if resp.isKind(of: SendAuthResp.self) {
+            let authResp = resp as! SendAuthResp
+            if resp.errCode == WXSuccess.rawValue{
+                let params: [String: String] = ["code": authResp.code]
+                NotificationCenter.default.post(name: .wechatAuthSuccess, object: nil, userInfo: params)
+            }else{
+                let params: [String: String] = ["errCode": authResp.errStr, "message": resp.errStr]
+                NotificationCenter.default.post(name: .wechatAuthFailed, object: nil, userInfo: params)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

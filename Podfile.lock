@@ -1,5 +1,15 @@
 PODS:
   - Alamofire (4.6.0)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.34.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.34.0):
+    - FBSDKCoreKit
   - HandyJSON (4.1.1)
   - KSYMediaPlayer_iOS (3.0.3):
     - KSYMediaPlayer_iOS/KSYMediaPlayer_live (= 3.0.3)
@@ -8,33 +18,36 @@ PODS:
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
-  - SkyFloatingLabelTextField (3.5.1)
 
 DEPENDENCIES:
   - Alamofire
+  - FBSDKLoginKit
   - HandyJSON (~> 4.1.1)
   - KSYMediaPlayer_iOS
   - Parchment (~> 1.0)
   - SDWebImage
-  - SkyFloatingLabelTextField (~> 3.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Bolts
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - HandyJSON
     - KSYMediaPlayer_iOS
     - Parchment
     - SDWebImage
-    - SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
+  FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
   HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
   KSYMediaPlayer_iOS: bd163c277487e99df58941f10f090af2fb53fd6d
   Parchment: 3c84b1fd55182e91b2e0f3bf1e4034c387151a46
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
-  SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
 
-PODFILE CHECKSUM: 49cab45a8d8444f2de011ea3d3cb4b5711fb95b9
+PODFILE CHECKSUM: 829b3672d8de32d017110bfca4bc79c446bf5dea
 
 COCOAPODS: 1.5.0

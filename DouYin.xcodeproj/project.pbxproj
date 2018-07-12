@@ -34,6 +34,7 @@
 		7027939C20F4BB7B00D4FA91 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7027939A20F4BB7B00D4FA91 /* LoginVC.xib */; };
 		7027939E20F4C3CE00D4FA91 /* login_vd.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7027939D20F4C3CE00D4FA91 /* login_vd.mov */; };
 		702793AD20F5A7DC00D4FA91 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702793AC20F5A7DC00D4FA91 /* InsetTextField.swift */; };
+		702793C120F60C0A00D4FA91 /* AuthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702793C020F60C0A00D4FA91 /* AuthUtils.swift */; };
 		704E95F520D8AAE4002881FA /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E95F420D8AAE4002881FA /* MainVC.swift */; };
 		704E95F720D8B334002881FA /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E95F620D8B334002881FA /* UIView+constraints.swift */; };
 		704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E960020DA00BE002881FA /* UIColor+hex.swift */; };
@@ -62,6 +63,11 @@
 		7072AA1B20E6186D000ECA1C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7072AA1A20E6186C000ECA1C /* libc++.tbd */; };
 		7072AA2220E61F50000ECA1C /* LiveCollectionCellBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072AA1E20E61F50000ECA1C /* LiveCollectionCellBottom.swift */; };
 		7072AA2320E61F50000ECA1C /* LiveCollectionCellBottom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7072AA1F20E61F50000ECA1C /* LiveCollectionCellBottom.xib */; };
+		7098234320F7041300B1292E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7098234020F7041300B1292E /* libWeChatSDK.a */; };
+		7098234420F7041300B1292E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7098234120F7041300B1292E /* README.txt */; };
+		7098234620F7083C00B1292E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7098234520F7083B00B1292E /* CoreTelephony.framework */; };
+		7098234820F7084F00B1292E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7098234720F7084F00B1292E /* libsqlite3.0.tbd */; };
+		7098234C20F73E0600B1292E /* WXAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098234B20F73E0600B1292E /* WXAuth.swift */; };
 		70E5812420E1015100F50B5E /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812320E1015100F50B5E /* MessageVC.swift */; };
 		70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812920E1F38500F50B5E /* LiveCell.swift */; };
 		70E5812C20E2194900F50B5E /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812B20E2194900F50B5E /* LiveData.swift */; };
@@ -122,6 +128,7 @@
 		7027939A20F4BB7B00D4FA91 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		7027939D20F4C3CE00D4FA91 /* login_vd.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = login_vd.mov; sourceTree = "<group>"; };
 		702793AC20F5A7DC00D4FA91 /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
+		702793C020F60C0A00D4FA91 /* AuthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUtils.swift; sourceTree = "<group>"; };
 		704E95F420D8AAE4002881FA /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		704E95F620D8B334002881FA /* UIView+constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		704E960020DA00BE002881FA /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
@@ -155,6 +162,14 @@
 		7072AA1A20E6186C000ECA1C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7072AA1E20E61F50000ECA1C /* LiveCollectionCellBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCollectionCellBottom.swift; sourceTree = "<group>"; };
 		7072AA1F20E61F50000ECA1C /* LiveCollectionCellBottom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCollectionCellBottom.xib; sourceTree = "<group>"; };
+		7098233E20F7041200B1292E /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		7098233F20F7041200B1292E /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		7098234020F7041300B1292E /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		7098234120F7041300B1292E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		7098234220F7041300B1292E /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		7098234520F7083B00B1292E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		7098234720F7084F00B1292E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		7098234B20F73E0600B1292E /* WXAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXAuth.swift; sourceTree = "<group>"; };
 		70E5812320E1015100F50B5E /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		70E5812920E1F38500F50B5E /* LiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCell.swift; sourceTree = "<group>"; };
 		70E5812B20E2194900F50B5E /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
@@ -166,6 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7098234820F7084F00B1292E /* libsqlite3.0.tbd in Frameworks */,
+				7098234620F7083C00B1292E /* CoreTelephony.framework in Frameworks */,
 				7011EAF320EDC97200D1A033 /* UIKit.framework in Frameworks */,
 				7011EAF220EDC96700D1A033 /* SystemConfiguration.framework in Frameworks */,
 				7011EAF020EDC95E00D1A033 /* QuartzCore.framework in Frameworks */,
@@ -180,6 +197,7 @@
 				7072AA1520E61556000ECA1C /* MobileCoreServices.framework in Frameworks */,
 				7072AA1420E6154C000ECA1C /* MediaPlayer.framework in Frameworks */,
 				7072AA1320E61542000ECA1C /* libz.tbd in Frameworks */,
+				7098234320F7041300B1292E /* libWeChatSDK.a in Frameworks */,
 				7011EAFF20EDC9A900D1A033 /* libbambuser.a in Frameworks */,
 				7072AA1220E61536000ECA1C /* CoreVideo.framework in Frameworks */,
 				7072AA1120E6152A000ECA1C /* CoreMedia.framework in Frameworks */,
@@ -295,6 +313,7 @@
 		7018B13620CFC0BE0040CCB0 /* DouYin */ = {
 			isa = PBXGroup;
 			children = (
+				7098233D20F703FF00B1292E /* WeChatSDK */,
 				7027939720F4BB4A00D4FA91 /* Login */,
 				7011EB4820F089ED00D1A033 /* Momment */,
 				7072A95620E248E5000ECA1C /* Live */,
@@ -335,6 +354,7 @@
 		7027939720F4BB4A00D4FA91 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				7098234A20F73DD000B1292E /* Models */,
 				7027939820F4BB5C00D4FA91 /* Controllers */,
 			);
 			path = Login;
@@ -366,6 +386,7 @@
 				7072A95B20E33ACE000ECA1C /* ConnectionManager.swift */,
 				704E960A20DBAC1F002881FA /* Constants.swift */,
 				7011EB1420EE06AA00D1A033 /* Utils.swift */,
+				702793C020F60C0A00D4FA91 /* AuthUtils.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -457,6 +478,26 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		7098233D20F703FF00B1292E /* WeChatSDK */ = {
+			isa = PBXGroup;
+			children = (
+				7098234020F7041300B1292E /* libWeChatSDK.a */,
+				7098234120F7041300B1292E /* README.txt */,
+				7098233E20F7041200B1292E /* WechatAuthSDK.h */,
+				7098233F20F7041200B1292E /* WXApi.h */,
+				7098234220F7041300B1292E /* WXApiObject.h */,
+			);
+			path = WeChatSDK;
+			sourceTree = SOURCE_ROOT;
+		};
+		7098234A20F73DD000B1292E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7098234B20F73E0600B1292E /* WXAuth.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		70E5812220E1012700F50B5E /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,6 +509,8 @@
 		AA0BDC83110580F18FCC1588 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7098234720F7084F00B1292E /* libsqlite3.0.tbd */,
+				7098234520F7083B00B1292E /* CoreTelephony.framework */,
 				7011EAF420EDC9A800D1A033 /* libbambuser */,
 				7011EAF120EDC96700D1A033 /* SystemConfiguration.framework */,
 				7011EAEE20EDC94B00D1A033 /* Foundation.framework */,
@@ -608,6 +651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7027939E20F4C3CE00D4FA91 /* login_vd.mov in Resources */,
+				7098234420F7041300B1292E /* README.txt in Resources */,
 				7027939C20F4BB7B00D4FA91 /* LoginVC.xib in Resources */,
 				7018B14220CFC0C00040CCB0 /* LaunchScreen.storyboard in Resources */,
 				7072AA2320E61F50000ECA1C /* LiveCollectionCellBottom.xib in Resources */,
@@ -661,18 +705,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DouYin/Pods-DouYin-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -687,6 +735,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7018B17C20D21D600040CCB0 /* Work.swift in Sources */,
+				702793C120F60C0A00D4FA91 /* AuthUtils.swift in Sources */,
 				70663DEB20D251E000707F87 /* FlowLayout.swift in Sources */,
 				7027939B20F4BB7B00D4FA91 /* LoginVC.swift in Sources */,
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
@@ -696,6 +745,7 @@
 				7011EB1520EE06AA00D1A033 /* Utils.swift in Sources */,
 				70E5812420E1015100F50B5E /* MessageVC.swift in Sources */,
 				7072A97420E3A7D9000ECA1C /* UIImageView+NDExtension.swift in Sources */,
+				7098234C20F73E0600B1292E /* WXAuth.swift in Sources */,
 				704E961D20DCACDE002881FA /* WorkDetailVC.swift in Sources */,
 				7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */,
 				7011EB0220EDCDD300D1A033 /* BroadcastVC.swift in Sources */,
@@ -905,6 +955,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libbambuser/lib",
+					"$(PROJECT_DIR)/DouYin/Tools/WeChatSDK",
+					"$(PROJECT_DIR)/WeChatSDK",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -956,6 +1008,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libbambuser/lib",
+					"$(PROJECT_DIR)/DouYin/Tools/WeChatSDK",
+					"$(PROJECT_DIR)/WeChatSDK",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

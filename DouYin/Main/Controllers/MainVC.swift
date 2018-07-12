@@ -62,7 +62,12 @@ class MainVC: UIViewController {
         navigationItem.titleView = pagingViewController.collectionView
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "开播", style: .plain, target: self, action: #selector(broadcastTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: .plain, target: self, action: #selector(loginTapped))
+        
+        if AuthUtils.shareManager.validate() == AuthType.UNAUTH {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: .plain, target: self, action: #selector(loginTapped))
+        }else if AuthUtils.shareManager.validate() == AuthType.EXPIRED{
+            loginTapped()
+        }
         
         addCenterButton(withImage: UIImage(named: "camera")!, highlightImage: UIImage(named: "camera_sel")!)
     }
