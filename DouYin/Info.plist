@@ -25,7 +25,7 @@
 			<string>FacebookSDK</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb482413155516644</string>
+				<string>fb977193229120279</string>
 			</array>
 		</dict>
 		<dict>
@@ -42,9 +42,9 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>482413155516644</string>
+	<string>977193229120279</string>
 	<key>FacebookDisplayName</key>
-	<string>EkooShow</string>
+	<string>Show</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>

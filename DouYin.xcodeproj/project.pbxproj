@@ -1058,7 +1058,7 @@
 					"-framework",
 					"\"VideoToolbox\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ekoolab.sgdouyin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zcs.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DouYin/libbambuser-bridge.h";
 				SWIFT_VERSION = 4.0;
@@ -1111,7 +1111,7 @@
 					"-framework",
 					"\"VideoToolbox\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ekoolab.sgdouyin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zcs.show;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DouYin/libbambuser-bridge.h";
 				SWIFT_VERSION = 4.0;

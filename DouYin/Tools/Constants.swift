@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants {
     static let BAMBUSER_APP_ID = "g9spSwNrRb1bR8soIE9OUA"
-    static let FACEBOOK_APP_ID = "482413155516644"
+    static let FACEBOOK_APP_ID = "977193229120279"
     static let WECHAT_APP_ID = "wx761c050f021c979c"
     static let WECHAT_SECRET = "ae4c46579f27a5bc5224743d18f3ea80"
     static let FACEBOOK_LOGGED = "facebook"

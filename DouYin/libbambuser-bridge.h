@@ -17,6 +17,7 @@
 #ifndef libbambuser_bridge_h
 #define libbambuser_bridge_h
 
+#import "libbambuserplayer.h"
 #import "libbambuser.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
