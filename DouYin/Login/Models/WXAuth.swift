@@ -27,7 +27,7 @@ class WXAuth: HandyJSON {
     func getData(message:@escaping (String) -> ()) {
         let wxApi = "https://api.weixin.qq.com/sns/oauth2/access_token"
         let params = ["appid": Constants.WECHAT_APP_ID, "secret": Constants.WECHAT_SECRET, "code": code, "grant_tyoe": "authorization_code"]
-        ConnectionManager.shareManager.request(Type: ConnectionType.Post, url: wxApi, parames: params as [String : AnyObject], succeed: { [unowned self] (succes, responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: wxApi, parames: params as [String : AnyObject], succeed: { [unowned self] (responseJson) in
             
             let model = WXAuth.deserialize(from: responseJson as? NSDictionary)
             self.accessToken = (model?.accessToken)!
@@ -39,7 +39,7 @@ class WXAuth: HandyJSON {
             
             message("Success")
             
-        }) { (failer) in
+        }) { (error) in
             message("Fail")
         }
     }

@@ -9,15 +9,30 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+import SendBirdSDK
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {        
+        SBDMain.initWithApplicationId(Constants.SENDBIRD_APP_ID)
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enableAutoToolbar = false        
+        
         WXApi.registerApp(Constants.WECHAT_APP_ID)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let openVC = OpenChatVC()
+        self.window?.rootViewController = openVC
+        self.window?.makeKeyAndVisible()
+        
         
         return true
     }

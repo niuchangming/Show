@@ -27,6 +27,9 @@ class LoginVC: UIViewController {
     @IBOutlet weak var forgetPwdBtn: UIButton!
     @IBOutlet weak var facebookBtn: UIButton!
     @IBOutlet weak var wechatBtn: UIButton!
+    @IBOutlet weak var dismissBtn: UIButton!
+    
+    @IBOutlet weak var loadingBar: UIActivityIndicatorView!
     
     var blurredEffectView: UIView?
     var player: AVPlayer?
@@ -90,7 +93,35 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func loginBtnClicked(_ sender: Any) {
+        let mobile = self.mobileNoTF.text as NSString?
+        let password = self.passwordTF.text as NSString?
+        if(!Utils.isNotNil(obj: mobile)){
+            self.mobileNoTF.placeholder = "输入您的手机号码";
+            self.mobileNoTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
+            return
+        }
         
+        if(!Utils.isNumber(str: mobile! as String)){
+            self.mobileNoTF.placeholder = "您的手机号码格式不正确";
+            self.mobileNoTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
+            return
+        }
+        
+        if(!Utils.isNotNil(obj: password!)){
+            self.passwordTF.placeholder = "输入您的登陆密码";
+            self.passwordTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
+            return
+        }
+        
+        self.loadingBar.startAnimating()
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/login", Constants.HOST), parames: ["phone": mobile!, "password": password!, "countryCode": "65"], succeed: { [unowned self] (responseJson) in
+                let response = responseJson as! NSDictionary
+                let accessToken = response["token"] as! String
+                AuthUtils.shareManager.saveLoginInfo(countryCode: "65", mobile: mobile! as String, accessToken: accessToken)
+                self.loadingBar.stopAnimating()
+            }, failure: { (error) in
+                self.loadingBar.stopAnimating()
+        })
     }
     
     @IBAction func registerBtnClicked(_ sender: Any) {
@@ -116,6 +147,8 @@ class LoginVC: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }else{
                 let alertController = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+                let actionKnown = UIAlertAction(title: "知道了", style: .cancel) { (action:UIAlertAction) in}
+                alertController.addAction(actionKnown)
                 self.present(alertController, animated: true, completion: nil)
             }
         }
@@ -137,9 +170,12 @@ class LoginVC: UIViewController {
             
             if loginResult?.isCancelled == false {
                 AuthUtils.shareManager.saveFacebookInfo(result: loginResult!)
-                self.dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    @IBAction func dismissBtnClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

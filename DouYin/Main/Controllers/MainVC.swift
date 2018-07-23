@@ -8,7 +8,7 @@
 
 import UIKit
 import Parchment
-
+import SendBirdSDK
 
 class CustomPagingView: PagingView {
     
@@ -43,7 +43,7 @@ class MainVC: UIViewController {
         let momentVC: UIViewController = MomentVC()
         momentVC.title = "图文"
     
-        let pagingViewController = CustomPagingViewController(viewControllers: [recommandVC, featuredVC, momentVC])
+        let pagingViewController = CustomPagingViewController(viewControllers: [momentVC, recommandVC, featuredVC])
         pagingViewController.delegate = self
         pagingViewController.borderOptions = .hidden
         pagingViewController.menuBackgroundColor = .clear
@@ -70,6 +70,7 @@ class MainVC: UIViewController {
         }
         
         addCenterButton(withImage: UIImage(named: "camera")!, highlightImage: UIImage(named: "camera_sel")!)
+        initOpenChat()
     }
     
     override func viewDidLayoutSubviews() {
@@ -78,9 +79,40 @@ class MainVC: UIViewController {
         navigationItem.titleView?.frame = CGRect(origin: .zero, size: navigationBar.bounds.size)
     }
     
+    func initOpenChat(){
+        var userId = Utils.deviceId()
+        if(AuthUtils.shareManager.validate() == .LOGGED){
+            let userDefault: UserDefaults = UserDefaults.standard
+            let userType = userDefault.object(forKey: Constants.Auth.LOGIN_TYPE) as! String
+            
+            if(userType == Constants.MOBILE_LOGGED){
+                userId = userDefault.object(forKey: Constants.Auth.MOBILE) as! String
+            }else if(userType == Constants.FACEBOOK_APP_ID){
+                userId = userDefault.object(forKey: Constants.Auth.FB_USER_ID) as! String
+            }else if(userType == Constants.WECHAT_APP_ID){
+                userId = userDefault.object(forKey: Constants.Auth.WX_UNION_ID) as! String
+            }
+        }
+        if Utils.isNotNil(obj: userId) {
+            ChatManager.login(userId: userId, nickname: Utils.fakeName(), completionHandler: { (user, error) in
+                if(error != nil){
+                    print("SendBird Login Failed: \(String(describing: error?.localizedDescription))")
+                }else{
+                    let userDefault: UserDefaults = UserDefaults.standard
+                    userDefault.set(SBDMain.getCurrentUser()?.userId, forKey: "sendbird_user_id")
+                    userDefault.set(SBDMain.getCurrentUser()?.nickname, forKey: "sendbird_user_nickname")
+                    userDefault.synchronize()
+                }
+            })
+        }
+    }
+    
     @objc func broadcastTapped(){
         let broadcastVC = BroadcastVC()
         self.present(broadcastVC, animated: true, completion: nil)
+        
+//        let openChatVC = OpenChatVC()
+//        self.present(openChatVC, animated: true, completion: nil)
     }
     
     @objc func loginTapped(){

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BroadcastVC" customModule="DouYin" customModuleProvider="target">
             <connections>
+                <outlet property="chatView" destination="xBS-UT-w08" id="T4K-Ed-fcJ"/>
                 <outlet property="startBtn" destination="Yc9-FR-bnN" id="7Wd-nT-lZ2"/>
                 <outlet property="view" destination="iN0-l3-epB" id="zT6-oh-XcV"/>
             </connections>
@@ -22,17 +23,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yc9-FR-bnN">
-                    <rect key="frame" x="108" y="603" width="159" height="30"/>
+                    <rect key="frame" x="108" y="42" width="159" height="30"/>
                     <state key="normal" title="Start"/>
                     <connections>
                         <action selector="startBtnClicked:" destination="-1" eventType="touchUpInside" id="w0q-4y-hlS"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBS-UT-w08" customClass="ChatView" customModule="DouYin" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="367" width="240" height="300"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="g2M-hF-dh8"/>
+                        <constraint firstAttribute="height" constant="300" id="r37-d6-gaQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="xBS-UT-w08" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="GZT-bW-bUp"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Yc9-FR-bnN" secondAttribute="trailing" constant="108" id="I1B-IT-lCf"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Yc9-FR-bnN" secondAttribute="bottom" constant="34" id="O0M-zi-BGw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Yc9-FR-bnN" secondAttribute="bottom" constant="595" id="O0M-zi-BGw"/>
+                <constraint firstItem="xBS-UT-w08" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gdD-U4-Zku"/>
                 <constraint firstItem="Yc9-FR-bnN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="108" id="viM-Ox-UKA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

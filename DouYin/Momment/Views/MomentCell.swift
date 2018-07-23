@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MomentCell: UITableViewCell {
-    
+class MomentCell: UITableViewCell, GiftViewDelegate {
     var moment: Moment?
     
     @IBOutlet weak var avatarIV: UIImageView!
@@ -40,6 +39,18 @@ class MomentCell: UITableViewCell {
     @IBOutlet weak var commentContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentContainerBottomConstraint: NSLayoutConstraint!
     
+    lazy var giftView: GiftView = {
+        let giftView = GiftView(frame: CGRect(x: 0, y: Constants.Dimension.SCREEN_HEIGHT, width: Constants.Dimension.SCREEN_WIDTH, height: Constants.Dimension.SCREEN_HEIGHT))
+        giftView.delegate = self
+        return giftView
+    }()
+    
+    lazy var gifImageView: FLAnimatedImageView = {
+        let gifImageView = FLAnimatedImageView(frame: CGRect(x: 7.5, y: 0, width: 360, height: 225))
+        gifImageView.isHidden = true
+        return gifImageView
+    }()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         bodyLbl.numberOfLines = 0
@@ -190,8 +201,76 @@ class MomentCell: UITableViewCell {
         relatedVC?.present(viewer, animated: true, completion: nil)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @IBAction func commentBtnClicked(_ sender: UIButton) {
+        let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
+        momentVC.commentBar.commentTF.becomeFirstResponder()
+    }
+    
+    @IBAction func likeBtnClicked(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func awardBtnClicked(_ sender: UIButton){
+        let giftData: GiftData =  GiftData()
+        
+        giftData.getData { [unowned self] (message) in
+            if message == "Success" {
+                self.giftView.giftArray = giftData.data
+                self.giftView.show()
+                self.giftView.collectionView.reloadData()
+            }
+        }
+    }
+    
+    @objc func alertControllerBackgroundTapped(){
+        let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
+        momentVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func giftViewSendGiftInView(giftView: GiftView, gift: Gift?) {
+        let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
+        if(gift == nil){
+            let alertController = UIAlertController(title: "发送失败", message: "抱歉，您还没有哦选择礼物！", preferredStyle: .alert)
+            let actionKnown = UIAlertAction(title: "知道了", style: .cancel) { (action:UIAlertAction) in}
+            alertController.addAction(actionKnown)
+            momentVC.present(alertController, animated: true, completion: {
+                self.giftView.hide()
+            })
+        }else{
+            let giftSend: GiftSend = GiftSend()
+            giftSend.icon = (gift?.icon)!
+            giftSend.username = (gift?.username)!
+            giftSend.name = (gift?.name)!
+            giftSend.icon_gif = (gift?.icon_gif)!
+            giftSend.id = (gift?.id)!;
+            giftSend.defaultCount = 0;
+            giftSend.sendCount = 1;
+        
+            GiftShowManager.shared().showGiftViewWithBackView(backView: momentVC.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
+                
+            }, showGifImageBlock: { (giftSend: GiftSend) in
+            
+                DispatchQueue.main.async {
+                    let window: UIWindow = UIApplication.shared.keyWindow!
+                    window.addSubview(self.gifImageView)
+                    
+                    if let asset = NSDataAsset(name: "live_yanhua") {
+                        let data = asset.data
+                        let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: data)
+                        self.gifImageView.animatedImage = gifImage
+                        self.gifImageView.isHidden = false
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in
+                        self.gifImageView.isHidden = true
+                        self.gifImageView.removeFromSuperview()
+                    })
+                    
+                }
+                
+            })
+            
+        }
     }
     
 }

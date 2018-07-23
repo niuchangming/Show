@@ -11,9 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginVC" customModule="DouYin" customModuleProvider="target">
             <connections>
+                <outlet property="dismissBtn" destination="aC5-Hb-f0R" id="IjN-ZS-HDY"/>
                 <outlet property="facebookBtn" destination="ZQq-wF-FZb" id="m9p-DL-urR"/>
                 <outlet property="fieldBgView" destination="TKr-bB-twd" id="SOc-HA-OZW"/>
                 <outlet property="forgetPwdBtn" destination="lUc-Gu-V92" id="xbo-Gl-r1W"/>
+                <outlet property="loadingBar" destination="Kut-sI-Lpb" id="JJn-dN-fVq"/>
                 <outlet property="loginBgIV" destination="ECg-D1-FcW" id="AMM-rZ-KlE"/>
                 <outlet property="loginBtn" destination="8Fa-1U-v8z" id="HUa-3I-4Gb"/>
                 <outlet property="loginBtnBgView" destination="k7e-9G-fYX" id="1iG-De-j4y"/>
@@ -196,12 +198,20 @@
                                 <action selector="forgetPwdBtnClicked:" destination="-1" eventType="touchUpInside" id="MrI-5v-pJN"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Kut-sI-Lpb">
+                            <rect key="frame" x="246" y="309" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="hDy-bg-gyX"/>
+                                <constraint firstAttribute="height" constant="20" id="uoM-JB-iNt"/>
+                            </constraints>
+                        </activityIndicatorView>
                     </subviews>
                     <constraints>
                         <constraint firstItem="KHJ-Ab-cpu" firstAttribute="leading" secondItem="TKr-bB-twd" secondAttribute="leading" constant="8" id="0iX-NS-Bmu"/>
                         <constraint firstAttribute="trailing" secondItem="ZQq-wF-FZb" secondAttribute="trailing" constant="75" id="186-op-QMR"/>
                         <constraint firstAttribute="trailing" secondItem="qfH-FC-vpD" secondAttribute="trailing" constant="8" id="2h1-29-PTD"/>
                         <constraint firstItem="RzG-Az-4PP" firstAttribute="top" secondItem="TKr-bB-twd" secondAttribute="top" constant="30" id="3WQ-0K-lhC"/>
+                        <constraint firstAttribute="trailing" secondItem="Kut-sI-Lpb" secondAttribute="trailing" constant="15" id="4qZ-ar-70J"/>
                         <constraint firstItem="qfH-FC-vpD" firstAttribute="top" secondItem="RzG-Az-4PP" secondAttribute="bottom" constant="40" id="5Uw-n5-IBw"/>
                         <constraint firstItem="SQi-pw-ZS3" firstAttribute="top" secondItem="Zyo-aY-q4U" secondAttribute="bottom" constant="20" id="8PL-yD-ocM"/>
                         <constraint firstItem="Zyo-aY-q4U" firstAttribute="leading" secondItem="TKr-bB-twd" secondAttribute="leading" constant="8" id="Aye-O0-MO2"/>
@@ -224,6 +234,7 @@
                         <constraint firstItem="qfH-FC-vpD" firstAttribute="leading" secondItem="TKr-bB-twd" secondAttribute="leading" constant="8" id="YpC-Ek-60Q"/>
                         <constraint firstItem="k7e-9G-fYX" firstAttribute="top" secondItem="Zyo-aY-q4U" secondAttribute="bottom" constant="20" id="cKf-8h-2fI"/>
                         <constraint firstItem="NTb-Ml-sPe" firstAttribute="top" secondItem="KHJ-Ab-cpu" secondAttribute="bottom" constant="15" id="cpK-Ep-9GZ"/>
+                        <constraint firstItem="Kut-sI-Lpb" firstAttribute="centerY" secondItem="8Fa-1U-v8z" secondAttribute="centerY" id="djR-ku-jyx"/>
                         <constraint firstItem="ylv-jO-vbo" firstAttribute="top" secondItem="kaT-1k-7H0" secondAttribute="bottom" constant="26" id="fWF-yS-M1R"/>
                         <constraint firstItem="NTb-Ml-sPe" firstAttribute="leading" secondItem="TKr-bB-twd" secondAttribute="leading" constant="8" id="g73-AK-0Zs"/>
                         <constraint firstItem="ZQq-wF-FZb" firstAttribute="top" secondItem="kaT-1k-7H0" secondAttribute="bottom" constant="26" id="hQ7-JL-5C7"/>
@@ -232,11 +243,25 @@
                         <constraint firstItem="ylv-jO-vbo" firstAttribute="leading" secondItem="TKr-bB-twd" secondAttribute="leading" constant="75" id="yPF-IT-yrq"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aC5-Hb-f0R">
+                    <rect key="frame" x="296" y="44" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="1rp-C3-nJl"/>
+                        <constraint firstAttribute="height" constant="32" id="Mtl-2E-5s4"/>
+                    </constraints>
+                    <state key="normal" image="cross"/>
+                    <state key="highlighted" image="cross_sel"/>
+                    <connections>
+                        <action selector="dismissBtnClicked:" destination="-1" eventType="touchUpInside" id="zIc-8a-t82"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="909-Qa-mTQ"/>
                 <constraint firstItem="TKr-bB-twd" firstAttribute="centerY" secondItem="ECg-D1-FcW" secondAttribute="centerY" id="QMw-Gc-X6l"/>
+                <constraint firstItem="aC5-Hb-f0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="S3W-Sr-n4c"/>
+                <constraint firstAttribute="trailing" secondItem="aC5-Hb-f0R" secondAttribute="trailing" constant="47" id="UFt-ch-dLf"/>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Z54-qr-znu"/>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="qcf-Ev-QJ1"/>
                 <constraint firstItem="TKr-bB-twd" firstAttribute="centerX" secondItem="ECg-D1-FcW" secondAttribute="centerX" id="sVH-Gq-YOM"/>
@@ -246,6 +271,8 @@
         </view>
     </objects>
     <resources>
+        <image name="cross" width="32" height="32"/>
+        <image name="cross_sel" width="32" height="32"/>
         <image name="facebook_circle" width="100" height="100"/>
         <image name="wechat_circle" width="100" height="100"/>
     </resources>

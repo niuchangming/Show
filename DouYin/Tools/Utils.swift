@@ -23,7 +23,7 @@ class Utils: NSObject {
     
     static func isNotNil(obj: Any?) -> Bool {
         if obj is String {
-            if (obj as? String) != nil {
+            if (obj as? String) != nil{
                 return true
             }else {
                 return false
@@ -71,6 +71,33 @@ class Utils: NSObject {
             return viewController(responder: next)
         }
     
+        return nil
+    }
+    
+    static func isNumber(str: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: str)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+    
+    static func deviceId() -> String{
+        return UIDevice.current.identifierForVendor!.uuidString
+    }
+    
+    static func fakeName() -> String{
+        let names = ["阙造", "广锡一", "席寺", "扶驾", "郑萱黄", "林樊牵", "孟登元", "鱼彰", "皮忧暑", "左稗", "宦醇", "糜弋招", "席准", "方抑", "乌泔", "苗鲁", "孟候依", "龙珠饯", "洪打鹰", "缪负铎"]
+    
+        return names[Int(arc4random_uniform(UInt32(names.count)))]
+    }
+    
+    static func stringToDictionary(str: String) -> [String: Any]? {
+        if let data = str.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
         return nil
     }
 }

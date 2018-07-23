@@ -21,5 +21,6 @@
 #import "libbambuser.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import <FLAnimatedImage/FLAnimatedImage.h>
 
 #endif

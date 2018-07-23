@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="30" id="KGk-i7-Jjw" customClass="OutgoingUserMessageCell" customModule="DouYin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjT-ko-axk">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrc-ef-Pym">
+                                <rect key="frame" x="8" y="5" width="244" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Lrc-ef-Pym" firstAttribute="top" secondItem="sjT-ko-axk" secondAttribute="top" constant="5" id="9kr-DG-uCJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Lrc-ef-Pym" secondAttribute="trailing" constant="8" id="dGL-GW-ocu"/>
+                            <constraint firstItem="Lrc-ef-Pym" firstAttribute="leading" secondItem="sjT-ko-axk" secondAttribute="leading" constant="8" id="rZM-U8-P0Y"/>
+                            <constraint firstAttribute="bottom" secondItem="Lrc-ef-Pym" secondAttribute="bottom" constant="5" id="yPy-jY-v5F"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZ3-TT-Nnr">
+                        <rect key="frame" x="268" y="5" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="4jn-NH-SCa"/>
+                            <constraint firstAttribute="height" constant="20" id="NUf-OL-EwX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="cZ3-TT-Nnr" secondAttribute="trailing" constant="10" id="1TT-4f-b0U"/>
+                    <constraint firstItem="sjT-ko-axk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7v2-J6-uRb"/>
+                    <constraint firstAttribute="bottom" secondItem="sjT-ko-axk" secondAttribute="bottom" constant="-0.5" id="9oV-MN-g9p"/>
+                    <constraint firstItem="cZ3-TT-Nnr" firstAttribute="leading" secondItem="sjT-ko-axk" secondAttribute="trailing" constant="8" id="MVS-pz-doF"/>
+                    <constraint firstItem="sjT-ko-axk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PzD-iU-J8V"/>
+                    <constraint firstItem="sjT-ko-axk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ZbY-cr-xbt"/>
+                    <constraint firstAttribute="bottom" secondItem="sjT-ko-axk" secondAttribute="bottom" constant="-0.5" id="cJa-qV-rWT"/>
+                    <constraint firstItem="sjT-ko-axk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qcg-oM-9aF"/>
+                    <constraint firstItem="cZ3-TT-Nnr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="qz1-ey-hzp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="messageContainerView" destination="sjT-ko-axk" id="qCT-56-pOd"/>
+                <outlet property="messageDisplayNameLabel" destination="cZ3-TT-Nnr" id="dmd-n3-k6R"/>
+                <outlet property="messageLabel" destination="Lrc-ef-Pym" id="8AM-MZ-a8l"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,35 +8,55 @@
 
 import UIKit
 import KSYMediaPlayer
+import SendBirdSDK
 
-class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
-    
-    var controller = UIViewController()
-    
+class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, ChatInputBarDelegate, SBDChannelDelegate{
     fileprivate var placeHolderView = UIImageView()
     fileprivate var liveLink : String = ""
+    fileprivate var openChannel: SBDOpenChannel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
+        initUI()
         
+        SBDMain.add(self as SBDChannelDelegate, identifier: self.description)
     }
     
-    override func layoutSubviews() {
-        placeHolderView.frame = self.contentView.frame
-        placeHolderView.contentMode = .scaleAspectFill
+    func initUI() {
         self.contentView.addSubview(placeHolderView)
         
+        placeHolderView.frame = self.contentView.frame
+        placeHolderView.contentMode = .scaleAspectFill
+        let bottomViewHeight: CGFloat = 44
+        let bottomViewY = self.contentView.frame.size.height - bottomViewHeight - Constants.Dimension.HOME_INDICATOR_HEIGHT - Constants.Dimension.MARGIN_MIDDLE
+        
         self.moviePlayer.frame = self.contentView.bounds
-        self.bottomView.frame = CGRect.init(x: 0, y: self.contentView.frame.size.height-54, width: self.contentView.frame.size.width, height: 44)
-//        self.headerView.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: 110)
+        self.bottomView.frame = CGRect.init(x: 0, y: bottomViewY, width: self.contentView.frame.size.width, height: 44)
+        //        self.headerView.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: 110)
+    }
+
+    override func layoutSubviews() {
+        let chatViewHeight = 2 * self.contentView.frame.size.height / 5
+        let chatViewY = self.bottomView.frame.minY - chatViewHeight
+        self.chatView.frame = CGRect.init(x: 0, y: chatViewY, width: 2 * self.contentView.frame.size.width / 3, height: chatViewHeight)
     }
     
-    //显示数据
-    public var liveData = Live() {
-        didSet {
-            self.playWithLive(liveLink: (liveData.info?.stream_addr)!, placeHolderUrl: URL.init(string: (liveData.info?.creator?.portrait)!)!)
-//            self.headerView.setLivess = setlivHotData
+    func enterOpenChannel(channelUrl: String){
+        SBDOpenChannel.getWithUrl(channelUrl) { (channel, error) in
+            if error != nil {
+                NSLog("Get Open Channel Error: %@", error!)
+                return
+            }
+            
+            self.openChannel = channel
+            self.chatView.configureChattingView(channel: self.openChannel)
+            channel?.enter(completionHandler: { (error) in
+                if error != nil {
+                    NSLog("Enter Open Channel Error: %@", error!)
+                    return
+                }
+            })
         }
     }
     
@@ -47,7 +67,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
         self.placeHolderView.setImageViewBlur(url: placeHolderUrl, float: 0.7)
         self.contentView.insertSubview(self.moviePlayer, at: 0)
         
-        moviePlayer.playVideo("https://cdn.bambuser.net/broadcasts/6fdd41af-396e-47af-832c-bff55c2f2edc?da_signature_method=HMAC-SHA256&da_id=9e1b1e83-657d-7c83-b8e7-0b782ac9543a&da_timestamp=1531458221&da_static=1&da_ttl=0&da_signature=1856209bec9af2fcf8dd8b40915b265579c8d7a49ff6fbc1781e9723646a9fc9")
+        moviePlayer.playVideo("https://cdn.bambuser.net/broadcasts/f99a92bd-16df-4734-acee-e2b8712ef50d?da_signature_method=HMAC-SHA256&da_id=9e1b1e83-657d-7c83-b8e7-0b782ac9543a&da_timestamp=1531827251&da_static=1&da_ttl=0&da_signature=53f491d30c259ffccbd699c18b8a6d8f0d90984254ad20604c3ffa9d945bfc80")
         setupBottomView()
     }
 
@@ -56,7 +76,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
             [unowned self] (LivingBottomViewBtnClickType) -> Void in
             switch LivingBottomViewBtnClickType {
             case .hotMessageType:
-
+                self.chatInputBar.messageInputTv.becomeFirstResponder()
                 break
             case .hot_e_mailClickType:
 
@@ -68,14 +88,14 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
 
                 break
             case .hot_gobackClickType:
-                self.controller.dismiss(animated: true, completion: nil)
+                let handledVC: UIViewController = Utils.viewController(responder: self)!
+                handledVC.dismiss(animated: true, completion: nil)
                 self.playStop()
                 break
             }
         }
     }
     
-    //页面离开后删除所有通知和方法
     public func playStop() {
         self.moviePlayer.pauseVideo()
         self.moviePlayer.stopVideo()
@@ -83,17 +103,22 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
         self.removeFromSuperview()
     }
     
-    //MARK: 懒加载各种载体
-    /** 直播播放器*/
-    fileprivate lazy var moviePlayer: BambuserPlayer = {
+    public var liveData = Live() {
+        didSet {
+            self.playWithLive(liveLink: (liveData.info?.stream_addr)!, placeHolderUrl: URL.init(string: (liveData.info?.creator?.portrait)!)!)
+            //            self.headerView.setLivess = setlivHotData
+        }
+    }
+
+    lazy var moviePlayer: BambuserPlayer = {
         let bambuserPlayer: BambuserPlayer = BambuserPlayer()
         bambuserPlayer.applicationId = Constants.BAMBUSER_APP_ID
         bambuserPlayer.videoScaleMode = VideoScaleAspectFill
         bambuserPlayer.delegate = self
+        bambuserPlayer.isUserInteractionEnabled = true
         return bambuserPlayer
     }()
 
-    /** 粒子动画*/
     fileprivate lazy var emitterLayer: CAEmitterLayer = {
         let emitter = CAEmitterLayer.init()
         emitter.emitterPosition = CGPoint.init(x: self.moviePlayer.frame.size.width - 50, y: self.moviePlayer.frame.size.height - 50)
@@ -120,11 +145,26 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate {
         return emitter
     }()
     
+    lazy var chatView: ChatView = {
+        let chatView = ChatView()
+        chatView.backgroundColor = .clear
+        chatView.chattingTableView.backgroundColor = .clear
+        self.contentView.addSubview(chatView)
+        return chatView
+    }()
+    
+    lazy var chatInputBar: ChatInputBar = {
+        let chatInputBar = ChatInputBar(frame: CGRect(x: 0, y: self.contentView.frame.size.height, width: self.contentView.frame.size.width, height: 48))
+        chatInputBar.delegate = self
+        self.contentView.addSubview(chatInputBar)
+        return chatInputBar
+    }()
+    
     lazy var bottomView: LiveCollectionCellBottom = {
-        let bView = LiveCollectionCellBottom.instanceFromNib()
-        bView.backgroundColor = UIColor.clear
-        self.contentView.addSubview(bView)
-        return bView
+        let bottomView = LiveCollectionCellBottom.instanceFromNib()
+        bottomView.backgroundColor = UIColor.clear
+        self.contentView.addSubview(bottomView)
+        return bottomView
     }()
 
 //    lazy var headerView: NDHotCellHeaderView = {
@@ -162,5 +202,51 @@ extension LiveCollectionViewCell{
     
     func videoLoadFail() {
         NSLog("Failed to load video for %@", moviePlayer.resourceUri);
+    }
+    
+    func sendMessage(message: String) {
+        if self.chatInputBar.messageInputTv.text.count > 0 {
+            let message = self.chatInputBar.messageInputTv.text
+            self.chatInputBar.messageInputTv.text = ""
+ 
+            self.chatInputBar.sendBtn.isEnabled = false
+            self.openChannel?.sendUserMessage(message, data: "", customType: "", targetLanguages: [], completionHandler: { (userMessage, error) in
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
+                    if error != nil {
+                        self.chatView.resendableMessages[(userMessage?.requestId)!] = userMessage
+                        DispatchQueue.main.async {
+                            self.chatView.scrollToBottom(force: true)
+                        }
+                        return
+                    }
+                    
+                    self.chatView.messages.append(userMessage!)
+                    DispatchQueue.main.async {
+                        self.chatView.chattingTableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.chatView.scrollToBottom(force: true)
+                        }
+                    }
+                    
+                })
+                self.chatInputBar.sendBtn.isEnabled = true
+            })
+        }
+    }
+    
+    func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
+        if sender == self.openChannel {
+            
+            DispatchQueue.main.async {
+                UIView.setAnimationsEnabled(false)
+                self.chatView.messages.append(message)
+                self.chatView.chattingTableView.reloadData()
+                UIView.setAnimationsEnabled(true)
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(force: false)
+                }
+            }
+        }
     }
 }

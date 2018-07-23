@@ -95,6 +95,9 @@
                                     <constraint firstAttribute="height" constant="20" id="wq6-Qt-lbt"/>
                                 </constraints>
                                 <state key="normal" image="comment_sel"/>
+                                <connections>
+                                    <action selector="commentBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UMa-SJ-DRl"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVU-bi-oGU">
                                 <rect key="frame" x="246" y="0.0" width="20" height="20"/>
@@ -103,6 +106,9 @@
                                     <constraint firstAttribute="width" constant="20" id="Wvz-Xf-GMj"/>
                                 </constraints>
                                 <state key="normal" image="award"/>
+                                <connections>
+                                    <action selector="awardBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="t7E-fL-5Jb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgf-kb-LcE">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -111,6 +117,9 @@
                                     <constraint firstAttribute="height" constant="20" id="hOc-KV-sDo"/>
                                 </constraints>
                                 <state key="normal" image="heart_line"/>
+                                <connections>
+                                    <action selector="likeBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wd7-GM-yxV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

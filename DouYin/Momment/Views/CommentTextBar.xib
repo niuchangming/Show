@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentTextBar" customModule="DouYin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="OeT-o9-xXY">
+                    <rect key="frame" x="8" y="8" width="319" height="32"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pW-S0-Pks">
+                    <rect key="frame" x="335" y="8" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="0Bv-jw-F17"/>
+                        <constraint firstAttribute="width" secondItem="2pW-S0-Pks" secondAttribute="height" multiplier="1:1" id="o4p-Wb-Pbw"/>
+                        <constraint firstAttribute="width" constant="32" id="oLU-Sp-aRI"/>
+                    </constraints>
+                    <color key="tintColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="send_comment"/>
+                    <state key="highlighted" image="send_comment_sel"/>
+                    <connections>
+                        <action selector="sendBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="b0O-uG-9qA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="OeT-o9-xXY" secondAttribute="bottom" constant="8" id="1Ky-nW-L6D"/>
+                <constraint firstAttribute="trailing" secondItem="2pW-S0-Pks" secondAttribute="trailing" constant="8" id="3q1-o3-2hC"/>
+                <constraint firstItem="2pW-S0-Pks" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="LRa-v5-SoE"/>
+                <constraint firstItem="OeT-o9-xXY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="VeZ-MW-bQj"/>
+                <constraint firstItem="2pW-S0-Pks" firstAttribute="leading" secondItem="OeT-o9-xXY" secondAttribute="trailing" constant="8" id="l7j-8e-IEU"/>
+                <constraint firstItem="OeT-o9-xXY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="vvF-8v-Vkl"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="commentTF" destination="OeT-o9-xXY" id="9G9-tu-tA4"/>
+                <outlet property="sendBtn" destination="2pW-S0-Pks" id="w4N-iF-krr"/>
+            </connections>
+            <point key="canvasLocation" x="-25.5" y="58"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="send_comment" width="32" height="32"/>
+        <image name="send_comment_sel" width="32" height="32"/>
+    </resources>
+</document>

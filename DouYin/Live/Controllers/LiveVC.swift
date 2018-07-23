@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class LiveVC: UIViewController {
 
@@ -18,7 +19,22 @@ class LiveVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hexString: Constants.ColorScheme.blackColor)
         self.collectionView.reloadData()
+        
+        IQKeyboardManager.shared.enable = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LiveVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LiveVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
     }
+    
+    lazy var touchView: UIView = {
+        let touchView = UIView()
+        touchView.backgroundColor = UIColor.clear
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
+        touchView.addGestureRecognizer(tapGesture)
+        touchView.backgroundColor = UIColor.clear
+        return touchView
+    }()
     
     lazy var collectionView: UICollectionView = {
         let collection = UICollectionView.init(frame: self.view.bounds, collectionViewLayout: LiveCVFlowLayout.init())
@@ -28,12 +44,58 @@ class LiveVC: UIViewController {
         collection.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
         collection.delegate = self
         collection.dataSource = self
-        
-        self.view.addSubview(collection)
-        
+        collection.allowsSelection = false
         collection.backgroundColor = UIColor.clear
+        self.view.addSubview(collection)
         return collection
     }()
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+
+        let keyboardHeight: CGFloat = keyboardFrame.cgRectValue.height
+        
+        let indexPath = IndexPath(item: 0, section: 0)
+        let liveCell = self.collectionView.cellForItem(at: indexPath) as! LiveCollectionViewCell
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        
+        touchView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - keyboardHeight - liveCell.chatInputBar.frame.size.height)
+        self.view.addSubview(touchView)
+        
+        liveCell.chatInputBar.messageInputTv.contentSize = CGSize(width: liveCell.chatInputBar.messageInputTv.frame.size.width, height: liveCell.chatInputBar.messageInputTv.frame.size.height)
+        
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            liveCell.chatInputBar.transform = CGAffineTransform(translationX: 0, y: -liveCell.chatInputBar.frame.size.height)
+            liveCell.contentView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
+        })
+    }
+
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+
+        self.touchView.removeFromSuperview()
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            let indexPath = IndexPath(item: 0, section: 0)
+            let liveCell = self.collectionView.cellForItem(at: indexPath) as! LiveCollectionViewCell
+            liveCell.chatInputBar.transform = CGAffineTransform.identity
+            liveCell.contentView.transform = CGAffineTransform.identity
+        })
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
 }
 
 extension LiveVC : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -43,11 +105,10 @@ extension LiveVC : UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! LiveCollectionViewCell
-        cell.controller = self
-        cell.liveData = self.live!
-        
-        return cell
+        let liveCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? LiveCollectionViewCell
+        liveCell?.liveData = self.live!
+        liveCell?.enterOpenChannel(channelUrl: "sendbird_open_channel_40496_f7c2f44215fbb6a13f969daf3bbc6739cce60253")
+        return liveCell!
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

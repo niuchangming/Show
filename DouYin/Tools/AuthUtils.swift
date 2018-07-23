@@ -45,19 +45,32 @@ class AuthUtils: NSObject {
     
     func saveFacebookInfo(result: FBSDKLoginManagerLoginResult){
         let defaults = UserDefaults.standard
-        defaults.set(true, forKey: Constants.Auth.LOGGED_IN)
         defaults.set(result.token.tokenString, forKey: Constants.Auth.FB_ACCESS_TOKEN)
         defaults.set(result.token.expirationDate, forKey: Constants.Auth.FB_TOKEN_EXPIRED)
         defaults.set(Constants.FACEBOOK_LOGGED, forKey: Constants.Auth.LOGIN_TYPE)
+        defaults.set(result.token.userID, forKey: Constants.Auth.FB_USER_ID)
         defaults.synchronize()
     }
     
     func saveWechatInfo(result: WXAuth){
         let defaults = UserDefaults.standard
-        defaults.set(true, forKey: Constants.Auth.LOGGED_IN)
         defaults.set(result.expiredIn, forKey: Constants.Auth.WX_TOKEN_EXPIRED)
         defaults.set(result.accessToken, forKey: Constants.Auth.WX_ACCESS_TOKEN)
         defaults.set(Constants.WECHAT_LOGGED, forKey: Constants.Auth.LOGIN_TYPE)
+        defaults.set(result.unionId, forKey: Constants.Auth.WX_UNION_ID)
+        defaults.synchronize()
+    }
+    
+    func saveLoginInfo(countryCode: String, mobile: String, accessToken: String){
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: Constants.Auth.LOGGED_IN)
+        defaults.set(accessToken, forKey: Constants.Auth.ACCESS_TOKEN)
+        
+        if(!Utils.isNotNil(obj: defaults.object(forKey: Constants.Auth.LOGIN_TYPE))){
+            defaults.set(Constants.MOBILE_LOGGED, forKey: Constants.Auth.LOGIN_TYPE)
+            defaults.set(String(format: "%@%@", countryCode, mobile), forKey: Constants.Auth.MOBILE)
+        }
+        
         defaults.synchronize()
     }
 

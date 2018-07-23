@@ -9,5 +9,10 @@ target 'DouYin' do
     pod 'Parchment' , '~> 1.0'
     pod 'KSYMediaPlayer_iOS'
     pod 'FBSDKLoginKit'
+    pod 'SDWebImage/GIF'
+    pod 'SendBirdSDK'
+    pod 'TTTAttributedLabel'
+    pod 'IQKeyboardManagerSwift'
+    pod 'MIBlurPopup'
 end
 

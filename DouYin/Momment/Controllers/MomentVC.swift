@@ -7,84 +7,92 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
-class MomentVC: UITableViewController {
+class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var moments: [Moment] = []
     let cellID = "MomentCell"
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    lazy var commentBar: CommentTextBar = {
+        let commentBar = Bundle.main.loadNibNamed("CommentTextBar", owner: nil, options: nil)?[0] as! CommentTextBar
+        self.view.addSubview(commentBar)
+        return commentBar
+    }()
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.tableView.register(UINib.init(nibName: "MomentCell", bundle: nil), forCellReuseIdentifier: cellID)
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80
+        
         dimData()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = false
+        NotificationCenter.default.addObserver(self, selector: #selector(MomentVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MomentVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.commentBar.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.commentBar.frame.size.width, height: 48 * Constants.Dimension.H_RATIO)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return moments.count
     }
 
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MomentCell
         let moment: Moment = self.moments[indexPath.row]
-        
+
         cell.updateUI(moment: moment)
-        
+
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight: CGFloat = keyboardFrame.cgRectValue.height
+        var extraSpace: CGFloat = 1.0
+        if (Constants.IS_IPHONE_X) {
+            extraSpace = 25.0
+        }
+        
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.commentBar.transform = CGAffineTransform(translationX: 0, y: -(keyboardHeight - extraSpace))
+        })
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.commentBar.transform = CGAffineTransform.identity
+        })
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func dimData(){
         let comment1 = Comment()
