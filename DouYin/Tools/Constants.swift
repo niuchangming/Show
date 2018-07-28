@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants {
     static let SENDBIRD_APP_ID = "9FFC187F-1F31-46B3-A77D-BB96008A8EED"
-    static let BAMBUSER_APP_ID = "g9spSwNrRb1bR8soIE9OUA"
+    static let BAMBUSER_APP_ID = "AaXc6qwSYn4LWD1egxzpAg"//"g9spSwNrRb1bR8soIE9OUA"
     static let FACEBOOK_APP_ID = "977193229120279"
     static let WECHAT_APP_ID = "wx761c050f021c979c"
     static let WECHAT_SECRET = "ae4c46579f27a5bc5224743d18f3ea80"
@@ -30,17 +30,13 @@ struct Constants {
     
     struct ColorScheme {
         static let blackColor = "#5B5A62"
-        static let orangeColor = "#FF9376"
+        static let orangeColor = "#FC5C1B"
         static let redColor = "#D50065"
-        static let blueColor = "#2096BA"
+        static let blueColor = "#35A3FB"
         static let greenColor = "#6bc92c"
         static let grayColor = "#C3C3C3"
+        static let purpleColor = "#805AFF"
         static let lightGrayColor = "#F2F2F6"
-        static let chatMessageColor1 = "#FC811B"
-        static let chatMessageColor2 = "#35A3FB"
-        static let chatMessageColor3 = "#805AFF"
-        static let chatMessageColor4 = "#CF48FB"
-        static let chatMessageColor5 = "#FC5C1B"
     }
     
     struct Dimension {
@@ -68,7 +64,7 @@ struct Constants {
     
     struct Auth {
         static let LOGGED_IN = "logged_in"
-        static let ACCESS_TOKEN = "access_token"
+        static let API_TOKEN = "api_token"
         static let LOGIN_TYPE = "logged_type"
         static let MOBILE = "logged_mobile"
         

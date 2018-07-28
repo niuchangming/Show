@@ -10,7 +10,7 @@ import UIKit
 import MIBlurPopup
 
 protocol RegisterDelegate: class {
-    func registerCompleted(response: NSDictionary)
+    func registerCompleted(response: NSDictionary, countryCode: NSString, mobile: NSString)
     func registerFailed(error: Error)
 }
 
@@ -18,7 +18,18 @@ class RegisterVC: UIViewController {
     
     @IBOutlet weak var mobileNoTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
-    @IBOutlet weak var signupBtn: UIButton!
+    @IBOutlet weak var signupBtn: UIButton! {
+        didSet{
+            signupBtn.clipsToBounds = true
+            signupBtn.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
+        }
+    }
+    @IBOutlet weak var cancelBtn: UIButton! {
+        didSet{
+            cancelBtn.clipsToBounds = true
+            cancelBtn.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
+        }
+    }
     @IBOutlet weak var loadingBar: UIActivityIndicatorView!
     @IBOutlet weak var popupContainer: UIView! {
         didSet {
@@ -29,7 +40,11 @@ class RegisterVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        modalPresentationCapturesStatusBarAppearance = true
+    }
+    
+    @IBAction func cancelBtnClicked(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func signupBtnClicked(_ sender: UIButton) {
@@ -57,7 +72,7 @@ class RegisterVC: UIViewController {
         ConnectionManager.shareManager.request(method: .post, url: String(format: "%@signup", Constants.HOST), parames: ["phone": mobile!, "password": password!, "countryCode": "65"], succeed: { [unowned self] (responseJson) in
                 self.loadingBar.stopAnimating()
                 self.dismiss(animated: true, completion: {
-                    self.delegate?.registerCompleted(response: responseJson as! NSDictionary)
+                    self.delegate?.registerCompleted(response: responseJson as! NSDictionary, countryCode: "65", mobile: mobile!)
                 })
             }, failure: { (error) in
                 self.loadingBar.stopAnimating()
@@ -70,7 +85,6 @@ class RegisterVC: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
 
 }

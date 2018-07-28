@@ -6,6 +6,7 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - DropDown (2.3.2)
   - FBSDKCoreKit (4.34.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.34.0):
@@ -18,6 +19,7 @@ PODS:
   - KSYMediaPlayer_iOS/KSYMediaPlayer_live (3.0.3)
   - MIBlurPopup (0.1.3)
   - Parchment (1.3.0)
+  - RoundedSwitch (2.0.1)
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
@@ -25,25 +27,30 @@ PODS:
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
   - SendBirdSDK (3.0.105)
+  - TLPhotoPicker (1.7.0)
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire
+  - DropDown
   - FBSDKLoginKit
   - HandyJSON (~> 4.1.1)
   - IQKeyboardManagerSwift
   - KSYMediaPlayer_iOS
   - MIBlurPopup
   - Parchment (~> 1.0)
+  - RoundedSwitch
   - SDWebImage
   - SDWebImage/GIF
   - SendBirdSDK
+  - TLPhotoPicker
   - TTTAttributedLabel
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Bolts
+    - DropDown
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FLAnimatedImage
@@ -52,13 +59,16 @@ SPEC REPOS:
     - KSYMediaPlayer_iOS
     - MIBlurPopup
     - Parchment
+    - RoundedSwitch
     - SDWebImage
     - SendBirdSDK
+    - TLPhotoPicker
     - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
   FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
@@ -67,10 +77,12 @@ SPEC CHECKSUMS:
   KSYMediaPlayer_iOS: bd163c277487e99df58941f10f090af2fb53fd6d
   MIBlurPopup: e0834e469074cabf65a0ca6e6d900c84d48f8a4f
   Parchment: 3c84b1fd55182e91b2e0f3bf1e4034c387151a46
+  RoundedSwitch: 85ea55811bbeb5747dd99e2c2290c86e820decb5
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   SendBirdSDK: bc5696cd1830d7507bea4418161cfd1431189e35
+  TLPhotoPicker: 603cfc5f58ecc898b8afbe7497cd5de66af6754e
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 36cd790bbb0763450e88ac016c1a19d168c6cda2
+PODFILE CHECKSUM: fe442abfc4a5d2f442ca1d61d3836d9b6bfc02bb
 
 COCOAPODS: 1.5.0

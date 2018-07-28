@@ -66,8 +66,8 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
         self.contentView.insertSubview(self.placeHolderView, aboveSubview: self.moviePlayer)
         self.placeHolderView.setImageViewBlur(url: placeHolderUrl, float: 0.7)
         self.contentView.insertSubview(self.moviePlayer, at: 0)
-        
-        moviePlayer.playVideo("https://cdn.bambuser.net/broadcasts/f99a92bd-16df-4734-acee-e2b8712ef50d?da_signature_method=HMAC-SHA256&da_id=9e1b1e83-657d-7c83-b8e7-0b782ac9543a&da_timestamp=1531827251&da_static=1&da_ttl=0&da_signature=53f491d30c259ffccbd699c18b8a6d8f0d90984254ad20604c3ffa9d945bfc80")
+    
+        moviePlayer.playVideo("https://cdn.bambuser.net/broadcasts/6c2a5619-9ba2-40aa-949e-46c3c4156be1?da_signature_method=HMAC-SHA256&da_id=9e1b1e83-657d-7c83-b8e7-0b782ac9543a&da_timestamp=1532347477&da_static=1&da_ttl=0&da_signature=6a7cd7806b5db5f3711360e1a1db10281d707ff664c2fa4f6505af8772c544f6")
         setupBottomView()
     }
 

@@ -10,12 +10,15 @@ import UIKit
 import MIBlurPopup
 
 protocol Verify2faDelegate: class {
-    func verifyCompleted(response: NSDictionary)
+    func verifyCompleted(response: NSDictionary, countryCode: NSString, mobile: NSString)
     func verifyFailed(error: Error)
 }
 
 class Verify2faVC: UIViewController {
 
+    var countryCode: String? = ""
+    var mobile: String? = ""
+    var apiToken: String? = ""
     @IBOutlet weak var codeTf: UITextField!
     @IBOutlet weak var verifyBtn: UIButton!
     @IBOutlet weak var loadingBar: UIActivityIndicatorView!
@@ -28,7 +31,7 @@ class Verify2faVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        modalPresentationCapturesStatusBarAppearance = true
     }
     
     @IBAction func verifyBtnClicked(_ sender: UIButton) {
@@ -40,10 +43,10 @@ class Verify2faVC: UIViewController {
         }
         
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@2fa", Constants.HOST), parames: ["verifyCode":code!], succeed: { [unowned self] (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@2fa", Constants.HOST), parames: ["verifyCode":code!, "token": apiToken! as NSString], succeed: { [unowned self] (responseJson) in
                 self.loadingBar.stopAnimating()
                 self.dismiss(animated: true, completion: {
-                    self.delegate?.verifyCompleted(response: responseJson as! NSDictionary)
+                    self.delegate?.verifyCompleted(response: responseJson as! NSDictionary, countryCode: self.countryCode! as NSString, mobile: self.mobile! as NSString)
                 })
             }, failure: { (error) in
                 self.loadingBar.stopAnimating()

@@ -43,7 +43,9 @@ class AuthUtils: NSObject {
         return type
     }
     
-    func saveFacebookInfo(result: FBSDKLoginManagerLoginResult){
+    func saveFacebookInfo(result: FBSDKLoginManagerLoginResult, apiToken: String){
+        saveLoginInfo(countryCode: nil, mobile: nil, apiToken: apiToken)
+        
         let defaults = UserDefaults.standard
         defaults.set(result.token.tokenString, forKey: Constants.Auth.FB_ACCESS_TOKEN)
         defaults.set(result.token.expirationDate, forKey: Constants.Auth.FB_TOKEN_EXPIRED)
@@ -52,7 +54,9 @@ class AuthUtils: NSObject {
         defaults.synchronize()
     }
     
-    func saveWechatInfo(result: WXAuth){
+    func saveWechatInfo(result: WXAuth, apiToken: String){
+        saveLoginInfo(countryCode: nil, mobile: nil, apiToken: apiToken)
+        
         let defaults = UserDefaults.standard
         defaults.set(result.expiredIn, forKey: Constants.Auth.WX_TOKEN_EXPIRED)
         defaults.set(result.accessToken, forKey: Constants.Auth.WX_ACCESS_TOKEN)
@@ -61,14 +65,14 @@ class AuthUtils: NSObject {
         defaults.synchronize()
     }
     
-    func saveLoginInfo(countryCode: String, mobile: String, accessToken: String){
+    func saveLoginInfo(countryCode: String?, mobile: String?, apiToken: String){
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: Constants.Auth.LOGGED_IN)
-        defaults.set(accessToken, forKey: Constants.Auth.ACCESS_TOKEN)
+        defaults.set(apiToken, forKey: Constants.Auth.API_TOKEN)
         
         if(!Utils.isNotNil(obj: defaults.object(forKey: Constants.Auth.LOGIN_TYPE))){
             defaults.set(Constants.MOBILE_LOGGED, forKey: Constants.Auth.LOGIN_TYPE)
-            defaults.set(String(format: "%@%@", countryCode, mobile), forKey: Constants.Auth.MOBILE)
+            defaults.set(String(format: "%@%@", countryCode!, mobile!), forKey: Constants.Auth.MOBILE)
         }
         
         defaults.synchronize()

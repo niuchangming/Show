@@ -26,12 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         WXApi.registerApp(Constants.WECHAT_APP_ID)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let openVC = OpenChatVC()
-        self.window?.rootViewController = openVC
-        self.window?.makeKeyAndVisible()
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let openVC = OpenChatVC()
+//        self.window?.rootViewController = openVC
+//        self.window?.makeKeyAndVisible()
         
         
         return true

@@ -23,7 +23,7 @@ class Utils: NSObject {
     
     static func isNotNil(obj: Any?) -> Bool {
         if obj is String {
-            if (obj as? String) != nil{
+            if (obj as? String) != nil && ((obj as? String)?.count)! > 0{
                 return true
             }else {
                 return false

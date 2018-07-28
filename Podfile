@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '9.1'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -14,5 +14,8 @@ target 'DouYin' do
     pod 'TTTAttributedLabel'
     pod 'IQKeyboardManagerSwift'
     pod 'MIBlurPopup'
+    pod 'RoundedSwitch'
+    pod 'DropDown'
+    pod 'TLPhotoPicker'
 end
 

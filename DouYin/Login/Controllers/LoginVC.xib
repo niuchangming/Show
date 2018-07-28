@@ -101,7 +101,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTb-Ml-sPe">
                             <rect key="frame" x="8" y="204" width="265" height="21"/>
@@ -263,6 +263,7 @@
                 <constraint firstItem="aC5-Hb-f0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="S3W-Sr-n4c"/>
                 <constraint firstAttribute="trailing" secondItem="aC5-Hb-f0R" secondAttribute="trailing" constant="47" id="UFt-ch-dLf"/>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Z54-qr-znu"/>
+                <constraint firstItem="TKr-bB-twd" firstAttribute="top" secondItem="aC5-Hb-f0R" secondAttribute="bottom" constant="7" id="cp9-XK-3JN"/>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="qcf-Ev-QJ1"/>
                 <constraint firstItem="TKr-bB-twd" firstAttribute="centerX" secondItem="ECg-D1-FcW" secondAttribute="centerX" id="sVH-Gq-YOM"/>
                 <constraint firstItem="ECg-D1-FcW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yFE-tp-GIJ"/>

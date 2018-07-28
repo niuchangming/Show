@@ -60,17 +60,21 @@ class MainVC: UIViewController {
         pagingViewController.didMove(toParentViewController: self)
     
         navigationItem.titleView = pagingViewController.collectionView
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "开播", style: .plain, target: self, action: #selector(broadcastTapped))
         
+        addCenterButton(withImage: UIImage(named: "camera")!, highlightImage: UIImage(named: "camera_sel")!)
+        initOpenChat()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if AuthUtils.shareManager.validate() == AuthType.UNAUTH {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: .plain, target: self, action: #selector(loginTapped))
         }else if AuthUtils.shareManager.validate() == AuthType.EXPIRED{
             loginTapped()
+        }else if AuthUtils.shareManager.validate() == AuthType.LOGGED {
+            navigationItem.rightBarButtonItem = nil
         }
-        
-        addCenterButton(withImage: UIImage(named: "camera")!, highlightImage: UIImage(named: "camera_sel")!)
-        initOpenChat()
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,11 +112,14 @@ class MainVC: UIViewController {
     }
     
     @objc func broadcastTapped(){
-        let broadcastVC = BroadcastVC()
-        self.present(broadcastVC, animated: true, completion: nil)
+//        let broadcastVC = BroadcastVC()
+//        self.present(broadcastVC, animated: true, completion: nil)
         
 //        let openChatVC = OpenChatVC()
 //        self.present(openChatVC, animated: true, completion: nil)
+        
+        let anchorFormVC = AnchorFormVC()
+        self.present(anchorFormVC, animated: true, completion: nil)
     }
     
     @objc func loginTapped(){
