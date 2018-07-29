@@ -121,7 +121,7 @@ class LoginVC: UIViewController {
                 let errorCode = response["errorCode"] as! Int
                 if errorCode == 1 {
                     let apiToken = response["token"] as! String
-                    AuthUtils.shareManager.saveLoginInfo(countryCode: "65", mobile: mobile! as String, apiToken: apiToken)
+                    AuthUtils.share.saveLoginInfo(countryCode: "65", mobile: mobile! as String, apiToken: apiToken)
                     self.dismiss(animated: true)
                 }else{
                     let alert = UIAlertController(title: "Failed", message: response["message"] as? String, preferredStyle: .alert)
@@ -204,7 +204,7 @@ class LoginVC: UIViewController {
             let errorCode = response["errorCode"] as! Int
             if errorCode == 1 {
                 let apiToken = response["token"] as! String
-                AuthUtils.shareManager.saveFacebookInfo(result: fbResult, apiToken: apiToken)
+                AuthUtils.share.saveFacebookInfo(result: fbResult, apiToken: apiToken)
                 self.dismiss(animated: true)
             }else{
                 let alert = UIAlertController(title: "Failed", message: response["message"] as? String, preferredStyle: .alert)
@@ -260,7 +260,7 @@ extension LoginVC: RegisterDelegate, Verify2faDelegate {
         let errCode = response["errorCode"] as! Int
         if errCode == 1 {
             let apiToken = response["token"] as! String
-            AuthUtils.shareManager.saveLoginInfo(countryCode: countryCode as String, mobile: mobile as String, apiToken: apiToken)
+            AuthUtils.share.saveLoginInfo(countryCode: countryCode as String, mobile: mobile as String, apiToken: apiToken)
             self.dismiss(animated: true)
         }else{
             let message = response["message"] as! String

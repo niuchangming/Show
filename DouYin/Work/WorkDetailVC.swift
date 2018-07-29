@@ -76,7 +76,7 @@ class WorkDetailVC: UIViewController, PlayerScrollViewDelegate{
         followBtn.setTitle("关注", for: UIControlState.normal)
         followBtn.subviews.first?.contentMode = .scaleAspectFit
         
-        let gradientLayer : CAGradientLayer = makeGradientColor(for: followBtn)
+        let gradientLayer : CAGradientLayer = Utils.makeGradientColor(for: self.followBtn, startColor: UIColor(hexString: Constants.ColorScheme.redColor), endColor: UIColor(hexString: Constants.ColorScheme.orangeColor))
         gradientLayer.cornerRadius = followBtn.frame.size.height / 2
         followBtn.layer.insertSublayer(gradientLayer, below: followBtn.imageView?.layer)
         self.view?.addSubview(followBtn)
@@ -183,17 +183,6 @@ class WorkDetailVC: UIViewController, PlayerScrollViewDelegate{
         dismissBtn.setImage(UIImage(named: "cross_sel"), for: UIControlState.highlighted)
         dismissBtn.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         self.view.addSubview(dismissBtn)
-    }
-    
-    func makeGradientColor(`for` object : AnyObject) -> CAGradientLayer {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [(UIColor(hexString: Constants.ColorScheme.redColor).cgColor), (UIColor(hexString: Constants.ColorScheme.orangeColor).cgColor)]
-        gradient.locations = [0.0 , 1.0]
-        
-        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
-        gradient.frame = CGRect(x: 0.0, y: 0.0, width: object.frame.size.width, height: object.frame.size.height)
-        return gradient
     }
     
     @objc func dismiss(sender: UIButton!){

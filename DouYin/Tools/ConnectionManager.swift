@@ -31,6 +31,27 @@ class ConnectionManager: NSObject {
         }
     }
     
+    func uploadMultiparts(url: String, params: [String:AnyObject], multiparts: [String:AnyObject], succeed: @escaping(AnyObject?)->(), failure:@escaping(Error?)->()) {
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            for (key, value) in params {
+                multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
+            }
+            
+            for (key, partData) in multiparts {
+                multipartFormData.append(partData as! Data, withName: key)
+            }
+        }, to: url, encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    succeed(response as AnyObject)
+                }
+            case .failure(let encodingError):
+                failure(encodingError)
+            }
+        })
+    }
+    
 }
 
 

@@ -19,6 +19,7 @@ class GenderCell: UITableViewCell {
         genderSwitch.tintColor = UIColor(hexString: Constants.ColorScheme.blackColor)
         genderSwitch.disabledColor = genderSwitch.tintColor.withAlphaComponent(0.4)
         genderSwitch.backColor = genderSwitch.tintColor.withAlphaComponent(0.05)
+        genderSwitch.addTarget(self, action: #selector(switchDidChangeValue(_:)), for: .valueChanged)
         genderSwitch.sizeToFit()
         self.contentView.addSubview(genderSwitch)
         return genderSwitch
@@ -42,5 +43,8 @@ class GenderCell: UITableViewCell {
         genderSwitch.frame =  CGRect(x: self.contentView.frame.size.width - 160 - 15, y: 9, width: 160, height: 32)
     }
     
+    @objc func switchDidChangeValue(_ theSwitch: Switch) {
+//        statusLabel.text = "\"\(theSwitch.rightSelected ? theSwitch.rightText ?? "" : theSwitch.leftText ?? "")\" selected"
+    }
     
 }

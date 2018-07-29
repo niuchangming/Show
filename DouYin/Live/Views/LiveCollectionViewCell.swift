@@ -32,14 +32,17 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
         let bottomViewY = self.contentView.frame.size.height - bottomViewHeight - Constants.Dimension.HOME_INDICATOR_HEIGHT - Constants.Dimension.MARGIN_MIDDLE
         
         self.moviePlayer.frame = self.contentView.bounds
-        self.bottomView.frame = CGRect.init(x: 0, y: bottomViewY, width: self.contentView.frame.size.width, height: 44)
-        //        self.headerView.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: 110)
+        self.bottomView.frame = CGRect(x: 0, y: bottomViewY, width: self.contentView.frame.size.width, height: 44)
+        self.headerView.frame = CGRect(x: Constants.Dimension.MARGIN_NOR, y: Constants.Dimension.TOP_SPACE + Constants.Dimension.MARGIN_NOR, width: 200 * Constants.Dimension.W_RATIO, height: 60 * Constants.Dimension.H_RATIO)
     }
 
     override func layoutSubviews() {
         let chatViewHeight = 2 * self.contentView.frame.size.height / 5
         let chatViewY = self.bottomView.frame.minY - chatViewHeight
         self.chatView.frame = CGRect.init(x: 0, y: chatViewY, width: 2 * self.contentView.frame.size.width / 3, height: chatViewHeight)
+        
+        self.headerView.userInfoContainer.clipsToBounds = true
+        self.headerView.userInfoContainer.layer.cornerRadius = self.headerView.userInfoContainer.frame.size.height / 2
     }
     
     func enterOpenChannel(channelUrl: String){
@@ -106,7 +109,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
     public var liveData = Live() {
         didSet {
             self.playWithLive(liveLink: (liveData.info?.stream_addr)!, placeHolderUrl: URL.init(string: (liveData.info?.creator?.portrait)!)!)
-            //            self.headerView.setLivess = setlivHotData
+            self.headerView.live = liveData
         }
     }
 
@@ -167,12 +170,13 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
         return bottomView
     }()
 
-//    lazy var headerView: NDHotCellHeaderView = {
-//        let HView = NDHotCellHeaderView.instanceFromNib()
-//        HView.backgroundColor = UIColor.clear
-//        self.contentView.addSubview(HView)
-//        return HView
-//    }()
+    lazy var headerView: LiveCollectionCellHeader = {
+        let headerView = LiveCollectionCellHeader(frame: CGRect.zero)
+        headerView.customView?.backgroundColor = .clear
+        headerView.backgroundColor = .clear
+        self.contentView.addSubview(headerView)
+        return headerView
+    }()
 
     deinit {
         self.playStop()

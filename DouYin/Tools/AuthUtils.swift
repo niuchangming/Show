@@ -18,7 +18,7 @@ enum AuthType {
 
 class AuthUtils: NSObject {
     
-    static let shareManager : AuthUtils = {
+    static let share : AuthUtils = {
         let manager = AuthUtils()
         return manager
     }()
@@ -76,6 +76,10 @@ class AuthUtils: NSObject {
         }
         
         defaults.synchronize()
+    }
+    
+    func apiToken() -> String{
+        return UserDefaults.standard.object(forKey: Constants.Auth.API_TOKEN) as! String
     }
 
 }

@@ -68,11 +68,11 @@ class MainVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if AuthUtils.shareManager.validate() == AuthType.UNAUTH {
+        if AuthUtils.share.validate() == AuthType.UNAUTH {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: .plain, target: self, action: #selector(loginTapped))
-        }else if AuthUtils.shareManager.validate() == AuthType.EXPIRED{
+        }else if AuthUtils.share.validate() == AuthType.EXPIRED{
             loginTapped()
-        }else if AuthUtils.shareManager.validate() == AuthType.LOGGED {
+        }else if AuthUtils.share.validate() == AuthType.LOGGED {
             navigationItem.rightBarButtonItem = nil
         }
     }
@@ -85,7 +85,7 @@ class MainVC: UIViewController {
     
     func initOpenChat(){
         var userId = Utils.deviceId()
-        if(AuthUtils.shareManager.validate() == .LOGGED){
+        if(AuthUtils.share.validate() == .LOGGED){
             let userDefault: UserDefaults = UserDefaults.standard
             let userType = userDefault.object(forKey: Constants.Auth.LOGIN_TYPE) as! String
             

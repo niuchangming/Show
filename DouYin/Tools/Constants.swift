@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants {
     static let SENDBIRD_APP_ID = "9FFC187F-1F31-46B3-A77D-BB96008A8EED"
-    static let BAMBUSER_APP_ID = "AaXc6qwSYn4LWD1egxzpAg"//"g9spSwNrRb1bR8soIE9OUA"
+    static let BAMBUSER_APP_ID = "g9spSwNrRb1bR8soIE9OUA" //"AaXc6qwSYn4LWD1egxzpAg"
     static let FACEBOOK_APP_ID = "977193229120279"
     static let WECHAT_APP_ID = "wx761c050f021c979c"
     static let WECHAT_SECRET = "ae4c46579f27a5bc5224743d18f3ea80"

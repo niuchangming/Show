@@ -68,6 +68,8 @@
 		706966EB2109DDE400A2B5F9 /* SubmitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706966E92109DDE400A2B5F9 /* SubmitCell.swift */; };
 		706966EC2109DDE400A2B5F9 /* SubmitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706966EA2109DDE400A2B5F9 /* SubmitCell.xib */; };
 		70696705210C2E0E00A2B5F9 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696704210C2E0E00A2B5F9 /* Date+Utils.swift */; };
+		70696707210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696706210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift */; };
+		70696709210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70696708210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib */; };
 		7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A95720E248FE000ECA1C /* LiveVC.swift */; };
 		7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A95B20E33ACE000ECA1C /* ConnectionManager.swift */; };
 		7072A97420E3A7D9000ECA1C /* UIImageView+NDExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A97320E3A7D9000ECA1C /* UIImageView+NDExtension.swift */; };
@@ -222,6 +224,8 @@
 		706966E92109DDE400A2B5F9 /* SubmitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitCell.swift; sourceTree = "<group>"; };
 		706966EA2109DDE400A2B5F9 /* SubmitCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmitCell.xib; sourceTree = "<group>"; };
 		70696704210C2E0E00A2B5F9 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		70696706210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionCellHeader.swift; sourceTree = "<group>"; };
+		70696708210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveCollectionCellHeader.xib; sourceTree = "<group>"; };
 		7072A95720E248FE000ECA1C /* LiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVC.swift; sourceTree = "<group>"; };
 		7072A95B20E33ACE000ECA1C /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7072A97320E3A7D9000ECA1C /* UIImageView+NDExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+NDExtension.swift"; sourceTree = "<group>"; };
@@ -622,6 +626,8 @@
 				7072A98220E5D31A000ECA1C /* LiveCollectionViewCell.swift */,
 				7072AA1E20E61F50000ECA1C /* LiveCollectionCellBottom.swift */,
 				7072AA1F20E61F50000ECA1C /* LiveCollectionCellBottom.xib */,
+				70696706210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift */,
+				70696708210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -902,6 +908,7 @@
 				70F2724C2101EF0600FD62CA /* OutgoingUserMessageCell.xib in Resources */,
 				7018B13D20CFC0BE0040CCB0 /* Main.storyboard in Resources */,
 				706966E22108AC6600A2B5F9 /* AreaCell.xib in Resources */,
+				70696709210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib in Resources */,
 				7086966F20F89DEC00E8BAE1 /* MomentVC.xib in Resources */,
 				7060ECB1210592B700C902C8 /* RegisterVC.xib in Resources */,
 				7060ECD62107666400C902C8 /* CoverCell.xib in Resources */,
@@ -1022,6 +1029,7 @@
 				7018B17720D20C7C0040CCB0 /* WorkCollectionCell.swift in Sources */,
 				702793AD20F5A7DC00D4FA91 /* InsetTextField.swift in Sources */,
 				7098236B20F7517F00B1292E /* ViewerScale.swift in Sources */,
+				70696707210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift in Sources */,
 				7086967420F9F93700E8BAE1 /* GiftView.swift in Sources */,
 				7086967820FA49E200E8BAE1 /* GiftData.swift in Sources */,
 				7098236120F7517F00B1292E /* ViewerActionView.swift in Sources */,

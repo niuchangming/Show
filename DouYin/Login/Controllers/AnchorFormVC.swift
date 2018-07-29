@@ -137,6 +137,65 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
     }
     
     func submit(){
+        let name: String?
+        let nickname: String?
+        let gender: String?
+        let area: String?
+        let category: String?
+        
+        if(self.coverAssets.count == 0){
+            let alert = UIAlertController(title: "Alert", message: "You have to set cover image!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if(self.avatarAssets.count == 0){
+            let alert = UIAlertController(title: "Alert", message: "You have to set avatar image!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let nameIndexPath = IndexPath(item: 1, section: 0)
+        let nameCell = self.tableView.cellForRow(at: nameIndexPath) as! NameCell
+        if(!Utils.isNotNil(obj: nameCell.nameTf.text)){
+            let alert = UIAlertController(title: "Alert", message: "Name cannot be empty!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        name = nameCell.nameTf.text
+        
+        let nickIndexPath = IndexPath(item: 2, section: 0)
+        let nickCell = self.tableView.cellForRow(at: nickIndexPath) as! NickCell
+        if(!Utils.isNotNil(obj: nickCell.nickTf.text)){
+            let alert = UIAlertController(title: "Alert", message: "Nickname cannot be empty!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        nickname = nickCell.nickTf.text
+        
+        let genderIndexPath = IndexPath(item: 3, section: 0)
+        let genderCell = self.tableView.cellForRow(at: genderIndexPath) as! GenderCell
+        gender = genderCell.genderSwitch.rightSelected ? genderCell.genderSwitch.rightText : genderCell.genderSwitch.leftText
+        
+        let areaIndexPath = IndexPath(item: 4, section: 0)
+        let areaCell = self.tableView.cellForRow(at: areaIndexPath) as! AreaCell
+        area = areaCell.countryLbl.text
+        
+        let categoryIndexPath = IndexPath(item: 4, section: 0)
+        let categoryCell = self.tableView.cellForRow(at: categoryIndexPath) as! CategoryCell
+        category = categoryCell.categoryLbl.text
+        
+        let params = ["name": name, "nickname": nickname, "gender": gender, "countryCode": "65", "category": category, "token": AuthUtils.share.apiToken()]
+        let multiParts = ["coverImage": UIImageJPEGRepresentation((self.coverAssets.first?.fullResolutionImage)!, 1), "avatar": UIImageJPEGRepresentation((self.avatarAssets.first?.fullResolutionImage)!, 1)]
+        ConnectionManager.shareManager.uploadMultiparts(url: String(format: "%@broadcast/signup", Constants.HOST), params: params as [String : AnyObject], multiparts: multiParts as [String : AnyObject], succeed: { [unowned self] (responseJson) in
+                let response = responseJson as! NSDictionary
+            }, failure: { (error) in
+                
+            })
         
     }
     
