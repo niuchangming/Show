@@ -112,14 +112,11 @@ class MainVC: UIViewController {
     }
     
     @objc func broadcastTapped(){
-//        let broadcastVC = BroadcastVC()
-//        self.present(broadcastVC, animated: true, completion: nil)
+        let broadcastVC = BroadcastVC()
+        self.present(broadcastVC, animated: true, completion: nil)
         
-//        let openChatVC = OpenChatVC()
-//        self.present(openChatVC, animated: true, completion: nil)
-        
-        let anchorFormVC = AnchorFormVC()
-        self.present(anchorFormVC, animated: true, completion: nil)
+//        let anchorFormVC = AnchorFormVC()
+//        self.present(anchorFormVC, animated: true, completion: nil)
     }
     
     @objc func loginTapped(){
@@ -128,7 +125,7 @@ class MainVC: UIViewController {
     }
     
     func addCenterButton(withImage buttonImage : UIImage, highlightImage: UIImage) {
-        let paddingBottom : CGFloat = 33
+        let paddingBottom : CGFloat = Constants.Dimension.HOME_INDICATOR_HEIGHT
         let button = UIButton(type: .custom)
         button.autoresizingMask = [.flexibleRightMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin]
         button.frame = CGRect(x: 0.0, y: 0.0, width: 50, height: 32)

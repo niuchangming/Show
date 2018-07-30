@@ -11,14 +11,44 @@ import SendBirdSDK
 
 class BroadcastVC: UIViewController, SBDChannelDelegate{
     
-    @IBOutlet weak var startBtn: UIButton!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var bottomViewBottomContraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var chatView: ChatView!
     fileprivate var openChannel: SBDOpenChannel!
 
     lazy var bambuserView: BambuserView = {
         let bambuserView = BambuserView(preparePreset: kSessionPresetAuto)
+        bambuserView?.view.backgroundColor = .black
         bambuserView?.applicationId = Constants.BAMBUSER_APP_ID
         return bambuserView!
+    }()
+    
+    fileprivate lazy var emitterLayer: CAEmitterLayer = {
+        let emitter = CAEmitterLayer.init()
+        emitter.emitterPosition = CGPoint.init(x: self.bambuserView.view.frame.size.width - 50, y: self.bambuserView.view.frame.size.height - 50)
+        emitter.emitterSize = CGSize.init(width: 20, height: 20)
+        emitter.renderMode = kCAEmitterLayerUnordered;
+        
+        var emitterCellArr = [CAEmitterCell]()
+        for i in 1 ..< 10 {
+            let cell = CAEmitterCell.init() //发射单元
+            cell.birthRate = 1 //粒子速率 默认1/s
+            cell.lifetime = Float(arc4random_uniform(4) + 1) //粒子存活时间
+            cell.lifetimeRange = 1.5 //粒子生存时间容差
+            let image = UIImage.init(named: String.init(format: "good%d_30x30_", i)) //粒子显示内容
+            cell.contents = image?.cgImage
+            cell.velocity = CGFloat(arc4random_uniform(100) + 100)//粒子运动速度
+            cell.velocityRange = 80 //粒子运动速度容差
+            cell.emissionLongitude = 4.6 //粒子在xy平面的发射角度
+            cell.emissionRange = 0.3 //发射角度容差
+            cell.scale = 0.3 //缩放比例
+            emitterCellArr.append(cell)
+        }
+        emitter.emitterCells = emitterCellArr
+        self.bambuserView.view.layer.addSublayer(emitter)
+        return emitter
     }()
     
     override func viewDidLoad() {
@@ -27,7 +57,8 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         self.bambuserView.orientation = UIApplication.shared.statusBarOrientation
         self.bambuserView.delegate = self
         self.view.addSubview(self.bambuserView.view)
-        self.view.bringSubview(toFront: startBtn)
+        
+        self.view.bringSubview(toFront: contentView)
         
         SBDMain.add(self as SBDChannelDelegate, identifier: self.description)
         bambuserView.startCapture()
@@ -35,9 +66,12 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
     }
     
     override func viewWillLayoutSubviews() {
-        var statusBarOffset : CGFloat = 0.0
-        statusBarOffset = CGFloat(self.topLayoutGuide.length)
-        self.bambuserView.previewFrame = CGRect(x: 0.0, y: 0.0 + statusBarOffset, width: self.view.bounds.size.width, height: self.view.bounds.size.height - statusBarOffset)
+        super.viewWillLayoutSubviews()
+        self.bambuserView.previewFrame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        self.bottomViewBottomContraint.constant = Constants.Dimension.HOME_INDICATOR_HEIGHT
+        
+        self.chatView.backgroundColor = UIColor.clear
+        self.chatView.chattingTableView.backgroundColor = UIColor.clear
     }
     
     func createOpenChannel() {
@@ -73,11 +107,21 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         }
     }
     
-    @IBAction func startBtnClicked(_ sender: Any) {
-        startBtn.setTitle("Connecting", for: UIControlState.normal)
-        startBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
-        startBtn.addTarget(bambuserView, action: #selector(bambuserView.stopBroadcasting), for: UIControlEvents.touchUpInside)
+    @IBAction func swithCameraBtnClicked(_ sender: Any) {
+        self.bambuserView.swapCamera()
+    }
+    
+    @IBAction func playBtnClicked(_ sender: Any) {
+        playBtn.setTitle("Connecting", for: UIControlState.normal)
+        playBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
+        playBtn.addTarget(bambuserView, action: #selector(bambuserView.stopBroadcasting), for: UIControlEvents.touchUpInside)
         bambuserView.startBroadcasting()
+    }
+    
+    @IBAction func dismissBtnClicked(_ sender: Any) {
+        self.bambuserView.stopBroadcasting()
+        self.openChannel.exitChannel(completionHandler: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,15 +133,17 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
 extension BroadcastVC: BambuserViewDelegate{
     
     func broadcastStarted() {
-        startBtn.setTitle("Stop", for: UIControlState.normal)
-        startBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
-        startBtn.addTarget(bambuserView, action: #selector(bambuserView.stopBroadcasting), for: UIControlEvents.touchUpInside)
+        playBtn.setImage(UIImage.init(named: "mg_room_btn_stop_n"), for: .normal)
+        playBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
+        playBtn.addTarget(bambuserView, action: #selector(bambuserView.stopBroadcasting), for: UIControlEvents.touchUpInside)
+        self.emitterLayer.isHidden = false
     }
     
     func broadcastStopped() {
-        startBtn.setTitle("Broadcast", for: UIControlState.normal)
-        startBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
-        startBtn.addTarget(self, action: #selector(BroadcastVC.startBtnClicked(_:)), for: UIControlEvents.touchUpInside)
+        playBtn.setImage(UIImage.init(named: "mg_room_btn_go_n"), for: .normal)
+        playBtn.removeTarget(nil, action: nil, for: UIControlEvents.touchUpInside)
+        playBtn.addTarget(self, action: #selector(BroadcastVC.playBtnClicked(_:)), for: UIControlEvents.touchUpInside)
+        self.emitterLayer.isHidden = true
     }
     
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {

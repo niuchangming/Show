@@ -116,7 +116,7 @@ class LoginVC: UIViewController {
         }
         
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/login", Constants.HOST), parames: ["phone": mobile!, "password": password!, "countryCode": "65", "type": "mobile"], succeed: { [unowned self] (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/login", Constants.HOST), parames: ["mobile": mobile!, "password": password!, "countryCode": "65", "type": "mobile"], succeed: { [unowned self] (responseJson) in
                 let response = responseJson as! NSDictionary
                 let errorCode = response["errorCode"] as! Int
                 if errorCode == 1 {

@@ -27,7 +27,12 @@ class OutgoingUserMessageCell: UITableViewCell {
     func setModel(message: SBDUserMessage, channel: SBDBaseChannel) {
         self.message = message
         self.messageDisplayNameLabel.text = ":我说"
+        self.messageDisplayNameLabel.shadowColor = UIColor.black
+        self.messageDisplayNameLabel.shadowOffset = CGSize(width: 1, height: 1);
+        
         self.messageLabel.text = message.message
+        self.messageLabel.shadowColor = UIColor.black
+        self.messageLabel.shadowOffset = CGSize(width: 1, height: 1);
         self.messageLabel.numberOfLines = 0
     
         self.layoutIfNeeded()

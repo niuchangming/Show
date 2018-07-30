@@ -43,7 +43,7 @@ class Verify2faVC: UIViewController {
         }
         
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@2fa", Constants.HOST), parames: ["verifyCode":code!, "token": apiToken! as NSString], succeed: { [unowned self] (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/2fa", Constants.HOST), parames: ["verifyCode":code!, "token": apiToken! as NSString], succeed: { [unowned self] (responseJson) in
                 self.loadingBar.stopAnimating()
                 self.dismiss(animated: true, completion: {
                     self.delegate?.verifyCompleted(response: responseJson as! NSDictionary, countryCode: self.countryCode! as NSString, mobile: self.mobile! as NSString)

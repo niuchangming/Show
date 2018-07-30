@@ -12,14 +12,6 @@ protocol GiftViewDelegate: class {
     func giftViewSendGiftInView(giftView: GiftView, gift: Gift?)
 }
 
-let STATUS_BAR_HEIGHT:CGFloat = Constants.IS_IPHONE_X ? 44 : 20
-let Nav_Bar_HEIGHT: CGFloat = Constants.IS_IPHONE_X ? 88 : 64
-let Nav_Status_Height: CGFloat = STATUS_BAR_HEIGHT + Nav_Bar_HEIGHT
-let TAB_BAR_HEIGHT:CGFloat = Constants.IS_IPHONE_X ? 49 + 34 : 49
-let HOME_INDICATOR_HEIGHT:CGFloat =  (Constants.IS_IPHONE_X ? 34 : 0)
-let Bottom_Margin:CGFloat =  44 + HOME_INDICATOR_HEIGHT
-
-
 class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     let cellID = "GiftCollectionViewCell";
     var previousGift: Gift?
@@ -35,8 +27,9 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     lazy var bottomView: UIView = {
-        let bottomView = UIView(frame: CGRect(x: 0, y: self.frame.size.height-Bottom_Margin, width: self.frame.size.width, height: Bottom_Margin))
-        bottomView.backgroundColor = UIColor(hexString: Constants.ColorScheme.blackColor);
+        let bottomMargin:CGFloat = 44 + Constants.Dimension.HOME_INDICATOR_HEIGHT
+        let bottomView = UIView(frame: CGRect(x: 0, y: self.frame.size.height-bottomMargin, width: self.frame.size.width, height: bottomMargin))
+        bottomView.backgroundColor = .clear
         bottomView.addSubview(self.pageControl)
         bottomView.addSubview(self.topupBtn)
         bottomView.addSubview(self.cbImageView)
@@ -47,7 +40,8 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }()
     
     lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: CGRect(x: self.frame.size.width / 2 - 15, y:0, width: 30, height: Bottom_Margin))
+        let bottomMargin:CGFloat = 44 + Constants.Dimension.HOME_INDICATOR_HEIGHT
+        let pageControl = UIPageControl(frame: CGRect(x: self.frame.size.width / 2 - 15, y:0, width: 30, height: bottomMargin))
         pageControl.currentPageIndicatorTintColor = UIColor.white
         pageControl.pageIndicatorTintColor = UIColor(hexString: Constants.ColorScheme.grayColor)
         pageControl.isHidden = true
@@ -97,6 +91,8 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         layout.itemSize = CGSize(width: 50, height: 50)
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: self.bottomView.frame.origin.y-2*itemHeight-1, width: Constants.Dimension.SCREEN_WIDTH, height: 2*itemHeight), collectionViewLayout: GiftHorizontalLayout())
+        collectionView.backgroundColor = .clear
+        collectionView.alpha = 0.9
         collectionView.register(GiftCollectionViewCell.self, forCellWithReuseIdentifier: self.cellID)
         collectionView.bounces = false
         collectionView.isPagingEnabled = true
@@ -120,6 +116,15 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func initUI(){
+        let itemWidth: CGFloat = Constants.Dimension.SCREEN_WIDTH/4.0;
+        let itemHeight: CGFloat = itemWidth * 25/22.0;
+        let bgHeight = Constants.Dimension.HOME_INDICATOR_HEIGHT + 44 + 2 * itemHeight + 1
+        
+        let bgView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - bgHeight, width: self.frame.size.width, height: bgHeight))
+        bgView.backgroundColor = UIColor(hexString: Constants.ColorScheme.blackColor)
+        bgView.alpha = 0.8
+        self.addSubview(bgView)
+    
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }

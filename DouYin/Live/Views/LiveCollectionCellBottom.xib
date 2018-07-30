@@ -45,16 +45,6 @@
                         <action selector="hot_giftClick:" destination="-1" eventType="touchUpInside" id="5Gb-16-hNe"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igy-Gd-Jkc">
-                    <rect key="frame" x="175" y="2" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="5x7-A1-U2K"/>
-                    </constraints>
-                    <state key="normal" image="mg_room_btn_xinxi_h"/>
-                    <connections>
-                        <action selector="hot_e_mailClick:" destination="-1" eventType="touchUpInside" id="01V-nx-Vvx"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xB-Bx-Pzx">
                     <rect key="frame" x="275" y="2" width="40" height="40"/>
                     <constraints>
@@ -68,10 +58,8 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="zpR-fc-LUw" firstAttribute="leading" secondItem="igy-Gd-Jkc" secondAttribute="trailing" constant="10" id="4aG-cH-Jv1"/>
                 <constraint firstItem="9BU-G4-a61" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="BdL-ox-UZq"/>
                 <constraint firstAttribute="bottom" secondItem="9BU-G4-a61" secondAttribute="bottom" constant="2" id="CRd-IM-hP7"/>
-                <constraint firstItem="igy-Gd-Jkc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="Cc6-va-1RA"/>
                 <constraint firstAttribute="bottom" secondItem="RL9-Fo-P2k" secondAttribute="bottom" constant="2" id="FXW-Xd-Mie"/>
                 <constraint firstAttribute="trailing" secondItem="9BU-G4-a61" secondAttribute="trailing" constant="10" id="M6k-YR-Vr0"/>
                 <constraint firstAttribute="bottom" secondItem="0xB-Bx-Pzx" secondAttribute="bottom" constant="2" id="NDJ-Tm-rhI"/>
@@ -81,12 +69,11 @@
                 <constraint firstItem="RL9-Fo-P2k" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="hxS-CX-RTR"/>
                 <constraint firstItem="zpR-fc-LUw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="kos-kl-vk2"/>
                 <constraint firstItem="9BU-G4-a61" firstAttribute="leading" secondItem="0xB-Bx-Pzx" secondAttribute="trailing" constant="10" id="kxa-5A-wlw"/>
-                <constraint firstAttribute="bottom" secondItem="igy-Gd-Jkc" secondAttribute="bottom" constant="2" id="nlT-L0-aGy"/>
                 <constraint firstAttribute="bottom" secondItem="zpR-fc-LUw" secondAttribute="bottom" constant="2" id="xrg-fH-Bl1"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-421" y="-174"/>
+            <point key="canvasLocation" x="-421.5" y="-174"/>
         </view>
     </objects>
     <resources>
@@ -94,6 +81,5 @@
         <image name="mg_room_btn_guan_h" width="40" height="40"/>
         <image name="mg_room_btn_liao_h" width="40" height="40"/>
         <image name="mg_room_btn_liwu_h" width="40" height="40"/>
-        <image name="mg_room_btn_xinxi_h" width="40" height="40"/>
     </resources>
 </document>

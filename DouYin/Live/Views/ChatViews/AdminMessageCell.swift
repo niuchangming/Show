@@ -33,8 +33,9 @@ class AdminMessageCell: UITableViewCell {
     func setModel(message: SBDAdminMessage) {
         self.message = message
         self.messageLbl.text = message.message
+        self.messageLbl.shadowColor = UIColor.black
+        self.messageLbl.shadowOffset = CGSize(width: 1, height: 1);
         self.messageLbl.numberOfLines = 0
-        self.messageLbl.sizeToFit()
         
         self.layoutIfNeeded()
     }

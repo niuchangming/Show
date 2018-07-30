@@ -30,6 +30,9 @@ class IncomingUserMessageCell: UITableViewCell {
         self.messageLabel.text = message.message
         self.messageDisplayNameLabel.text = message.sender?.nickname
         self.messageLabel.isUserInteractionEnabled = true
+        self.messageLabel.numberOfLines = 0
+        self.messageLabel.shadowColor = UIColor.black
+        self.messageLabel.shadowOffset = CGSize(width: 1, height: 1);
         
         self.layoutIfNeeded()
     }

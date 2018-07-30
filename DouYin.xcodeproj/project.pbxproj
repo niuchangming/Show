@@ -17,7 +17,6 @@
 		7011EAFF20EDC9A900D1A033 /* libbambuser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7011EAFD20EDC9A800D1A033 /* libbambuser.a */; };
 		7011EB0220EDCDD300D1A033 /* BroadcastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB0120EDCDD300D1A033 /* BroadcastVC.swift */; };
 		7011EB1520EE06AA00D1A033 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB1420EE06AA00D1A033 /* Utils.swift */; };
-		7011EB1720EE29F600D1A033 /* BroadcastVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7011EB1620EE29F600D1A033 /* BroadcastVC.xib */; };
 		7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB4B20F08EDF00D1A033 /* MomentVC.swift */; };
 		7011EB5020F091AC00D1A033 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB4F20F091AC00D1A033 /* Moment.swift */; };
 		7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB6020F11C1000D1A033 /* MomentCell.swift */; };
@@ -70,6 +69,9 @@
 		70696705210C2E0E00A2B5F9 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696704210C2E0E00A2B5F9 /* Date+Utils.swift */; };
 		70696707210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696706210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift */; };
 		70696709210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70696708210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib */; };
+		7069670F210D920C00A2B5F9 /* BroadcastVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7069670E210D920C00A2B5F9 /* BroadcastVC.xib */; };
+		70696711210DFB8000A2B5F9 /* ChatLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696710210DFB8000A2B5F9 /* ChatLabel.swift */; };
+		70696713210E022200A2B5F9 /* EdgeShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70696712210E022200A2B5F9 /* EdgeShadowLayer.swift */; };
 		7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A95720E248FE000ECA1C /* LiveVC.swift */; };
 		7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A95B20E33ACE000ECA1C /* ConnectionManager.swift */; };
 		7072A97420E3A7D9000ECA1C /* UIImageView+NDExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072A97320E3A7D9000ECA1C /* UIImageView+NDExtension.swift */; };
@@ -167,7 +169,6 @@
 		7011EB0020EDCC2700D1A033 /* libbambuser-bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libbambuser-bridge.h"; sourceTree = "<group>"; };
 		7011EB0120EDCDD300D1A033 /* BroadcastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastVC.swift; sourceTree = "<group>"; };
 		7011EB1420EE06AA00D1A033 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		7011EB1620EE29F600D1A033 /* BroadcastVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BroadcastVC.xib; sourceTree = "<group>"; };
 		7011EB4B20F08EDF00D1A033 /* MomentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentVC.swift; sourceTree = "<group>"; };
 		7011EB4F20F091AC00D1A033 /* Moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
 		7011EB6020F11C1000D1A033 /* MomentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentCell.swift; sourceTree = "<group>"; };
@@ -226,6 +227,9 @@
 		70696704210C2E0E00A2B5F9 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		70696706210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionCellHeader.swift; sourceTree = "<group>"; };
 		70696708210CC8B800A2B5F9 /* LiveCollectionCellHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveCollectionCellHeader.xib; sourceTree = "<group>"; };
+		7069670E210D920C00A2B5F9 /* BroadcastVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BroadcastVC.xib; sourceTree = "<group>"; };
+		70696710210DFB8000A2B5F9 /* ChatLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLabel.swift; sourceTree = "<group>"; };
+		70696712210E022200A2B5F9 /* EdgeShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeShadowLayer.swift; sourceTree = "<group>"; };
 		7072A95720E248FE000ECA1C /* LiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVC.swift; sourceTree = "<group>"; };
 		7072A95B20E33ACE000ECA1C /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7072A97320E3A7D9000ECA1C /* UIImageView+NDExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+NDExtension.swift"; sourceTree = "<group>"; };
@@ -594,6 +598,7 @@
 				704E961F20DCEEA4002881FA /* PlayScrollView.swift */,
 				702793AC20F5A7DC00D4FA91 /* InsetTextField.swift */,
 				70F2723C2101C30700FD62CA /* ReusableViewFromXib.swift */,
+				70696712210E022200A2B5F9 /* EdgeShadowLayer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -638,7 +643,7 @@
 				7072A97C20E4EBE4000ECA1C /* LiveListVC.swift */,
 				7072A95720E248FE000ECA1C /* LiveVC.swift */,
 				7011EB0120EDCDD300D1A033 /* BroadcastVC.swift */,
-				7011EB1620EE29F600D1A033 /* BroadcastVC.xib */,
+				7069670E210D920C00A2B5F9 /* BroadcastVC.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -736,6 +741,7 @@
 				703E236821032DC8007D65BF /* AdminMessageCell.xib */,
 				7060ECAA2103793300C902C8 /* ChatInputBar.swift */,
 				7060ECAC2103794200C902C8 /* ChatInputBar.xib */,
+				70696710210DFB8000A2B5F9 /* ChatLabel.swift */,
 			);
 			path = ChatViews;
 			sourceTree = "<group>";
@@ -901,9 +907,9 @@
 				706966D621084A6700A2B5F9 /* NameCell.xib in Resources */,
 				7086967A20FA4CBC00E8BAE1 /* gift_data.json in Resources */,
 				7098236E20F7517F00B1292E /* Media.xcassets in Resources */,
+				7069670F210D920C00A2B5F9 /* BroadcastVC.xib in Resources */,
 				703E236A21032DC8007D65BF /* AdminMessageCell.xib in Resources */,
 				7018B13F20CFC0C00040CCB0 /* Assets.xcassets in Resources */,
-				7011EB1720EE29F600D1A033 /* BroadcastVC.xib in Resources */,
 				706966E721099D5300A2B5F9 /* CategoryCell.xib in Resources */,
 				70F2724C2101EF0600FD62CA /* OutgoingUserMessageCell.xib in Resources */,
 				7018B13D20CFC0BE0040CCB0 /* Main.storyboard in Resources */,
@@ -1031,6 +1037,7 @@
 				7098236B20F7517F00B1292E /* ViewerScale.swift in Sources */,
 				70696707210CC8AB00A2B5F9 /* LiveCollectionCellHeader.swift in Sources */,
 				7086967420F9F93700E8BAE1 /* GiftView.swift in Sources */,
+				70696713210E022200A2B5F9 /* EdgeShadowLayer.swift in Sources */,
 				7086967820FA49E200E8BAE1 /* GiftData.swift in Sources */,
 				7098236120F7517F00B1292E /* ViewerActionView.swift in Sources */,
 				70F2723F2101CAD600FD62CA /* ChatView.swift in Sources */,
@@ -1044,6 +1051,7 @@
 				7098234C20F73E0600B1292E /* WXAuth.swift in Sources */,
 				704E961D20DCACDE002881FA /* WorkDetailVC.swift in Sources */,
 				7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */,
+				70696711210DFB8000A2B5F9 /* ChatLabel.swift in Sources */,
 				70F2721220FC9DF500FD62CA /* GiftCountLabel.swift in Sources */,
 				7011EB0220EDCDD300D1A033 /* BroadcastVC.swift in Sources */,
 				706966D521084A6700A2B5F9 /* NameCell.swift in Sources */,

@@ -69,7 +69,7 @@ class RegisterVC: UIViewController {
         }
         
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@signup", Constants.HOST), parames: ["phone": mobile!, "password": password!, "countryCode": "65"], succeed: { [unowned self] (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/signup", Constants.HOST), parames: ["mobile": mobile!, "password": password!, "countryCode": "65"], succeed: { [unowned self] (responseJson) in
                 self.loadingBar.stopAnimating()
                 self.dismiss(animated: true, completion: {
                     self.delegate?.registerCompleted(response: responseJson as! NSDictionary, countryCode: "65", mobile: mobile!)

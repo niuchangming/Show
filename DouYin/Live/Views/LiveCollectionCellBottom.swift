@@ -30,12 +30,6 @@ class LiveCollectionCellBottom: UIView {
         }
     }
     
-    @IBAction func hot_e_mailClick(_ sender: UIButton) {
-        if (self.bottomViewBtnClickBlock != nil) {
-            self.bottomViewBtnClickBlock?(LivingBottomViewBtnClickType.hot_e_mailClickType)
-        }
-    }
-    
     @IBAction func hot_giftClick(_ sender: UIButton) {
         if (self.bottomViewBtnClickBlock != nil) {
             self.bottomViewBtnClickBlock?(LivingBottomViewBtnClickType.hot_giftClickType)
