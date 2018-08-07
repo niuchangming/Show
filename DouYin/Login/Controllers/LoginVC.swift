@@ -102,43 +102,40 @@ class LoginVC: UIViewController {
             self.mobileNoTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
             return
         }
-        
+
         if(!Utils.isNumber(str: mobile! as String)){
             self.mobileNoTF.placeholder = "您的手机号码格式不正确";
             self.mobileNoTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
             return
         }
-        
+
         if(!Utils.isNotNil(obj: password!)){
             self.passwordTF.placeholder = "输入您的登陆密码";
             self.passwordTF.setValue(UIColor(hexString: Constants.ColorScheme.redColor), forKeyPath: "_placeholderLabel.textColor")
             return
         }
-        
+
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/login", Constants.HOST), parames: ["mobile": mobile!, "password": password!, "countryCode": "65", "type": "mobile"], succeed: { [unowned self] (responseJson) in
-                let response = responseJson as! NSDictionary
-                let errorCode = response["errorCode"] as! Int
-                if errorCode == 1 {
-                    let apiToken = response["token"] as! String
-                    AuthUtils.share.saveLoginInfo(countryCode: "65", mobile: mobile! as String, apiToken: apiToken)
-                    self.dismiss(animated: true)
-                }else{
-                    let alert = UIAlertController(title: "Failed", message: response["message"] as? String, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                self.loadingBar.stopAnimating()
-            }, failure: { (error) in
-                self.loadingBar.stopAnimating()
-            })
+        Account().mobileLogin(countryCode: "65", mobile: mobile! as String, password: password! as String) { (account, message) in
+
+            if account != nil {
+                AuthUtils.share.saveLoginInfo(account: account!)
+                self.dismiss(animated: true)
+            }else{
+                let alert = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+
+            self.loadingBar.stopAnimating()
+        }
     }
     
-    func verify2FA(token: String, countryCode: String, mobile: String){
+    func verify2FA(account: Account){
         let popupVC = Verify2faVC()
-        popupVC.apiToken = token
-        popupVC.countryCode = countryCode
-        popupVC.mobile = mobile
+        popupVC.apiToken = account.token
+        popupVC.countryCode = account.countryCode
+        popupVC.mobile = account.mobile
         popupVC.delegate = self
         MIBlurPopup.show(popupVC, on: self)
     }
@@ -197,24 +194,20 @@ class LoginVC: UIViewController {
     
     func facebookLogin(fbResult: FBSDKLoginManagerLoginResult){
         self.loadingBar.startAnimating()
-        let expriedDateInMills = String(format: "%i", fbResult.token.expirationDate.toMillis())
-        
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/login", Constants.HOST), parames: ["type": "facebook" as NSString, "fb_token": fbResult.token.tokenString as NSString, "expired": expriedDateInMills as NSString], succeed: { [unowned self] (responseJson) in
-            let response = responseJson as! NSDictionary
-            let errorCode = response["errorCode"] as! Int
-            if errorCode == 1 {
-                let apiToken = response["token"] as! String
-                AuthUtils.share.saveFacebookInfo(result: fbResult, apiToken: apiToken)
+
+        Account().facebookLogin(fbResult: fbResult) { (account, message) in
+            if account != nil {
+                AuthUtils.share.saveFacebookInfo(result: fbResult, account: account!)
                 self.dismiss(animated: true)
             }else{
-                let alert = UIAlertController(title: "Failed", message: response["message"] as? String, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
+            
             self.loadingBar.stopAnimating()
-            }, failure: { (error) in
-                self.loadingBar.stopAnimating()
-        })
+        }
+        
     }
     
     @IBAction func dismissBtnClicked(_ sender: Any) {
@@ -235,45 +228,25 @@ extension Notification.Name {
 
 extension LoginVC: RegisterDelegate, Verify2faDelegate {
     
-    func registerCompleted(response: NSDictionary, countryCode: NSString, mobile: NSString) {
-        let errCode = response["errorCode"] as! Int
-        if(errCode == 1){
-            let token = response["token"] as! String
-            self.verify2FA(token: token, countryCode: countryCode as String, mobile: mobile as String)
-        }else{
-            let message = response["message"] as! String
-            let alertController = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
-            let actionKnown = UIAlertAction(title: "知道了", style: .cancel) { (action:UIAlertAction) in}
-            alertController.addAction(actionKnown)
-            self.present(alertController, animated: true, completion: nil)
-        }
+    func registerCompleted(account: Account) {
+        self.verify2FA(account: account)
     }
     
-    func registerFailed(error: Error) {
-        let alertController = UIAlertController(title: "Failed", message: error.localizedDescription, preferredStyle: .alert)
-        let actionKnown = UIAlertAction(title: "知道了", style: .cancel) { (action:UIAlertAction) in}
+    func registerFailed(message: String) {
+        let alertController = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
+        let actionKnown = UIAlertAction(title: "OK", style: .cancel) { (action:UIAlertAction) in}
         alertController.addAction(actionKnown)
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func verifyCompleted(response: NSDictionary, countryCode: NSString, mobile: NSString) {
-        let errCode = response["errorCode"] as! Int
-        if errCode == 1 {
-            let apiToken = response["token"] as! String
-            AuthUtils.share.saveLoginInfo(countryCode: countryCode as String, mobile: mobile as String, apiToken: apiToken)
-            self.dismiss(animated: true)
-        }else{
-            let message = response["message"] as! String
-            let alertController = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
-            let actionKnown = UIAlertAction(title: "OK", style: .cancel) { (action:UIAlertAction) in}
-            alertController.addAction(actionKnown)
-            self.present(alertController, animated: true, completion: nil)
-        }
+    func verifyCompleted(account: Account) {
+        AuthUtils.share.saveLoginInfo(account: account)
+        self.dismiss(animated: true)
     }
     
-    func verifyFailed(error: Error) {
-        let alertController = UIAlertController(title: "Failed", message: error.localizedDescription, preferredStyle: .alert)
-        let actionKnown = UIAlertAction(title: "知道了", style: .cancel) { (action:UIAlertAction) in}
+    func verifyFailed(message: String) {
+        let alertController = UIAlertController(title: "Failed", message: message, preferredStyle: .alert)
+        let actionKnown = UIAlertAction(title: "OK", style: .cancel) { (action:UIAlertAction) in}
         alertController.addAction(actionKnown)
         self.present(alertController, animated: true, completion: nil)
     }

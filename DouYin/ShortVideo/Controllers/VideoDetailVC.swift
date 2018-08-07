@@ -9,9 +9,9 @@
 import UIKit
 import KSYMediaPlayer
 
-class WorkDetailVC: UIViewController, PlayerScrollViewDelegate{
+class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
     
-    var works:[Work] = [Work]()
+    var works:[ShortVideo] = [ShortVideo]()
     var playScrollView: PlayScrollView!
     var userInfoView: UIView!
     var index: NSInteger = 0
@@ -256,7 +256,7 @@ class WorkDetailVC: UIViewController, PlayerScrollViewDelegate{
 
 }
 
-extension WorkDetailVC{
+extension VideoDetailVC{
     func playerScrollView(playerScrollView: PlayScrollView, index: NSInteger) {
         
         if(self.index==index){

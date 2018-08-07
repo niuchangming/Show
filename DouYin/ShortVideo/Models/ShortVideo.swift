@@ -8,13 +8,14 @@
 
 import Foundation
 
-struct Work {
+struct ShortVideo {
     let name: String!
     let coverImage: String!
     let avatarImage: String!
     let latitude: Double!
     let longitude: Double!
     let workLink: String!
+    var videoType: Int!
     
     init(name: String? = nil, coverImage: String? = nil, avatarImage: String? = nil, latitude: Double? = nil, longitude: Double? = nil, workLink: String? = nil) {
         self.name = name
@@ -23,5 +24,6 @@ struct Work {
         self.latitude = latitude
         self.longitude = longitude
         self.workLink = workLink
+        self.videoType = 0
     }
 }

@@ -90,7 +90,6 @@
                             <color key="tintColor" red="0.37254901959999998" green="0.37254901959999998" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="7Rc-Dl-JP8"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="g9G-sb-Fwh"/>
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -99,7 +98,6 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqs-mx-Ued">
                             <rect key="frame" x="20" y="156" width="295" height="21"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="T2a-NU-bsd"/>
                                 <constraint firstAttribute="height" constant="21" id="tJp-gf-yI1"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -152,7 +150,6 @@
                         <constraint firstItem="Bbd-Ip-jnI" firstAttribute="leading" secondItem="Vhf-B5-iEf" secondAttribute="trailing" constant="-137" id="9js-Ia-AfY"/>
                         <constraint firstItem="cBz-nQ-jGa" firstAttribute="centerY" secondItem="fxD-97-1sy" secondAttribute="centerY" id="AnR-U9-xVX"/>
                         <constraint firstAttribute="height" constant="315" id="B7p-Uz-PzI"/>
-                        <constraint firstItem="Bbd-Ip-jnI" firstAttribute="top" secondItem="jqs-mx-Ued" secondAttribute="bottom" constant="2" id="BAL-bl-e1U"/>
                         <constraint firstAttribute="trailing" secondItem="wb9-pu-aey" secondAttribute="trailing" constant="20" id="BgQ-OG-vGX"/>
                         <constraint firstAttribute="trailing" secondItem="U22-bq-H48" secondAttribute="trailing" constant="20" id="Cu0-EZ-1mK"/>
                         <constraint firstItem="Bbd-Ip-jnI" firstAttribute="leading" secondItem="Wh4-7c-Akh" secondAttribute="leading" constant="20" id="Hgb-Mp-V7R"/>

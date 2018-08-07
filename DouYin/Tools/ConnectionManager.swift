@@ -38,18 +38,25 @@ class ConnectionManager: NSObject {
             }
             
             for (key, partData) in multiparts {
-                multipartFormData.append(partData as! Data, withName: key)
+                multipartFormData.append(partData as! Data, withName: key, fileName: UUID().uuidString, mimeType: "image/jpeg")
             }
         }, to: url, encodingCompletion: { encodingResult in
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
-                    succeed(response as AnyObject)
+                    if let value = response.result.value {
+                        succeed(value as AnyObject)
+                    }else{
+                        failure(response.result.error)
+                    }
                 }
             case .failure(let encodingError):
                 failure(encodingError)
             }
         })
+        
+    
+//        print("request body: \(String(describing: (request as! UploadRequest).request?.httpBody))")
     }
     
 }

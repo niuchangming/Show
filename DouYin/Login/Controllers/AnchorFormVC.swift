@@ -24,13 +24,14 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
         self.tableView.contentInset.top = -UIApplication.shared.statusBarFrame.height
+        self.tableView.contentInset.bottom = Constants.Dimension.HOME_INDICATOR_HEIGHT
         self.tableView.register(CoverCell.nib(), forCellReuseIdentifier: CoverCell.cellReuseIdentifier())
         self.tableView.register(NameCell.nib(), forCellReuseIdentifier: NameCell.cellReuseIdentifier())
         self.tableView.register(NickCell.nib(), forCellReuseIdentifier: NickCell.cellReuseIdentifier())
         self.tableView.register(GenderCell.nib(), forCellReuseIdentifier: GenderCell.cellReuseIdentifier())
         self.tableView.register(AreaCell.nib(), forCellReuseIdentifier: AreaCell.cellReuseIdentifier())
         self.tableView.register(CategoryCell.nib(), forCellReuseIdentifier: CategoryCell.cellReuseIdentifier())
-        self.tableView.register(SubmitCell.nib(), forCellReuseIdentifier: SubmitCell.cellReuseIdentifier())
+        self.tableView.register(DescribeCell.nib(), forCellReuseIdentifier: DescribeCell.cellReuseIdentifier())
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,6 +54,14 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
             (cell as! CoverCell).avatarClickHandler = { () in
                 self.avatarClicked()
             }
+            
+            (cell as! CoverCell).dismissHandler = { () in
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            (cell as! CoverCell).saveHandler = { () in
+                self.submit()
+            }
         }else if indexPath.row == 1{
             cell = tableView.dequeueReusableCell(withIdentifier: NameCell.cellReuseIdentifier(), for: indexPath) as! NameCell
         }else if indexPath.row == 2{
@@ -63,20 +72,17 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
             cell = tableView.dequeueReusableCell(withIdentifier: AreaCell.cellReuseIdentifier(), for: indexPath) as! AreaCell
         }else if indexPath.row == 5{
              cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.cellReuseIdentifier(), for: indexPath) as! CategoryCell
-        }else{
-            cell = tableView.dequeueReusableCell(withIdentifier: SubmitCell.cellReuseIdentifier(), for: indexPath) as! SubmitCell
-            (cell as! SubmitCell).clickHandler = { () in
-                self.submit()
-            }
+        }else {
+            cell = tableView.dequeueReusableCell(withIdentifier: DescribeCell.cellReuseIdentifier(), for: indexPath) as! DescribeCell
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 290
-        }else if indexPath.row == 6 {
-            return 88
+            return 290 * Constants.Dimension.H_RATIO
+        }else if indexPath.row == 6{
+            return 130
         }
         return 50
     }
@@ -84,13 +90,22 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
     func setCoverAndAvatar() {
         let indexPath = IndexPath(item: 0, section: 0)
         let coverCell = self.tableView.cellForRow(at: indexPath) as! CoverCell
-        if let asset = self.coverAssets.first {
+        let targetAssets: [TLPHAsset]!
+        if(self.isCover){
+            targetAssets = self.coverAssets
+        }else{
+            targetAssets = self.avatarAssets
+        }
+        
+        if let asset = targetAssets.first {
             if let image = asset.fullResolutionImage {
                 if self.isCover {
                     coverCell.addCoverView.removeFromSuperview()
                     coverCell.coverIV.image = image
                 }else{
                     coverCell.avatarIV.image = image
+                    coverCell.avatarIV.layer.cornerRadius = coverCell.avatarIV.frame.size.width / 2
+                     coverCell.avatarIV.clipsToBounds = true
                 }
             }else {
                 asset.cloudImageDownload(progressBlock: { [weak self] (progress) in
@@ -111,16 +126,16 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
     }
     
     func coverClicked(){
-        showPickerView(isCover: true)
+        self.isCover = true
+        showPickerView()
     }
     
     func avatarClicked(){
-        showPickerView(isCover: false)
+        self.isCover = false
+        showPickerView()
     }
     
-    func showPickerView(isCover: Bool) {
-        self.isCover = isCover
-        
+    func showPickerView() {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
         viewController.didExceedMaximumNumberOfSelection = { (picker) in
@@ -140,7 +155,7 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
         let name: String?
         let nickname: String?
         let gender: String?
-        let area: String?
+        let dialCode: String?
         let category: String?
         
         if(self.coverAssets.count == 0){
@@ -183,18 +198,43 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
         
         let areaIndexPath = IndexPath(item: 4, section: 0)
         let areaCell = self.tableView.cellForRow(at: areaIndexPath) as! AreaCell
-        area = areaCell.countryLbl.text
+        dialCode = areaCell.selectedCountry?.dialCode
         
-        let categoryIndexPath = IndexPath(item: 4, section: 0)
+        let categoryIndexPath = IndexPath(item: 5, section: 0)
         let categoryCell = self.tableView.cellForRow(at: categoryIndexPath) as! CategoryCell
         category = categoryCell.categoryLbl.text
         
-        let params = ["name": name, "nickname": nickname, "gender": gender, "countryCode": "65", "category": category, "token": AuthUtils.share.apiToken()]
+        let params = ["name": name, "nickname": nickname, "gender": gender, "countryCode": dialCode, "category": category, "token": AuthUtils.share.apiToken()]
         let multiParts = ["coverImage": UIImageJPEGRepresentation((self.coverAssets.first?.fullResolutionImage)!, 1), "avatar": UIImageJPEGRepresentation((self.avatarAssets.first?.fullResolutionImage)!, 1)]
+        
+        let coverIndexPath = IndexPath(item: 0, section: 0)
+        let coverCell = self.tableView.cellForRow(at: coverIndexPath) as! CoverCell
+        coverCell.loadingBar.startAnimating()
+        coverCell.saveBtn.isHidden = true
+        coverCell.saveBtn.isEnabled = false
         ConnectionManager.shareManager.uploadMultiparts(url: String(format: "%@broadcast/signup", Constants.HOST), params: params as [String : AnyObject], multiparts: multiParts as [String : AnyObject], succeed: { [unowned self] (responseJson) in
-                let response = responseJson as! NSDictionary
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+                if errorCode == 1 {
+                    AuthUtils.share.setRoleAsAnchor()
+                    self.dismiss(animated: true)
+                }else{
+                    let alert = UIAlertController(title: "Failed", message: response["message"] as? String, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                coverCell.loadingBar.stopAnimating()
+                coverCell.saveBtn.isHidden = false
+                coverCell.saveBtn.isEnabled = true
             }, failure: { (error) in
                 
+                let alert = UIAlertController(title: "Failed", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+                coverCell.loadingBar.stopAnimating()
+                coverCell.saveBtn.isHidden = false
+                coverCell.saveBtn.isEnabled = true
             })
         
     }

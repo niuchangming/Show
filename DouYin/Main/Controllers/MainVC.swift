@@ -9,6 +9,7 @@
 import UIKit
 import Parchment
 import SendBirdSDK
+import CoreLocation
 
 class CustomPagingView: PagingView {
     
@@ -30,8 +31,6 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(hexString: Constants.ColorScheme.orangeColor)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let recommandVC: UIViewController = storyboard.instantiateViewController(withIdentifier: "WorkVC")
@@ -112,11 +111,15 @@ class MainVC: UIViewController {
     }
     
     @objc func broadcastTapped(){
-        let broadcastVC = BroadcastVC()
-        self.present(broadcastVC, animated: true, completion: nil)
         
-//        let anchorFormVC = AnchorFormVC()
-//        self.present(anchorFormVC, animated: true, completion: nil)
+        if AuthUtils.share.isAnchor() {
+            let broadcastVC = BroadcastVC()
+            self.present(broadcastVC, animated: true, completion: nil)
+        }else{
+            let anchorFormVC = AnchorFormVC()
+            self.present(anchorFormVC, animated: true, completion: nil)
+        }
+
     }
     
     @objc func loginTapped(){

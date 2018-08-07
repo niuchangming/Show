@@ -19,10 +19,10 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
     var index: NSInteger?
     var upperImageView, middleImageView, downImageView: UIImageView?
     var upperPlayer, middlePlayer, downPlayer: KSYMoviePlayerController?
-    var upperLive, middleLive, downLive: Work?
+    var upperLive, middleLive, downLive: ShortVideo?
     var currentIndex: NSInteger = 0
     var previousIndex: NSInteger = 0
-    var lives: [Work] = []
+    var lives: [ShortVideo] = []
     
     override init(frame: CGRect) {
        super.init(frame:frame)
@@ -97,16 +97,16 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
         self.addSubview((downPlayer?.view!)!)
     }
     
-    func updateForLives(livesArray: [Work], index: NSInteger) -> () {
+    func updateForLives(livesArray: [ShortVideo], index: NSInteger) -> () {
         if (livesArray.count > 0) {
             lives.removeAll()
             lives = livesArray
             currentIndex = index
             previousIndex = index
             
-            var upperLive: Work = Work()
-            let middleLive: Work = lives[index]
-            var downLive: Work = Work()
+            var upperLive: ShortVideo = ShortVideo()
+            let middleLive: ShortVideo = lives[index]
+            var downLive: ShortVideo = ShortVideo()
 
             if(currentIndex == 0){
                 upperLive = lives.last!
@@ -130,11 +130,11 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    func prepareForImageView(imageView: UIImageView, work: Work) {
+    func prepareForImageView(imageView: UIImageView, work: ShortVideo) {
         imageView.sd_setImage(with: URL(string: work.coverImage), placeholderImage: UIImage(named: "placeholder.png"))
     }
     
-    func prepareForVideo(player: KSYMoviePlayerController, work: Work) {
+    func prepareForVideo(player: KSYMoviePlayerController, work: ShortVideo) {
         player.reset(false)
         player.setUrl(URL(string: work.workLink))
         player.shouldAutoplay = false

@@ -43,9 +43,9 @@ class AuthUtils: NSObject {
         return type
     }
     
-    func saveFacebookInfo(result: FBSDKLoginManagerLoginResult, apiToken: String){
-        saveLoginInfo(countryCode: nil, mobile: nil, apiToken: apiToken)
-        
+    func saveFacebookInfo(result: FBSDKLoginManagerLoginResult, account: Account){
+        saveLoginInfo(account: account)
+
         let defaults = UserDefaults.standard
         defaults.set(result.token.tokenString, forKey: Constants.Auth.FB_ACCESS_TOKEN)
         defaults.set(result.token.expirationDate, forKey: Constants.Auth.FB_TOKEN_EXPIRED)
@@ -54,9 +54,9 @@ class AuthUtils: NSObject {
         defaults.synchronize()
     }
     
-    func saveWechatInfo(result: WXAuth, apiToken: String){
-        saveLoginInfo(countryCode: nil, mobile: nil, apiToken: apiToken)
-        
+    func saveWechatInfo(result: WXAuth, account: Account){
+        saveLoginInfo(account: account)
+
         let defaults = UserDefaults.standard
         defaults.set(result.expiredIn, forKey: Constants.Auth.WX_TOKEN_EXPIRED)
         defaults.set(result.accessToken, forKey: Constants.Auth.WX_ACCESS_TOKEN)
@@ -65,21 +65,48 @@ class AuthUtils: NSObject {
         defaults.synchronize()
     }
     
-    func saveLoginInfo(countryCode: String?, mobile: String?, apiToken: String){
+    func saveLoginInfo(account: Account){
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: Constants.Auth.LOGGED_IN)
-        defaults.set(apiToken, forKey: Constants.Auth.API_TOKEN)
+        defaults.set(account.token, forKey: Constants.Auth.API_TOKEN)
+        defaults.set(account.userCode, forKey: Constants.Auth.USER_CODE)
+        defaults.set(account.roleType, forKey: Constants.Auth.ROLE)
         
         if(!Utils.isNotNil(obj: defaults.object(forKey: Constants.Auth.LOGIN_TYPE))){
             defaults.set(Constants.MOBILE_LOGGED, forKey: Constants.Auth.LOGIN_TYPE)
-            defaults.set(String(format: "%@%@", countryCode!, mobile!), forKey: Constants.Auth.MOBILE)
+            defaults.set(String(format: "%@%@", account.countryCode, account.mobile), forKey: Constants.Auth.MOBILE)
         }
         
         defaults.synchronize()
     }
     
-    func apiToken() -> String{
-        return UserDefaults.standard.object(forKey: Constants.Auth.API_TOKEN) as! String
+    func saveChannelId(channelId: String){
+        let defaults = UserDefaults.standard
+        defaults.set(channelId, forKey: Constants.Auth.CHANNEL_ID)
+        defaults.synchronize()
+    }
+    
+    func apiToken() -> String? {
+        return UserDefaults.standard.object(forKey: Constants.Auth.API_TOKEN) as? String
+    }
+    
+    func userCode() -> String? {
+        return UserDefaults.standard.object(forKey: Constants.Auth.USER_CODE) as? String
+    }
+    
+    func isAnchor() -> Bool{
+        return UserDefaults.standard.object(forKey: Constants.Auth.ROLE) != nil && UserDefaults.standard.object(forKey: Constants.Auth.ROLE) as! Int == 2
+    }
+    
+    func channelId() -> String? {
+        let channelId = UserDefaults.standard.object(forKey: Constants.Auth.CHANNEL_ID)
+        return channelId as? String
+    }
+    
+    func setRoleAsAnchor() {
+        let defaults = UserDefaults.standard
+        defaults.set(2, forKey: Constants.Auth.ROLE)
+        defaults.synchronize()
     }
 
 }

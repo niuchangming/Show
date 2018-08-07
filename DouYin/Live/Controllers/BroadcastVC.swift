@@ -17,10 +17,13 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var chatView: ChatView!
     fileprivate var openChannel: SBDOpenChannel!
+    
+    var channelTryCount: Int = 0
 
     lazy var bambuserView: BambuserView = {
         let bambuserView = BambuserView(preparePreset: kSessionPresetAuto)
         bambuserView?.view.backgroundColor = .black
+        bambuserView?.customData = AuthUtils.share.userCode()
         bambuserView?.applicationId = Constants.BAMBUSER_APP_ID
         return bambuserView!
     }()
@@ -62,7 +65,12 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         
         SBDMain.add(self as SBDChannelDelegate, identifier: self.description)
         bambuserView.startCapture()
-        createOpenChannel()
+        
+        if Utils.isNotNil(obj: AuthUtils.share.channelId()) {
+            enterOpenChannel(channelUrl: AuthUtils.share.channelId()!)
+        }else{
+            createOpenChannel()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -77,16 +85,17 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
     func createOpenChannel() {
         SBDOpenChannel.createChannel(withName:"demo_open_channel" , coverUrl: nil, data: nil, operatorUsers: nil) { (channel, error) in
             if error != nil {
-                let vc = UIAlertController(title: "Failed", message: error?.domain, preferredStyle: UIAlertControllerStyle.alert)
-                let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil)
-                vc.addAction(closeAction)
-                DispatchQueue.main.async {
-                    self.present(vc, animated: true, completion: nil)
+                if self.channelTryCount <= 3 {
+                    self.createOpenChannel()
                 }
+                self.channelTryCount = self.channelTryCount + 1
             }else{
                 self.openChannel = channel
                 self.chatView.configureChattingView(channel: self.openChannel)
                 self.enterOpenChannel(channelUrl: (channel?.channelUrl)!)
+                AuthUtils.share.saveChannelId(channelId: (channel?.channelUrl)!)
+                self.uploadChannelId(channelId: (channel?.channelUrl)!)
+                
             }
         }
     }
@@ -107,6 +116,19 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         }
     }
     
+    func uploadChannelId(channelId: String){
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@broadcast/uploadChannelId", Constants.HOST), parames: ["token": AuthUtils.share.apiToken() as AnyObject, "channelId": channelId as AnyObject], succeed: { (responseJson) in
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            let message = response["message"] as! String
+            if errorCode != 1 {
+                NSLog("Upload ChannelID Error: %@", message)
+            }
+        }) { (error) in
+            print("Upload ChannelID Error: \(String(describing: error?.localizedDescription))")
+        }
+    }
+    
     @IBAction func swithCameraBtnClicked(_ sender: Any) {
         self.bambuserView.swapCamera()
     }
@@ -120,7 +142,9 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
     
     @IBAction func dismissBtnClicked(_ sender: Any) {
         self.bambuserView.stopBroadcasting()
-        self.openChannel.exitChannel(completionHandler: nil)
+        if(self.openChannel != nil){
+            self.openChannel.exitChannel(completionHandler: nil)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

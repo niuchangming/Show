@@ -9,11 +9,15 @@
 import UIKit
 
 class CoverCell: UITableViewCell {
-    
+    var saveHandler: (() -> Void)!
+    var dismissHandler: (() -> Void)!
     var coverClickHandler: (() -> Void)!
     var avatarClickHandler: (() -> Void)!
+    @IBOutlet weak var loadingBar: UIActivityIndicatorView!
+    @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var coverIV: UIImageView! {
         didSet{
+            coverIV.clipsToBounds = true    
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addCoverViewTapped(tapGestureRecognizer:)))
             addCoverView.isUserInteractionEnabled = true
             addCoverView.addGestureRecognizer(tapGestureRecognizer)
@@ -57,6 +61,14 @@ class CoverCell: UITableViewCell {
     
     @objc func avatarIvClicked(tapGestureRecognizer: UITapGestureRecognizer) {
         self.avatarClickHandler()
+    }
+    
+    @IBAction func saveBtnClicked(_ sender: UIButton) {
+        self.saveHandler()
+    }
+    
+    @IBAction func dismissBtnClicked(_ sender: UIButton) {
+        self.dismissHandler()
     }
     
     override func awakeFromNib() {

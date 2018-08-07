@@ -10,8 +10,8 @@ import UIKit
 import MIBlurPopup
 
 protocol RegisterDelegate: class {
-    func registerCompleted(response: NSDictionary, countryCode: NSString, mobile: NSString)
-    func registerFailed(error: Error)
+    func registerCompleted(account: Account)
+    func registerFailed(message: String)
 }
 
 class RegisterVC: UIViewController {
@@ -69,17 +69,19 @@ class RegisterVC: UIViewController {
         }
         
         self.loadingBar.startAnimating()
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@user/signup", Constants.HOST), parames: ["mobile": mobile!, "password": password!, "countryCode": "65"], succeed: { [unowned self] (responseJson) in
-                self.loadingBar.stopAnimating()
+        Account().mobileSignup(countryCode: "65", mobile: mobile! as String, password: password! as String) { (account, message) in
+            if(account != nil){
                 self.dismiss(animated: true, completion: {
-                    self.delegate?.registerCompleted(response: responseJson as! NSDictionary, countryCode: "65", mobile: mobile!)
+                    self.delegate?.registerCompleted(account: account!)
                 })
-            }, failure: { (error) in
                 self.loadingBar.stopAnimating()
+            }else{
                 self.dismiss(animated: true, completion: {
-                    self.delegate?.registerFailed(error: error!)
+                    self.delegate?.registerFailed(message: message)
                 })
-            })
+                self.loadingBar.stopAnimating()
+            }
+        }
         
     }
 

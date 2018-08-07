@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants {
     static let SENDBIRD_APP_ID = "9FFC187F-1F31-46B3-A77D-BB96008A8EED"
-    static let BAMBUSER_APP_ID = "g9spSwNrRb1bR8soIE9OUA" //"AaXc6qwSYn4LWD1egxzpAg"
+    static let BAMBUSER_APP_ID = "AaXc6qwSYn4LWD1egxzpAg" //"g9spSwNrRb1bR8soIE9OUA"
     static let FACEBOOK_APP_ID = "977193229120279"
     static let WECHAT_APP_ID = "wx761c050f021c979c"
     static let WECHAT_SECRET = "ae4c46579f27a5bc5224743d18f3ea80"
@@ -19,6 +19,7 @@ struct Constants {
     static let WECHAT_LOGGED = "wechat"
     static let MOBILE_LOGGED = "mobile"
     static let HOST = "http://ec2-52-41-0-146.us-west-2.compute.amazonaws.com:8081/api/"
+    static let CAMERA360_KEY = "T5ZduqJjSBbnNKV/KO9gIYssoR/XntrEfuW6fvNvdYD5hVeSG/BWwvd4EJT7UdSBd3ggYEHOkcLPfDGMD2mR2/gNUg9A4PTb23Oi2/4ft0DIELXUpR772BGxyn430fiE4/rvdzT1M5d28LTBoAkCEG0KDHQKzejt9GtHWCqWFVBBs4sZlGuC3h8sfa1XV/7HtvIDHqhLQHymjmHOeFE3YA8DGHXUJ9Jd3HKcmU8u97eRIXM5Ak5aEhDbqXdFlzQu3irBZzfGCFBetoe5fUxUc3XmM9nnXdotSt7ngLEp/NPpZSZ8qrqbI09WahycfqdjFJgfAzEjt/dDrZd5609pMeP1W8Ze0SJTE/BmltQUTgrXP8lS4Slsm8uQIUV2IbkIB01UEQ3s4EXILQv+DeBLBobwvjDgKx/LdP7t0wvdtZV8q5ApuNIWoyriNhiRJgL+Dmi+9R//oXk7gRcDrr2NC6+dEZLUuPbHiH4ZzVZiLw=="
     
     static let IS_IPHONE: Bool = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone
     static let IS_IPHONE_4: Bool = IS_IPHONE && (Dimension.SCREEN_HEIGHT == 480.0)
@@ -30,6 +31,7 @@ struct Constants {
     
     struct ColorScheme {
         static let blackColor = "#5B5A62"
+        static let darkBlackColor = "#333"
         static let orangeColor = "#FC5C1B"
         static let redColor = "#D50065"
         static let blueColor = "#35A3FB"
@@ -67,6 +69,9 @@ struct Constants {
         static let API_TOKEN = "api_token"
         static let LOGIN_TYPE = "logged_type"
         static let MOBILE = "logged_mobile"
+        static let USER_CODE = "user_code"
+        static let ROLE = "role"
+        static let CHANNEL_ID = "channel_id"
         
         static let FB_TOKEN_EXPIRED = "fb_expired"
         static let FB_ACCESS_TOKEN = "fb_access_token"

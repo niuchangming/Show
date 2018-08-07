@@ -23,7 +23,7 @@ class CategoryCell: UITableViewCell {
     lazy var categoryPicker: DropDown = {
         let dropDown = DropDown()
         dropDown.anchorView = self
-        dropDown.width = self.categoryLbl.frame.size.width / 2
+        dropDown.width = self.categoryLbl.frame.size.width
         dropDown.dataSource = ["搞笑", "美女", "帅哥", "才艺", "其它"]
         dropDown.dismissMode = .automatic
         dropDown.direction = .any
