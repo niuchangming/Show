@@ -13,7 +13,7 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import MIBlurPopup
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController{
 
     @IBOutlet weak var loginBgIV: UIImageView!
     
@@ -31,7 +31,6 @@ class LoginVC: UIViewController {
     @IBOutlet weak var dismissBtn: UIButton!
     
     @IBOutlet weak var loadingBar: UIActivityIndicatorView!
-    
     var blurredEffectView: UIView?
     var player: AVPlayer?
     

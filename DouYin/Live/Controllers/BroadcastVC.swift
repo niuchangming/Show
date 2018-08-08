@@ -24,6 +24,7 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         let bambuserView = BambuserView(preparePreset: kSessionPresetAuto)
         bambuserView?.view.backgroundColor = .black
         bambuserView?.customData = AuthUtils.share.userCode()
+        bambuserView?.sendPosition = true
         bambuserView?.applicationId = Constants.BAMBUSER_APP_ID
         return bambuserView!
     }()

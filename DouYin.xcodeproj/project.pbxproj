@@ -158,6 +158,7 @@
 		70FB86552115E8E300D12833 /* Meaturable+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86542115E8E300D12833 /* Meaturable+Label.swift */; };
 		70FB86592116A32900D12833 /* ZSCWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86582116A32900D12833 /* ZSCWebController.swift */; };
 		70FB865B2116B53E00D12833 /* OnlineShopWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB865A2116B53E00D12833 /* OnlineShopWebController.swift */; };
+		70FB86A1211AD62900D12833 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86A0211AD62900D12833 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +348,7 @@
 		70FB86542115E8E300D12833 /* Meaturable+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meaturable+Label.swift"; sourceTree = "<group>"; };
 		70FB86582116A32900D12833 /* ZSCWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCWebController.swift; sourceTree = "<group>"; };
 		70FB865A2116B53E00D12833 /* OnlineShopWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineShopWebController.swift; sourceTree = "<group>"; };
+		70FB86A0211AD62900D12833 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D42C4AA908B6956F8505B840 /* Pods-DouYin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouYin.release.xcconfig"; path = "Pods/Target Support Files/Pods-DouYin/Pods-DouYin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -601,6 +603,7 @@
 				7011EB1420EE06AA00D1A033 /* Utils.swift */,
 				702793C020F60C0A00D4FA91 /* AuthUtils.swift */,
 				70F2722521007E3800FD62CA /* ChatManager.swift */,
+				70FB86A0211AD62900D12833 /* LocationManager.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1227,6 +1230,7 @@
 				7072A97D20E4EBE4000ECA1C /* LiveListVC.swift in Sources */,
 				7060ECD021074B9900C902C8 /* AnchorFormVC.swift in Sources */,
 				70FB864E2115AF4D00D12833 /* TextMomentCell.swift in Sources */,
+				70FB86A1211AD62900D12833 /* LocationManager.swift in Sources */,
 				704E962020DCEEA4002881FA /* PlayScrollView.swift in Sources */,
 				70FB86522115BEA200D12833 /* LinkMomentCell.swift in Sources */,
 				706966D921087E3F00A2B5F9 /* NickCell.swift in Sources */,

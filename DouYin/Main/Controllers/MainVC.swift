@@ -63,6 +63,8 @@ class MainVC: UIViewController {
         
         addCenterButton(withImage: UIImage(named: "camera")!, highlightImage: UIImage(named: "camera_sel")!)
         initOpenChat()
+        
+        LocationManager.share.startMonitor()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -153,6 +155,11 @@ class MainVC: UIViewController {
         let gradientLayer : CAGradientLayer = Utils.makeGradientColor(for: button)
         gradientLayer.cornerRadius = 8
         button.layer.insertSublayer(gradientLayer, below: button.imageView?.layer)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        LocationManager.share.stopMonitor()
     }
     
 }
