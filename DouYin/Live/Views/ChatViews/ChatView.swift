@@ -76,6 +76,14 @@ class ChatView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource 
         self.addSubview(self.adminMessageCell!)
     }
     
+    func isScrollToBottom() -> Bool {
+        if self.chattingTableView.contentOffset.y >= (self.chattingTableView.contentSize.height - self.chattingTableView.frame.size.height) {
+            return true
+        }
+        
+        return false
+    }
+    
     func scrollToBottom(force: Bool) {
         if self.messages.count == 0 {
             return

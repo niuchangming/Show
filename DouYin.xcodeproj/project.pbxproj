@@ -159,6 +159,9 @@
 		70FB86592116A32900D12833 /* ZSCWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86582116A32900D12833 /* ZSCWebController.swift */; };
 		70FB865B2116B53E00D12833 /* OnlineShopWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB865A2116B53E00D12833 /* OnlineShopWebController.swift */; };
 		70FB86A1211AD62900D12833 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86A0211AD62900D12833 /* LocationManager.swift */; };
+		70FB86BE211C691100D12833 /* CreateMomentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86BC211C691100D12833 /* CreateMomentVC.swift */; };
+		70FB86BF211C691100D12833 /* CreateMomentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB86BD211C691100D12833 /* CreateMomentVC.xib */; };
+		70FB86C1211DF78A00D12833 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86C0211DF78A00D12833 /* UIView+Borders.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -349,6 +352,9 @@
 		70FB86582116A32900D12833 /* ZSCWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCWebController.swift; sourceTree = "<group>"; };
 		70FB865A2116B53E00D12833 /* OnlineShopWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineShopWebController.swift; sourceTree = "<group>"; };
 		70FB86A0211AD62900D12833 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		70FB86BC211C691100D12833 /* CreateMomentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMomentVC.swift; sourceTree = "<group>"; };
+		70FB86BD211C691100D12833 /* CreateMomentVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateMomentVC.xib; sourceTree = "<group>"; };
+		70FB86C0211DF78A00D12833 /* UIView+Borders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		D42C4AA908B6956F8505B840 /* Pods-DouYin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouYin.release.xcconfig"; path = "Pods/Target Support Files/Pods-DouYin/Pods-DouYin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -464,6 +470,8 @@
 			children = (
 				7011EB4B20F08EDF00D1A033 /* MomentVC.swift */,
 				7086966E20F89DEC00E8BAE1 /* MomentVC.xib */,
+				70FB86BC211C691100D12833 /* CreateMomentVC.swift */,
+				70FB86BD211C691100D12833 /* CreateMomentVC.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -673,6 +681,7 @@
 				70F2723C2101C30700FD62CA /* ReusableViewFromXib.swift */,
 				70696712210E022200A2B5F9 /* EdgeShadowLayer.swift */,
 				70FB86542115E8E300D12833 /* Meaturable+Label.swift */,
+				70FB86C0211DF78A00D12833 /* UIView+Borders.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1051,6 +1060,7 @@
 				7098236E20F7517F00B1292E /* Media.xcassets in Resources */,
 				7069670F210D920C00A2B5F9 /* BroadcastVC.xib in Resources */,
 				703E236A21032DC8007D65BF /* AdminMessageCell.xib in Resources */,
+				70FB86BF211C691100D12833 /* CreateMomentVC.xib in Resources */,
 				7018B13F20CFC0C00040CCB0 /* Assets.xcassets in Resources */,
 				70FB861B2113595100D12833 /* FavoriteVideoVC.xib in Resources */,
 				706966E721099D5300A2B5F9 /* CategoryCell.xib in Resources */,
@@ -1201,6 +1211,7 @@
 				7098234C20F73E0600B1292E /* WXAuth.swift in Sources */,
 				704E961D20DCACDE002881FA /* VideoDetailVC.swift in Sources */,
 				70FB865B2116B53E00D12833 /* OnlineShopWebController.swift in Sources */,
+				70FB86BE211C691100D12833 /* CreateMomentVC.swift in Sources */,
 				7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */,
 				70696711210DFB8000A2B5F9 /* ChatLabel.swift in Sources */,
 				70F2721220FC9DF500FD62CA /* GiftCountLabel.swift in Sources */,
@@ -1210,6 +1221,7 @@
 				7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */,
 				7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */,
 				7060ECB42105AC2E00C902C8 /* Verify2faVC.swift in Sources */,
+				70FB86C1211DF78A00D12833 /* UIView+Borders.swift in Sources */,
 				7098236920F7517F00B1292E /* ViewerZoomingScrollView.swift in Sources */,
 				7086967C20FB0A9A00E8BAE1 /* GiftCollectionViewCell.swift in Sources */,
 				70F2722621007E3800FD62CA /* ChatManager.swift in Sources */,

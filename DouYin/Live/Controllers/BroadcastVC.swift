@@ -9,8 +9,7 @@
 import UIKit
 import SendBirdSDK
 
-class BroadcastVC: UIViewController, SBDChannelDelegate{
-    
+class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var bottomViewBottomContraint: NSLayoutConstraint!
     
@@ -53,6 +52,13 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         emitter.emitterCells = emitterCellArr
         self.bambuserView.view.layer.addSublayer(emitter)
         return emitter
+    }()
+    
+    lazy var chatInputBar: ChatInputBar = {
+        let chatInputBar = ChatInputBar(frame: CGRect(x: 0, y: self.contentView.frame.size.height, width: self.contentView.frame.size.width, height: 48))
+        chatInputBar.delegate = self
+        self.contentView.addSubview(chatInputBar)
+        return chatInputBar
     }()
     
     override func viewDidLoad() {
@@ -130,6 +136,30 @@ class BroadcastVC: UIViewController, SBDChannelDelegate{
         }
     }
     
+    @IBAction func chatBtnClicked(_ sender: Any) {
+        self.chatInputBar.messageInputTv.becomeFirstResponder()
+    }
+    
+    func sendMessage() {
+        self.chatInputBar.sendMessage(channel: self.openChannel) { (userMessage, error) in
+            if error != nil {
+                self.chatView.resendableMessages[userMessage.requestId!] = userMessage
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(force: true)
+                }
+                return
+            }
+            
+            self.chatView.messages.append(userMessage)
+            DispatchQueue.main.async {
+                self.chatView.chattingTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(force: true)
+                }
+            }
+        }
+    }
+    
     @IBAction func swithCameraBtnClicked(_ sender: Any) {
         self.bambuserView.swapCamera()
     }
@@ -180,7 +210,7 @@ extension BroadcastVC: BambuserViewDelegate{
                 self.chatView.chattingTableView.reloadData()
                 UIView.setAnimationsEnabled(true)
                 DispatchQueue.main.async {
-                    self.chatView.scrollToBottom(force: false)
+                    self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
                 }
             }
         }

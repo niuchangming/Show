@@ -37,6 +37,9 @@
                                         <constraint firstAttribute="height" constant="40" id="c7h-2k-mo7"/>
                                     </constraints>
                                     <state key="normal" image="mg_room_btn_liao_h"/>
+                                    <connections>
+                                        <action selector="chatBtnClicked:" destination="-1" eventType="touchUpInside" id="GQ4-K5-Pen"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Eb-zt-UUs">
                                     <rect key="frame" x="325" y="2" width="40" height="40"/>

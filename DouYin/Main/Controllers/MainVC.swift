@@ -10,6 +10,14 @@ import UIKit
 import Parchment
 import SendBirdSDK
 import CoreLocation
+import TLPhotoPicker
+import Photos
+
+enum PostType {
+    case text
+    case moment
+    case video
+}
 
 class CustomPagingView: PagingView {
     
@@ -28,6 +36,9 @@ class CustomPagingViewController: FixedPagingViewController {
 }
 
 class MainVC: UIViewController {
+    
+    var isVideo: Bool! = false
+    var postType: PostType! = .text
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +148,7 @@ class MainVC: UIViewController {
         button.setImage(buttonImage, for: .normal)
         button.setImage(highlightImage, for: .highlighted)
         button.subviews.first?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(MainVC.cameraBtnClicked(_:)), for: .touchUpInside)
         
         let rectBoundTabbar = self.tabBarController?.tabBar.bounds
         let xx = rectBoundTabbar?.midX
@@ -157,14 +169,63 @@ class MainVC: UIViewController {
         button.layer.insertSublayer(gradientLayer, below: button.imageView?.layer)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        LocationManager.share.stopMonitor()
+    @objc func cameraBtnClicked(_ sender: Any){
+        let alertController = UIAlertController(title: nil, message: "Choose your content", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+        }
+        alertController.addAction(cancelAction)
+        
+        let textAction = UIAlertAction(title: "Post A Text", style: .default) { (action) in
+            self.postType = .text
+            self.goCreateMoment(withTLPHAssets: nil)
+        }
+        alertController.addAction(textAction)
+        
+        let momentAction = UIAlertAction(title: "Post A Moment", style: .default) { (action) in
+            self.postType = .moment
+            self.startImagePicker()
+        }
+        alertController.addAction(momentAction)
+        
+        let videoAction = UIAlertAction(title: "Post A Video", style: .default) { (action) in
+            self.postType = .video
+            self.startImagePicker()
+        }
+        alertController.addAction(videoAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func startImagePicker() {
+        let viewController = TLPhotosPickerViewController()
+        viewController.delegate = self
+        viewController.didExceedMaximumNumberOfSelection = { (picker) in
+            let alert = UIAlertController(title: "Alert", message: "Exceed Maximum Number Of Selection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            picker.present(alert, animated: true, completion: nil)
+        }
+        var configure = TLPhotosPickerConfigure()
+        configure.maxSelectedAssets = 9
+        configure.allowedVideo = false
+        configure.allowedVideoRecording = false
+        viewController.configure = configure
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func goCreateMoment(withTLPHAssets: [TLPHAsset]?){
+        let createMomentVC = CreateMomentVC()
+        createMomentVC.postType = self.postType
+        if withTLPHAssets != nil {
+            createMomentVC.imageAssets = withTLPHAssets!
+        }
+        DispatchQueue.main.async {
+            self.present(createMomentVC, animated: true, completion: nil)
+        }
     }
     
 }
 
-extension MainVC: PagingViewControllerDelegate {
+extension MainVC: PagingViewControllerDelegate, TLPhotosPickerViewControllerDelegate{
     
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? {
         guard let item = pagingItem as? PagingIndexItem else { return 0 }
@@ -187,10 +248,27 @@ extension MainVC: PagingViewControllerDelegate {
         }
     }
     
+    func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
+        if self.postType == .video {
+            
+        }else{
+            goCreateMoment(withTLPHAssets: withTLPHAssets)
+        }
+    }
+    
+    func canSelectAsset(phAsset: PHAsset) -> Bool {
+        return true
+    }
+    
+    func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) {
+        
+    }
+    
+    func handleNoCameraPermissions(picker: TLPhotosPickerViewController) {
+        
+    }
+    
 }
-
-
-
 
 
 

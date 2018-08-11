@@ -229,34 +229,23 @@ extension LiveCollectionViewCell{
         NSLog("Failed to load video for %@", moviePlayer.resourceUri);
     }
     
-    func sendMessage(message: String) {
-        if self.chatInputBar.messageInputTv.text.count > 0 {
-            let message = self.chatInputBar.messageInputTv.text
-            self.chatInputBar.messageInputTv.text = ""
- 
-            self.chatInputBar.sendBtn.isEnabled = false
-            self.openChannel?.sendUserMessage(message, data: "", customType: "", targetLanguages: [], completionHandler: { (userMessage, error) in
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                    if error != nil {
-                        self.chatView.resendableMessages[(userMessage?.requestId)!] = userMessage
-                        DispatchQueue.main.async {
-                            self.chatView.scrollToBottom(force: true)
-                        }
-                        return
-                    }
-                    
-                    self.chatView.messages.append(userMessage!)
-                    DispatchQueue.main.async {
-                        self.chatView.chattingTableView.reloadData()
-                        DispatchQueue.main.async {
-                            self.chatView.scrollToBottom(force: true)
-                        }
-                    }
-                    
-                })
-                self.chatInputBar.sendBtn.isEnabled = true
-            })
+    func sendMessage() {
+        self.chatInputBar.sendMessage(channel: self.openChannel) { (userMessage, error) in
+            if error != nil {
+                self.chatView.resendableMessages[userMessage.requestId!] = userMessage
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(force: true)
+                }
+                return
+            }
+            
+            self.chatView.messages.append(userMessage)
+            DispatchQueue.main.async {
+                self.chatView.chattingTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(force: true)
+                }
+            }
         }
     }
     
@@ -315,7 +304,7 @@ extension LiveCollectionViewCell{
                 self.chatView.chattingTableView.reloadData()
                 UIView.setAnimationsEnabled(true)
                 DispatchQueue.main.async {
-                    self.chatView.scrollToBottom(force: false)
+                    self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
                 }
             }
         }
