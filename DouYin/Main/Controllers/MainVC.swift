@@ -124,15 +124,17 @@ class MainVC: UIViewController {
     }
     
     @objc func broadcastTapped(){
-        
-        if AuthUtils.share.isAnchor() {
-            let broadcastVC = BroadcastVC()
-            self.present(broadcastVC, animated: true, completion: nil)
+        if Utils.isNotNil(obj: AuthUtils.share.apiToken()) {
+            if AuthUtils.share.isAnchor() {
+                let broadcastVC = BroadcastVC()
+                self.present(broadcastVC, animated: true, completion: nil)
+            }else{
+                let anchorFormVC = AnchorFormVC()
+                self.present(anchorFormVC, animated: true, completion: nil)
+            }
         }else{
-            let anchorFormVC = AnchorFormVC()
-            self.present(anchorFormVC, animated: true, completion: nil)
+            loginTapped()
         }
-
     }
     
     @objc func loginTapped(){
@@ -189,8 +191,11 @@ class MainVC: UIViewController {
         alertController.addAction(momentAction)
         
         let videoAction = UIAlertAction(title: "Post A Video", style: .default) { (action) in
-            self.postType = .video
-            self.startImagePicker()
+//            self.postType = .video
+//            self.startImagePicker()
+            
+            let filterCameraVC = FilterCameraVC()
+            self.present(filterCameraVC, animated: true, completion: nil)
         }
         alertController.addAction(videoAction)
         self.present(alertController, animated: true, completion: nil)

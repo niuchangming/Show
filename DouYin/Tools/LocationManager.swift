@@ -31,9 +31,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate{
         locationManager.startUpdatingLocation()
     }
     
-    func getAdress(completion: @escaping (_ address: [String: Any]?, _ error: Error?) -> ()) {
-        let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(self.currentLocation) { placemarks, error in
+    func getAdress(lat: Double, lon: Double, completion: @escaping (_ address: [String: Any]?, _ error: Error?) -> ()) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        CLGeocoder().reverseGeocodeLocation(loc) { placemarks, error in
             if let e = error {
                 completion(nil, e)
             } else {

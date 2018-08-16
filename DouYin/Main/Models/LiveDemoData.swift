@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 import HandyJSON
 
-class LiveData: HandyJSON{
-    var flow = [Live]()
+class LiveDemoData: HandyJSON{
+    var flow = [LiveDemo]()
     
     required init() {}
     
@@ -21,7 +21,7 @@ class LiveData: HandyJSON{
 
         ConnectionManager.shareManager.request(method: .get, url: liveAPI, parames: ["":""] as [String : AnyObject], succeed: { [unowned self] (responseJson) in
 
-            let model = LiveData.deserialize(from: responseJson as? NSDictionary)
+            let model = LiveDemoData.deserialize(from: responseJson as? NSDictionary)
             self.flow = (model?.flow)!
 
             message("Success")
@@ -42,20 +42,20 @@ class LiveData: HandyJSON{
     }
 }
 
-class Live: HandyJSON {
-    var info : Info?
+class LiveDemo: HandyJSON {
+    var info : InfoDemo?
     var flow_type : String = ""
     
     required init(){}
 }
 
-class Info: HandyJSON {
+class InfoDemo: HandyJSON {
     var city : String = ""
     var id : String = ""
     var name : String = ""
     var room_id : String = ""
     var distance : String = ""
-    var creator : Creator?
+    var creator : CreatorDemo?
     
     public var stream_addr = String() {
         didSet {
@@ -68,7 +68,7 @@ class Info: HandyJSON {
     required init(){}
 }
 
-class Creator: HandyJSON{
+class CreatorDemo: HandyJSON{
     var birth: String = ""
     var description: String = ""
     var gender: Int = 0

@@ -124,7 +124,7 @@
 		7098236E20F7517F00B1292E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7098235E20F7517F00B1292E /* Media.xcassets */; };
 		70E5812420E1015100F50B5E /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812320E1015100F50B5E /* MessageVC.swift */; };
 		70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812920E1F38500F50B5E /* LiveCell.swift */; };
-		70E5812C20E2194900F50B5E /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812B20E2194900F50B5E /* LiveData.swift */; };
+		70E5812C20E2194900F50B5E /* LiveDemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812B20E2194900F50B5E /* LiveDemoData.swift */; };
 		70F2720E20FC82B300FD62CA /* GiftShowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2720D20FC82B300FD62CA /* GiftShowManager.swift */; };
 		70F2721020FC861600FD62CA /* GiftShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2720F20FC861600FD62CA /* GiftShowView.swift */; };
 		70F2721220FC9DF500FD62CA /* GiftCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F2721120FC9DF500FD62CA /* GiftCountLabel.swift */; };
@@ -162,6 +162,22 @@
 		70FB86BE211C691100D12833 /* CreateMomentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86BC211C691100D12833 /* CreateMomentVC.swift */; };
 		70FB86BF211C691100D12833 /* CreateMomentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB86BD211C691100D12833 /* CreateMomentVC.xib */; };
 		70FB86C1211DF78A00D12833 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86C0211DF78A00D12833 /* UIView+Borders.swift */; };
+		70FB998C211FD80200D12833 /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FB9987211FD7E600D12833 /* GPUImage.framework */; };
+		70FB998D211FD80200D12833 /* GPUImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 70FB9987211FD7E600D12833 /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		70FB9D02211FDA1600D12833 /* FilterCameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9D00211FDA1600D12833 /* FilterCameraVC.swift */; };
+		70FB9D03211FDA1600D12833 /* FilterCameraVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB9D01211FDA1600D12833 /* FilterCameraVC.xib */; };
+		70FB9D06211FDB7700D12833 /* FilterOperationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9D04211FDB7700D12833 /* FilterOperationTypes.swift */; };
+		70FB9D07211FDB7700D12833 /* FilterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9D05211FDB7700D12833 /* FilterOperations.swift */; };
+		70FB9E7321201C3F00D12833 /* CircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9E7121201C3F00D12833 /* CircleCell.swift */; };
+		70FB9E7421201C3F00D12833 /* CircleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB9E7221201C3F00D12833 /* CircleCell.xib */; };
+		70FB9E90212177AF00D12833 /* BeautyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9E8F212177AF00D12833 /* BeautyBarView.swift */; };
+		70FB9E92212177CE00D12833 /* BeautyBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB9E91212177CE00D12833 /* BeautyBarView.xib */; };
+		70FB9EA221228E7B00D12833 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9EA121228E7B00D12833 /* LiveData.swift */; };
+		70FB9EC72125555B00D12833 /* VideoPreviewPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9EC52125555B00D12833 /* VideoPreviewPickVC.swift */; };
+		70FB9EC82125555B00D12833 /* VideoPreviewPickVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB9EC62125555B00D12833 /* VideoPreviewPickVC.xib */; };
+		70FB9ECE212579A300D12833 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB9ECD212579A300D12833 /* VideoView.swift */; };
+		70FB9F102125C57C00D12833 /* KeyframePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FB9F0D2125C56100D12833 /* KeyframePicker.framework */; };
+		70FB9F112125C57C00D12833 /* KeyframePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 70FB9F0D2125C56100D12833 /* KeyframePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,7 +195,85 @@
 			remoteGlobalIDString = 7018B13320CFC0BE0040CCB0;
 			remoteInfo = DouYin;
 		};
+		70FB9982211FD7E600D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CAB1C39A9D8006DF678;
+			remoteInfo = GPUImage_macOS;
+		};
+		70FB9984211FD7E600D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CB51C39A9D8006DF678;
+			remoteInfo = GPUImageTests_macOS;
+		};
+		70FB9986211FD7E600D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34E91E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+		70FB9988211FD7E600D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34F11E524A2200B8604F;
+			remoteInfo = GPUImageTests_iOS;
+		};
+		70FB998A211FD7F400D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9E34E81E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+		70FB998E211FD80200D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9E34E81E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+		70FB9F0C2125C56100D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 517AD4641DD4855F0034A89D;
+			remoteInfo = KeyframePicker;
+		};
+		70FB9F0E2125C57200D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 517AD4631DD4855F0034A89D;
+			remoteInfo = KeyframePicker;
+		};
+		70FB9F122125C57C00D12833 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 517AD4631DD4855F0034A89D;
+			remoteInfo = KeyframePicker;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		70FB9990211FD80200D12833 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				70FB9F112125C57C00D12833 /* KeyframePicker.framework in Embed Frameworks */,
+				70FB998D211FD80200D12833 /* GPUImage.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1DE0C1EA8A0C85E9201923FE /* Pods-DouYin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouYin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DouYin/Pods-DouYin.debug.xcconfig"; sourceTree = "<group>"; };
@@ -317,7 +411,7 @@
 		7098235E20F7517F00B1292E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		70E5812320E1015100F50B5E /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		70E5812920E1F38500F50B5E /* LiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCell.swift; sourceTree = "<group>"; };
-		70E5812B20E2194900F50B5E /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
+		70E5812B20E2194900F50B5E /* LiveDemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDemoData.swift; sourceTree = "<group>"; };
 		70F2720D20FC82B300FD62CA /* GiftShowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftShowManager.swift; sourceTree = "<group>"; };
 		70F2720F20FC861600FD62CA /* GiftShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftShowView.swift; sourceTree = "<group>"; };
 		70F2721120FC9DF500FD62CA /* GiftCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCountLabel.swift; sourceTree = "<group>"; };
@@ -355,6 +449,20 @@
 		70FB86BC211C691100D12833 /* CreateMomentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMomentVC.swift; sourceTree = "<group>"; };
 		70FB86BD211C691100D12833 /* CreateMomentVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateMomentVC.xib; sourceTree = "<group>"; };
 		70FB86C0211DF78A00D12833 /* UIView+Borders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
+		70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GPUImage.xcodeproj; sourceTree = "<group>"; };
+		70FB9D00211FDA1600D12833 /* FilterCameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCameraVC.swift; sourceTree = "<group>"; };
+		70FB9D01211FDA1600D12833 /* FilterCameraVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCameraVC.xib; sourceTree = "<group>"; };
+		70FB9D04211FDB7700D12833 /* FilterOperationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOperationTypes.swift; sourceTree = "<group>"; };
+		70FB9D05211FDB7700D12833 /* FilterOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOperations.swift; sourceTree = "<group>"; };
+		70FB9E7121201C3F00D12833 /* CircleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCell.swift; sourceTree = "<group>"; };
+		70FB9E7221201C3F00D12833 /* CircleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircleCell.xib; sourceTree = "<group>"; };
+		70FB9E8F212177AF00D12833 /* BeautyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyBarView.swift; sourceTree = "<group>"; };
+		70FB9E91212177CE00D12833 /* BeautyBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeautyBarView.xib; sourceTree = "<group>"; };
+		70FB9EA121228E7B00D12833 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
+		70FB9EC52125555B00D12833 /* VideoPreviewPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewPickVC.swift; sourceTree = "<group>"; };
+		70FB9EC62125555B00D12833 /* VideoPreviewPickVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPreviewPickVC.xib; sourceTree = "<group>"; };
+		70FB9ECD212579A300D12833 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyframePicker.xcodeproj; path = "../KeyframePicker-master/KeyframePicker.xcodeproj"; sourceTree = "<group>"; };
 		D42C4AA908B6956F8505B840 /* Pods-DouYin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DouYin.release.xcconfig"; path = "Pods/Target Support Files/Pods-DouYin/Pods-DouYin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -369,10 +477,12 @@
 				7011EAF220EDC96700D1A033 /* SystemConfiguration.framework in Frameworks */,
 				7011EAF020EDC95E00D1A033 /* QuartzCore.framework in Frameworks */,
 				7011EAEF20EDC94B00D1A033 /* Foundation.framework in Frameworks */,
+				70FB9F102125C57C00D12833 /* KeyframePicker.framework in Frameworks */,
 				7011EAED20EDC93600D1A033 /* CoreLocation.framework in Frameworks */,
 				7011EAFE20EDC9A900D1A033 /* libbambuserplayer.a in Frameworks */,
 				7011EAEB20EDC92D00D1A033 /* CoreGraphics.framework in Frameworks */,
 				7072AA1B20E6186D000ECA1C /* libc++.tbd in Frameworks */,
+				70FB998C211FD80200D12833 /* GPUImage.framework in Frameworks */,
 				7072AA1920E61591000ECA1C /* Pods_DouYin.framework in Frameworks */,
 				7072AA1720E6156D000ECA1C /* VideoToolbox.framework in Frameworks */,
 				7072AA1620E61561000ECA1C /* OpenGLES.framework in Frameworks */,
@@ -450,6 +560,8 @@
 			children = (
 				7011EB4F20F091AC00D1A033 /* Moment.swift */,
 				7086967720FA49E200E8BAE1 /* GiftData.swift */,
+				70FB9D05211FDB7700D12833 /* FilterOperations.swift */,
+				70FB9D04211FDB7700D12833 /* FilterOperationTypes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -461,6 +573,11 @@
 				7086966C20F8858E00E8BAE1 /* CommentTextBar.xib */,
 				7011EB6020F11C1000D1A033 /* MomentCell.swift */,
 				7011EB6120F11C1000D1A033 /* MomentCell.xib */,
+				70FB9E7121201C3F00D12833 /* CircleCell.swift */,
+				70FB9E7221201C3F00D12833 /* CircleCell.xib */,
+				70FB9E8F212177AF00D12833 /* BeautyBarView.swift */,
+				70FB9E91212177CE00D12833 /* BeautyBarView.xib */,
+				70FB9ECD212579A300D12833 /* VideoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -472,6 +589,10 @@
 				7086966E20F89DEC00E8BAE1 /* MomentVC.xib */,
 				70FB86BC211C691100D12833 /* CreateMomentVC.swift */,
 				70FB86BD211C691100D12833 /* CreateMomentVC.xib */,
+				70FB9D00211FDA1600D12833 /* FilterCameraVC.swift */,
+				70FB9D01211FDA1600D12833 /* FilterCameraVC.xib */,
+				70FB9EC52125555B00D12833 /* VideoPreviewPickVC.swift */,
+				70FB9EC62125555B00D12833 /* VideoPreviewPickVC.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -479,6 +600,8 @@
 		7018B12B20CFC0BE0040CCB0 = {
 			isa = PBXGroup;
 			children = (
+				70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */,
+				70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */,
 				7018B13620CFC0BE0040CCB0 /* DouYin */,
 				7018B14B20CFC0C00040CCB0 /* DouYinTests */,
 				7018B15620CFC0C00040CCB0 /* DouYinUITests */,
@@ -501,6 +624,7 @@
 		7018B13620CFC0BE0040CCB0 /* DouYin */ = {
 			isa = PBXGroup;
 			children = (
+				70FB9F072125C4D500D12833 /* KeyframePicker */,
 				70FB86562116A2C600D12833 /* Ecommerce */,
 				7098233D20F703FF00B1292E /* WeChatSDK */,
 				7027939720F4BB4A00D4FA91 /* Login */,
@@ -658,7 +782,7 @@
 		7072A95320E2435C000ECA1C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				70E5812B20E2194900F50B5E /* LiveData.swift */,
+				70E5812B20E2194900F50B5E /* LiveDemoData.swift */,
 				70402552211017AE00C2A3B3 /* CountryData.swift */,
 			);
 			path = Models;
@@ -689,6 +813,7 @@
 		7072A95620E248E5000ECA1C /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				70FB9E9B2122888900D12833 /* Models */,
 				7072A98120E5D2E7000ECA1C /* Controllers */,
 				7072A98020E5D2D7000ECA1C /* Views */,
 			);
@@ -892,6 +1017,40 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		70FB997C211FD7E600D12833 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70FB9983211FD7E600D12833 /* GPUImage.framework */,
+				70FB9985211FD7E600D12833 /* GPUImageTests_macOS.xctest */,
+				70FB9987211FD7E600D12833 /* GPUImage.framework */,
+				70FB9989211FD7E600D12833 /* GPUImageTests_iOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70FB9E9B2122888900D12833 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70FB9EA121228E7B00D12833 /* LiveData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		70FB9F072125C4D500D12833 /* KeyframePicker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = KeyframePicker;
+			sourceTree = "<group>";
+		};
+		70FB9F092125C56100D12833 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70FB9F0D2125C56100D12833 /* KeyframePicker.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		AA0BDC83110580F18FCC1588 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -942,10 +1101,15 @@
 				7018B13120CFC0BE0040CCB0 /* Frameworks */,
 				7018B13220CFC0BE0040CCB0 /* Resources */,
 				F52C0AFAC60D4023E9B8D1EE /* [CP] Embed Pods Frameworks */,
+				70FB9990211FD80200D12833 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				70FB9F0F2125C57200D12833 /* PBXTargetDependency */,
+				70FB998B211FD7F400D12833 /* PBXTargetDependency */,
+				70FB998F211FD80200D12833 /* PBXTargetDependency */,
+				70FB9F132125C57C00D12833 /* PBXTargetDependency */,
 			);
 			name = DouYin;
 			productName = DouYin;
@@ -1022,6 +1186,16 @@
 			mainGroup = 7018B12B20CFC0BE0040CCB0;
 			productRefGroup = 7018B13520CFC0BE0040CCB0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 70FB997C211FD7E600D12833 /* Products */;
+					ProjectRef = 70FB997B211FD7E600D12833 /* GPUImage.xcodeproj */;
+				},
+				{
+					ProductGroup = 70FB9F092125C56100D12833 /* Products */;
+					ProjectRef = 70FB9F082125C56100D12833 /* KeyframePicker.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7018B13320CFC0BE0040CCB0 /* DouYin */,
@@ -1030,6 +1204,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		70FB9983211FD7E600D12833 /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 70FB9982211FD7E600D12833 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		70FB9985211FD7E600D12833 /* GPUImageTests_macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_macOS.xctest;
+			remoteRef = 70FB9984211FD7E600D12833 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		70FB9987211FD7E600D12833 /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 70FB9986211FD7E600D12833 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		70FB9989211FD7E600D12833 /* GPUImageTests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_iOS.xctest;
+			remoteRef = 70FB9988211FD7E600D12833 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		70FB9F0D2125C56100D12833 /* KeyframePicker.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KeyframePicker.framework;
+			remoteRef = 70FB9F0C2125C56100D12833 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7018B13220CFC0BE0040CCB0 /* Resources */ = {
@@ -1041,6 +1253,7 @@
 				70402559211050BE00C2A3B3 /* DescribeCell.xib in Resources */,
 				706966DE210883B000A2B5F9 /* GenderCell.xib in Resources */,
 				70FB86232113598900D12833 /* MyVideoVC.xib in Resources */,
+				70FB9E7421201C3F00D12833 /* CircleCell.xib in Resources */,
 				7098234420F7041300B1292E /* README.txt in Resources */,
 				70F272412101CAEB00FD62CA /* ChatView.xib in Resources */,
 				70FB861F2113597300D12833 /* MyMomentVC.xib in Resources */,
@@ -1049,6 +1262,7 @@
 				70FB86532115BEA200D12833 /* LinkMomentCell.xib in Resources */,
 				70FB864F2115AF4D00D12833 /* TextMomentCell.xib in Resources */,
 				706966DA21087E3F00A2B5F9 /* NickCell.xib in Resources */,
+				70FB9E92212177CE00D12833 /* BeautyBarView.xib in Resources */,
 				70FB863A2115446800D12833 /* FavouriteVideoCell.xib in Resources */,
 				70F2721C20FF1C1000FD62CA /* GiftShowView.xib in Resources */,
 				70F272482101D8F300FD62CA /* IncomingUserMessageCell.xib in Resources */,
@@ -1061,9 +1275,11 @@
 				7069670F210D920C00A2B5F9 /* BroadcastVC.xib in Resources */,
 				703E236A21032DC8007D65BF /* AdminMessageCell.xib in Resources */,
 				70FB86BF211C691100D12833 /* CreateMomentVC.xib in Resources */,
+				70FB9D03211FDA1600D12833 /* FilterCameraVC.xib in Resources */,
 				7018B13F20CFC0C00040CCB0 /* Assets.xcassets in Resources */,
 				70FB861B2113595100D12833 /* FavoriteVideoVC.xib in Resources */,
 				706966E721099D5300A2B5F9 /* CategoryCell.xib in Resources */,
+				70FB9EC82125555B00D12833 /* VideoPreviewPickVC.xib in Resources */,
 				70F2724C2101EF0600FD62CA /* OutgoingUserMessageCell.xib in Resources */,
 				7018B13D20CFC0BE0040CCB0 /* Main.storyboard in Resources */,
 				706966E22108AC6600A2B5F9 /* AreaCell.xib in Resources */,
@@ -1127,6 +1343,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MIBlurPopup/MIBlurPopup.framework",
@@ -1146,6 +1363,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HGPlaceholders.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MIBlurPopup.framework",
@@ -1177,15 +1395,19 @@
 				70FB862B2113F69400D12833 /* Account.swift in Sources */,
 				70663DEB20D251E000707F87 /* FlowLayout.swift in Sources */,
 				7027939B20F4BB7B00D4FA91 /* LoginVC.swift in Sources */,
+				70FB9E90212177AF00D12833 /* BeautyBarView.swift in Sources */,
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
 				7098236020F7517F00B1292E /* AppImageViewer.swift in Sources */,
+				70FB9ECE212579A300D12833 /* VideoView.swift in Sources */,
 				70FB86552115E8E300D12833 /* Meaturable+Label.swift in Sources */,
+				70FB9D02211FDA1600D12833 /* FilterCameraVC.swift in Sources */,
 				7060ECAB2103793300C902C8 /* ChatInputBar.swift in Sources */,
 				703E236921032DC8007D65BF /* AdminMessageCell.swift in Sources */,
 				70FB861A2113595100D12833 /* FavoriteVideoVC.swift in Sources */,
 				70FB861E2113597300D12833 /* MyMomentVC.swift in Sources */,
 				7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */,
 				70F2720E20FC82B300FD62CA /* GiftShowManager.swift in Sources */,
+				70FB9EA221228E7B00D12833 /* LiveData.swift in Sources */,
 				7086966B20F8826000E8BAE1 /* CommentTextBar.swift in Sources */,
 				7098236820F7517F00B1292E /* ViewerPagingScrollView.swift in Sources */,
 				7098236520F7517F00B1292E /* ViewerButton.swift in Sources */,
@@ -1221,6 +1443,7 @@
 				7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */,
 				7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */,
 				7060ECB42105AC2E00C902C8 /* Verify2faVC.swift in Sources */,
+				70FB9D07211FDB7700D12833 /* FilterOperations.swift in Sources */,
 				70FB86C1211DF78A00D12833 /* UIView+Borders.swift in Sources */,
 				7098236920F7517F00B1292E /* ViewerZoomingScrollView.swift in Sources */,
 				7086967C20FB0A9A00E8BAE1 /* GiftCollectionViewCell.swift in Sources */,
@@ -1228,7 +1451,9 @@
 				7098236720F7517F00B1292E /* TapDetectingImageView.swift in Sources */,
 				7086967620FA364300E8BAE1 /* GiftHorizontalLayout.swift in Sources */,
 				7060ECD52107666400C902C8 /* CoverCell.swift in Sources */,
+				70FB9EC72125555B00D12833 /* VideoPreviewPickVC.swift in Sources */,
 				70FB86222113598900D12833 /* MyVideoVC.swift in Sources */,
+				70FB9E7321201C3F00D12833 /* CircleCell.swift in Sources */,
 				70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */,
 				704E960B20DBAC1F002881FA /* Constants.swift in Sources */,
 				7018B13820CFC0BE0040CCB0 /* AppDelegate.swift in Sources */,
@@ -1240,6 +1465,7 @@
 				7072AA2220E61F50000ECA1C /* LiveCollectionCellBottom.swift in Sources */,
 				7040255D2110779800C2A3B3 /* ProfileVC.swift in Sources */,
 				7072A97D20E4EBE4000ECA1C /* LiveListVC.swift in Sources */,
+				70FB9D06211FDB7700D12833 /* FilterOperationTypes.swift in Sources */,
 				7060ECD021074B9900C902C8 /* AnchorFormVC.swift in Sources */,
 				70FB864E2115AF4D00D12833 /* TextMomentCell.swift in Sources */,
 				70FB86A1211AD62900D12833 /* LocationManager.swift in Sources */,
@@ -1254,7 +1480,7 @@
 				70FB86592116A32900D12833 /* ZSCWebController.swift in Sources */,
 				7072A97720E3AC8E000ECA1C /* UIImage+NDImage.swift in Sources */,
 				7098236220F7517F00B1292E /* AppHelper.swift in Sources */,
-				70E5812C20E2194900F50B5E /* LiveData.swift in Sources */,
+				70E5812C20E2194900F50B5E /* LiveDemoData.swift in Sources */,
 				70FB86402115660900D12833 /* MyVideoCell.swift in Sources */,
 				704E961920DCAB00002881FA /* ShortVideoVC.swift in Sources */,
 				70FB86392115446800D12833 /* FavouriteVideoCell.swift in Sources */,
@@ -1291,6 +1517,26 @@
 			isa = PBXTargetDependency;
 			target = 7018B13320CFC0BE0040CCB0 /* DouYin */;
 			targetProxy = 7018B15420CFC0C00040CCB0 /* PBXContainerItemProxy */;
+		};
+		70FB998B211FD7F400D12833 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage_iOS;
+			targetProxy = 70FB998A211FD7F400D12833 /* PBXContainerItemProxy */;
+		};
+		70FB998F211FD80200D12833 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage_iOS;
+			targetProxy = 70FB998E211FD80200D12833 /* PBXContainerItemProxy */;
+		};
+		70FB9F0F2125C57200D12833 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KeyframePicker;
+			targetProxy = 70FB9F0E2125C57200D12833 /* PBXContainerItemProxy */;
+		};
+		70FB9F132125C57C00D12833 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KeyframePicker;
+			targetProxy = 70FB9F122125C57C00D12833 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1432,6 +1678,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DE0C1EA8A0C85E9201923FE /* Pods-DouYin.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W4WP438D9R;
@@ -1485,6 +1732,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D42C4AA908B6956F8505B840 /* Pods-DouYin.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W4WP438D9R;

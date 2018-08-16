@@ -9,6 +9,11 @@
 import UIKit
 import Alamofire
 
+enum Status {
+    case success
+    case failure
+}
+
 class ConnectionManager: NSObject {
 
     static let shareManager : ConnectionManager = {

@@ -13,6 +13,7 @@ PODS:
     - FBSDKCoreKit
   - FLAnimatedImage (1.0.12)
   - HandyJSON (4.1.1)
+  - HGPlaceholders (0.3.0)
   - IQKeyboardManagerSwift (6.0.5)
   - KSYMediaPlayer_iOS (3.0.3):
     - KSYMediaPlayer_iOS/KSYMediaPlayer_live (= 3.0.3)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - DropDown
   - FBSDKLoginKit
   - HandyJSON (~> 4.1.1)
+  - HGPlaceholders
   - IQKeyboardManagerSwift
   - KSYMediaPlayer_iOS
   - MIBlurPopup
@@ -55,6 +57,7 @@ SPEC REPOS:
     - FBSDKLoginKit
     - FLAnimatedImage
     - HandyJSON
+    - HGPlaceholders
     - IQKeyboardManagerSwift
     - KSYMediaPlayer_iOS
     - MIBlurPopup
@@ -73,6 +76,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
+  HGPlaceholders: 2df01c51b04a30acd0b8c9c7161c7cdde4541109
   IQKeyboardManagerSwift: c14eca30f6001457d6ddf25e313f23fb6578c41c
   KSYMediaPlayer_iOS: bd163c277487e99df58941f10f090af2fb53fd6d
   MIBlurPopup: e0834e469074cabf65a0ca6e6d900c84d48f8a4f
@@ -83,6 +87,6 @@ SPEC CHECKSUMS:
   TLPhotoPicker: 603cfc5f58ecc898b8afbe7497cd5de66af6754e
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: fe442abfc4a5d2f442ca1d61d3836d9b6bfc02bb
+PODFILE CHECKSUM: 0b3770ba1b49777be79dc0e173c886456c7d1170
 
 COCOAPODS: 1.5.0

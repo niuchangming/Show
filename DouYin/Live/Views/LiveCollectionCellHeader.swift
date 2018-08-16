@@ -20,9 +20,9 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
     
     public var live = Live() {
         didSet{
-            self.avatarIV.setURLImageWithURL(url: URL(string: "http://store.happytifyaged.com/uploads/2/1A/21A7465979.jpeg")!, placeHoldImage: UIImage.init(named: "placeholder")!, isCircle: true)
-            self.nameLbl.text = "笔墨写春秋"
-            self.viewerAmountLbl.text = "23281"
+            self.avatarIV.setURLImageWithURL(url: URL(string: (live.avatar?.small)!)!, placeHoldImage: UIImage.init(named: "placeholder")!, isCircle: true)
+            self.nameLbl.text = live.author
+            self.viewerAmountLbl.text = String(describing: live.audienceCount)
         
             let gradientLayer : CAGradientLayer = Utils.makeGradientColor(for: self.followBtn, startColor: UIColor(hexString: Constants.ColorScheme.redColor), endColor: UIColor(hexString: Constants.ColorScheme.orangeColor))
             gradientLayer.cornerRadius = self.followBtn.frame.size.height / 2

@@ -15,28 +15,28 @@ class LiveListVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        liveData.getData { [unowned self] (message) in
-            if message == "Success" {
+
+        liveData.getData { [unowned self] (status) in
+            if status == .success {
                 self.tableView.reloadData()
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return liveData.flow.count
+        return liveData.data.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LiveCell", for: indexPath) as! LiveCell
         cell.selectionStyle = .none;
-        cell.fillCell = liveData.flow[indexPath.row]
+        cell.fillCell = liveData.data[indexPath.row]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let liveVC: LiveVC = LiveVC()
-        liveVC.live = liveData.flow[indexPath.row]
+        liveVC.live = liveData.data[indexPath.row]
         liveVC.currentIndex = indexPath.row
         
         DispatchQueue.global(qos: .background).async {

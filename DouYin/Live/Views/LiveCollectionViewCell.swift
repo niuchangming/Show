@@ -71,7 +71,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
         self.placeHolderView.setImageViewBlur(url: placeHolderUrl, float: 0.7)
         self.contentView.insertSubview(self.moviePlayer, at: 0)
     
-        moviePlayer.playVideo("https://cdn.bambuser.net/broadcasts/a98fd52b-c443-4c53-937e-1596edc85c2a?da_signature_method=HMAC-SHA256&da_id=9e1b1e83-657d-7c83-b8e7-0b782ac9543a&da_timestamp=1533562087&da_static=1&da_ttl=0&da_signature=465fe6f2865b362c774b4b3dbc1d04765c06e7408a8321d938e3ef1237de64ee")
+        moviePlayer.playVideo(liveLink)
         setupBottomView()
     }
 
@@ -117,7 +117,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
     
     public var liveData = Live() {
         didSet {
-            self.playWithLive(liveLink: (liveData.info?.stream_addr)!, placeHolderUrl: URL.init(string: (liveData.info?.creator?.portrait)!)!)
+            self.playWithLive(liveLink: liveData.resourceUri, placeHolderUrl: URL.init(string: (liveData.avatar?.medium)!)!)
             self.headerView.live = liveData
         }
     }

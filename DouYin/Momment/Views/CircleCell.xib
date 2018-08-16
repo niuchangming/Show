@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CircleCell" id="gTV-IL-0wX" customClass="CircleCell" customModule="DouYin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WpH-wz-08s">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="alu-PT-2bd"/>
+                            <constraint firstAttribute="width" constant="50" id="uUc-xU-drR"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-gW-Rel">
+                        <rect key="frame" x="0.0" y="50" width="50" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="hwS-gW-Rel" firstAttribute="top" secondItem="WpH-wz-08s" secondAttribute="bottom" id="2et-A8-Vmo"/>
+                <constraint firstItem="WpH-wz-08s" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="6so-O5-DT7"/>
+                <constraint firstAttribute="trailing" secondItem="hwS-gW-Rel" secondAttribute="trailing" id="HnE-Iz-H2e"/>
+                <constraint firstAttribute="bottom" secondItem="hwS-gW-Rel" secondAttribute="bottom" id="Ifn-VZ-eXZ"/>
+                <constraint firstItem="hwS-gW-Rel" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JWT-wU-DhS"/>
+                <constraint firstAttribute="trailing" secondItem="WpH-wz-08s" secondAttribute="trailing" id="VtX-sK-atJ"/>
+                <constraint firstItem="WpH-wz-08s" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZAC-po-vZ6"/>
+            </constraints>
+            <connections>
+                <outlet property="iconIv" destination="WpH-wz-08s" id="jJL-wA-mBI"/>
+                <outlet property="nameLbl" destination="hwS-gW-Rel" id="sxq-KP-1TM"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>
