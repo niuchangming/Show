@@ -24,7 +24,7 @@ class LiveData: HandyJSON {
             return
         }
         
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@castlist/getlist", Constants.HOST), parames: ["timestamp": NSNumber.init(value: requiredTime.toMillis()), "pageIndex": NSNumber.init(value: pageIndex), "pageSize": NSNumber.init(value: pageSize)], succeed: { (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@broadcast/getlist", Constants.HOST), parames: ["expires": NSNumber.init(value: requiredTime.toMillis()), "pageIndex": NSNumber.init(value: pageIndex), "pageSize": NSNumber.init(value: pageSize)], succeed: { (responseJson) in
     
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int
@@ -56,6 +56,7 @@ class Live: HandyJSON{
     var id : String = ""
     var author: String = ""
     var gender: String = ""
+    var nickname: String = ""
     var description: String = ""
     var interests: [String]?
     var lon: Double = 0

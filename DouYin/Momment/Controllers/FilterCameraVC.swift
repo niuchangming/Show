@@ -191,25 +191,30 @@ class FilterCameraVC: UIViewController {
     }
     
     @IBAction func okBtnClicked(_ sender: Any) {
-//        DispatchQueue.main.async {
-//            let resultVC = VideoPreviewPickVC()
-//
-//            resultVC.fileUrl = self.fileUrl
-//            self.present(resultVC, animated: true, completion: nil)
-//        }
         DispatchQueue.main.async {
             guard let videoPath = self.fileUrl else { return }
 
             let keyframePicker = KeyframePickerViewController.create()
             keyframePicker.videoPath = videoPath.absoluteString
             keyframePicker.generatedKeyframeImageHandler = { [weak self] image in
-                if let image = image {
-                    print("generate image success With image \(image)")
+                if image != nil {
+                    keyframePicker.dismiss(animated: false, completion: {
+                        self?.goVideoPreviewVC(image: image?.image)
+                    })
                 } else {
                     print("generate image failed")
                 }
             }
             self.present(keyframePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func goVideoPreviewVC(image: UIImage?) {
+        if image != nil {
+            let storyboard = UIStoryboard(name: "Moment", bundle: nil)
+            let videoPreviewVC = storyboard.instantiateViewController(withIdentifier: "VideoPreviewVC") as! VideoPreviewVC
+            videoPreviewVC.previewImage = image
+            self.present(videoPreviewVC, animated: true, completion: nil)
         }
     }
  

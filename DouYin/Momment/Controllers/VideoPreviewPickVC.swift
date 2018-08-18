@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoPreviewPickVC: UIViewController {
+class PreviewVideoVC: UIViewController {
 
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var coverIv: UIImageView!

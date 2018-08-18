@@ -19,18 +19,20 @@ class LiveCell: UITableViewCell {
 
     public var fillCell = Live() {
         didSet {
-            coverImageIV.setURLImageWithURL(url: URL.init(string: (fillCell.coverImage?.medium)!)!, placeHoldImage: UIImage.init(named: "placeholder")!, isCircle: false)
-            viewAmountLbl.text = String.init(format: "%d", arc4random_uniform(200)+arc4random_uniform(500))
-            nameLbl.text = fillCell.author
-            
+            if(Utils.isNotNil(obj: fillCell.coverImage?.medium)){
+                coverImageIV.setURLImageWithURL(url: URL.init(string: (fillCell.coverImage?.origin)!)!, placeHoldImage: UIImage.init(named: "placeholder")!, isCircle: false)
+            }else{
+                coverImageIV.image = UIImage.init(named: "placeholder")
+            }
+            viewAmountLbl.text = String(fillCell.audienceCount)
+            nameLbl.text = fillCell.nickname
+
             LocationManager.share.getAdress(lat: fillCell.lat, lon: fillCell.lon) { (address, error) in
-                if error != nil {
-                    self.locLbl.text = address!["subAdministrativeArea"] as? String
+                if error == nil {
+                    self.locLbl.text = address!["City"] as? String
                     self.liveLbl.text = "Live"
                 }
-    
             }
-        
         }
     }
 

@@ -45,6 +45,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate{
                     guard let address = placeMark.addressDictionary as? [String: Any] else {
                         return
                     }
+                    
                     completion(address, nil)
                 }
             }

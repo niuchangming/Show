@@ -13,6 +13,16 @@ class LiveListVC: UITableViewController {
     
     let liveData = LiveData()
     
+//    lazy var refreshControl: UIRefreshControl = {
+//        let refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action:
+//            #selector(LiveListVC.handleRefresh(_:)),
+//                                 for: UIControlEvents.valueChanged)
+//        refreshControl.tintColor = UIColor.red
+//
+//        return refreshControl
+//    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +31,14 @@ class LiveListVC: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.liveData.data .removeAll()
+        
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

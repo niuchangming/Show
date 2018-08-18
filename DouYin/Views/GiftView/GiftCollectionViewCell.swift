@@ -32,6 +32,7 @@ class GiftCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(self.bgView)
         
         self.giftImageView.frame = CGRect(x: (self.bounds.size.width-70)*0.5, y: 11, width: 70, height: 55)
+        self.giftImageView.contentMode = .scaleAspectFill
         self.contentView.addSubview(self.giftImageView)
         
         self.giftNameLabel.frame = CGRect(x: 0, y: self.giftImageView.frame.maxY, width: self.bounds.size.width, height: 16)
@@ -52,15 +53,15 @@ class GiftCollectionViewCell: UICollectionViewCell {
     }
     
     func updateGift() {
-        self.giftImageView.sd_setImage(with: URL(string: gift.icon), placeholderImage: UIImage(named: "placeholder"))
+        self.giftImageView.sd_setImage(with: URL(string: gift.image), placeholderImage: UIImage(named: "placeholder"))
         self.giftNameLabel.text = gift.name
         self.bgView.backgroundColor = gift.isSelected ? UIColor(hexString: Constants.ColorScheme.orangeColor) : .clear
         
-        let isCb = Bool(exactly: gift.cost_type as NSNumber)!
-        let moneyImage: UIImage = UIImage(named: isCb ? "live_cb" : "live_star")!
+//        let isCb = Bool(exactly: gift.costType as NSNumber)!
+        let moneyImage: UIImage = UIImage(named: "live_cb")!
         self.moneyImageView.image = moneyImage
         
-        let moneyValue: String = String(format: "%zd", Int(gift.value)! / 100)
+        let moneyValue: String = String(format: "%i", gift.price)
         self.moneyLabel.text = moneyValue
         
         let size: CGSize = moneyValue.size(withAttributes: [NSAttributedStringKey.font: self.moneyLabel.font])

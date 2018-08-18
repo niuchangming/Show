@@ -47,6 +47,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     
     lazy var gifImageView: FLAnimatedImageView = {
         let gifImageView = FLAnimatedImageView(frame: CGRect(x: 7.5, y: 0, width: 360, height: 225))
+        gifImageView.contentMode = .scaleAspectFill
         gifImageView.isHidden = true
         return gifImageView
     }()
@@ -238,10 +239,9 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             })
         }else{
             let giftSend: GiftSend = GiftSend()
-            giftSend.icon = (gift?.icon)!
-            giftSend.username = (gift?.username)!
+            giftSend.icon = (gift?.image)!
             giftSend.name = (gift?.name)!
-            giftSend.icon_gif = (gift?.icon_gif)!
+            giftSend.icon_gif = (gift?.animImage)!
             giftSend.id = (gift?.id)!;
             giftSend.defaultCount = 0;
             giftSend.sendCount = 1;
@@ -254,11 +254,13 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                     let window: UIWindow = UIApplication.shared.keyWindow!
                     window.addSubview(self.gifImageView)
                     
-                    if let asset = NSDataAsset(name: "live_yanhua") {
-                        let data = asset.data
-                        let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: data)
+                    do{
+                        let gifData = try Data.init(contentsOf: URL(string: (gift?.animImage)!)!)
+                        let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
                         self.gifImageView.animatedImage = gifImage
                         self.gifImageView.isHidden = false
+                    }catch {
+                        print("Donwload Gif Image file")
                     }
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in

@@ -20,6 +20,7 @@ class LiveVC: UIViewController {
         self.view.backgroundColor = UIColor(hexString: Constants.ColorScheme.blackColor)
         self.collectionView.reloadData()
         
+        enterRoom()
         IQKeyboardManager.shared.enable = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(LiveVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -90,8 +91,23 @@ class LiveVC: UIViewController {
         self.view.endEditing(true)
     }
     
+    func enterRoom() {
+        countRoomViewer(apiFunc: "castroom/enterroom")
+    }
+    
+    func exitRoom(){
+        countRoomViewer(apiFunc: "castroom/exitroom")
+    }
+    
+    func countRoomViewer(apiFunc: String){
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@%@", Constants.HOST, apiFunc), parames: ["broadcastId": live?.id as AnyObject, "userCode": AuthUtils.share.userCode() as AnyObject], succeed: { (responseJson) in
+        }) { (error) in
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        exitRoom()
         IQKeyboardManager.shared.enable = true
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)

@@ -51,6 +51,8 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     lazy var topupBtn: UIButton = {
         let topupBtn = UIButton(frame: CGRect(x: 5, y: 12, width: 30, height: 20))
         topupBtn.setTitle("充值", for: .normal)
+        topupBtn.clipsToBounds = true
+        topupBtn.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
         topupBtn.setTitleColor(UIColor.white, for: .normal)
         topupBtn.backgroundColor = UIColor.purple
         topupBtn.titleLabel?.font = UIFont.systemFont(ofSize: Constants.Dimension.TEXT_SIZE_EXTRA_SMALL)
@@ -66,17 +68,20 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     lazy var moneyLbl: UILabel = {
         let moneyLbl = UILabel(frame: CGRect(x: self.cbImageView.frame.maxX + Constants.Dimension.MARGIN_SMALL, y: self.cbImageView.frame.minY, width: 100, height: 20))
-        moneyLbl.text = "999"
+        moneyLbl.text = "0"
         moneyLbl.textColor = UIColor.white
         moneyLbl.font = UIFont.systemFont(ofSize: Constants.Dimension.TEXT_SIZE_SMALL)
         return moneyLbl
     }()
     
     lazy var sendBtn: UIButton = {
-        let sendBtn = UIButton(frame: CGRect(x: self.frame.size.width - 60, y: 2, width: 60, height: 40))
+        let sendBtn = UIButton(frame: CGRect(x: self.frame.size.width - 60 - Constants.Dimension.MARGIN_NOR
+            , y: 2, width: 60, height: 40))
         sendBtn.backgroundColor = UIColor(hexString: Constants.ColorScheme.orangeColor)
         sendBtn.setTitle("发送", for: .normal)
         sendBtn.setTitleColor(UIColor.white, for: .normal)
+        sendBtn.clipsToBounds = true
+        sendBtn.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
         sendBtn.titleLabel?.font = UIFont.systemFont(ofSize: Constants.Dimension.MARGIN_NOR)
         sendBtn.addTarget(self, action: #selector(sendBtnClicked(_:)), for: .touchUpInside)
         return sendBtn

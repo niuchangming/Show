@@ -22,7 +22,7 @@ class ConnectionManager: NSObject {
         return manager
     }()
     
-    func request(method: HTTPMethod, url:String, parames:[String:AnyObject], succeed:@escaping(AnyObject?)->(), failure:@escaping(Error?)->() ) {
+    func request(method: HTTPMethod, url:String, parames:[String:AnyObject]?, succeed:@escaping(AnyObject?)->(), failure:@escaping(Error?)->() ) {
         
         Alamofire.request(url, method:method, parameters:parames).responseJSON { (response) in
             switch response.result {

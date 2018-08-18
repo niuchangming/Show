@@ -39,6 +39,7 @@ struct Constants {
         static let grayColor = "#C3C3C3"
         static let purpleColor = "#805AFF"
         static let lightGrayColor = "#F2F2F6"
+        static let darkBlueColor = "#161824"
     }
     
     struct Dimension {

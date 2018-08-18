@@ -77,7 +77,6 @@
                     <color key="backgroundColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="Mwz-EJ-bnX"/>
-                        <constraint firstAttribute="width" constant="80" id="c7z-p4-fgR"/>
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-hf-xbS">
@@ -102,6 +101,7 @@
             <constraints>
                 <constraint firstItem="JKg-LD-bbr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8Nr-Vw-LlD"/>
                 <constraint firstItem="JKg-LD-bbr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ADf-rs-UUr"/>
+                <constraint firstItem="d6E-OH-Sde" firstAttribute="trailing" secondItem="J5m-7O-D7I" secondAttribute="trailing" id="G4F-2g-k0I"/>
                 <constraint firstAttribute="trailing" secondItem="elZ-HA-866" secondAttribute="trailing" id="IGm-wB-0cA"/>
                 <constraint firstItem="iaP-bl-gYf" firstAttribute="top" secondItem="hwW-Vb-d2b" secondAttribute="bottom" id="K28-6a-SVa"/>
                 <constraint firstItem="hwW-Vb-d2b" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Lgz-Lg-eQr"/>

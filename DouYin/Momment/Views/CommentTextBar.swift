@@ -9,12 +9,12 @@
 import UIKit
 
 class CommentTextBar: UIView {
-
     @IBOutlet weak var commentTF: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
-
     
     @IBAction func sendBtnClicked(_ sender: UIButton) {
         
     }
+    
+
 }

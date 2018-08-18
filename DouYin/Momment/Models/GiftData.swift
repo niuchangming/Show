@@ -15,23 +15,18 @@ class GiftData: HandyJSON {
     required init() {}
     
     func getData(message:@escaping (String) -> ()) {
-        if let path = Bundle.main.path(forResource: "gift_data", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let responseJson = jsonResult as? NSDictionary {
-                    let model = GiftData.deserialize(from: responseJson)
-                    self.data = (model?.data)!
-                    
-                    message("Success")
-                }else{
-                    message("Fail")
-                }
-            } catch {
-                 message("Fail")
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@gift/getGifts", Constants.HOST), parames: nil, succeed: { (responseJson) in
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            if errorCode == 1 {
+                let model = GiftData.deserialize(from: responseJson as? NSDictionary)
+                self.data = (model?.data)!
+                message("Success")
+            }else{
+                message("Fail")
             }
-        }else{
-             message("Fail")
+        }) { (error) in
+            message("Fail")
         }
     }
 }
@@ -39,15 +34,19 @@ class GiftData: HandyJSON {
 
 class Gift: HandyJSON{
     var id: String = ""
-    var icon: String = ""
-    var icon_gif: String = ""
     var name: String = ""
-    var type: String = ""
-    var value: String = ""
+    var filename: String = ""
+    var price: Double = 0
+    var score: String = ""
+    var category: String = ""
+    var sort: String = ""
+    var costType: String = ""
+    var weight: String = ""
+    var giftid: String = ""
+    var image: String = ""
+    var animImage: String = ""
     var isSelected: Bool = false
-    var username: String = ""
-    var cost_type: Int = 0
-    
+
     required init() {}
 }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoPreviewHeader" customModule="DouYin" customModuleProvider="target">
+            <connections>
+                <outlet property="backBtn" destination="JT7-vR-KSc" id="Xho-WI-Hfd"/>
+                <outlet property="uploadBtn" destination="10S-wh-Mz2" id="f3n-hH-ycg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JT7-vR-KSc">
+                    <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="ZaI-sD-I8p"/>
+                        <constraint firstAttribute="height" constant="44" id="bLP-gG-AHf"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <state key="normal" image="previous_arrow"/>
+                    <connections>
+                        <action selector="backBtnClicked:" destination="-1" eventType="touchUpInside" id="HIv-58-cIh"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXr-VB-yaw">
+                    <rect key="frame" x="169" y="12" width="36" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="VIQ-my-hSZ"/>
+                        <constraint firstAttribute="height" constant="21" id="meh-bu-324"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10S-wh-Mz2">
+                    <rect key="frame" x="323" y="0.0" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="9II-kN-mxC"/>
+                        <constraint firstAttribute="height" constant="44" id="hNL-cY-iBJ"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <state key="normal" image="upload"/>
+                    <connections>
+                        <action selector="uploadBtnClicked:" destination="-1" eventType="touchUpInside" id="Uu3-gD-9Oy"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="JT7-vR-KSc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="LBq-I8-eyN"/>
+                <constraint firstItem="JT7-vR-KSc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="QZZ-Sc-a5b"/>
+                <constraint firstItem="bXr-VB-yaw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="VZH-Hh-UuX"/>
+                <constraint firstItem="bXr-VB-yaw" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="duu-u4-AYv"/>
+                <constraint firstItem="10S-wh-Mz2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vkm-Jl-oW0"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="10S-wh-Mz2" secondAttribute="trailing" constant="8" id="w8D-Ka-Mst"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="25.5" y="85"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="previous_arrow" width="32" height="32"/>
+        <image name="upload" width="32" height="32"/>
+    </resources>
+</document>
