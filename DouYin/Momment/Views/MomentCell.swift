@@ -247,7 +247,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             giftSend.sendCount = 1;
         
             GiftShowManager.shared().showGiftViewWithBackView(backView: momentVC.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
-                
+            
             }, showGifImageBlock: { (giftSend: GiftSend) in
             
                 DispatchQueue.main.async {

@@ -32,7 +32,7 @@ class ChatInputBar: ReusableViewFromXib {
             channel.sendUserMessage(message, data: "", customType: "", targetLanguages: [], completionHandler: { (userMessage, error) in
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
-                    completed(userMessage!, error!)
+                    completed(userMessage!, error)
                 })
                 self.sendBtn.isEnabled = true
             })

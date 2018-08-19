@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BroadcastVC" customModule="DouYin" customModuleProvider="target">
             <connections>
+                <outlet property="bottomBar" destination="cDJ-35-bLu" id="vik-L2-fbB"/>
                 <outlet property="bottomViewBottomContraint" destination="FgQ-Za-kFy" id="3it-Lv-Hf2"/>
                 <outlet property="chatView" destination="f0f-KI-pjy" id="aR3-03-Dp5"/>
                 <outlet property="contentView" destination="iyP-eA-jeM" id="p3E-9k-pZx"/>

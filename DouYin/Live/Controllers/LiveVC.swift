@@ -123,7 +123,7 @@ extension LiveVC : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let liveCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? LiveCollectionViewCell
         liveCell?.liveData = self.live!
-        liveCell?.enterOpenChannel(channelUrl: "sendbird_open_channel_40496_d9ede5455e1d20ffa472adf55b5a6b4b16ad52d5")
+        liveCell?.enterOpenChannel(channelUrl: (self.live?.channelId)!)
         return liveCell!
     }
     

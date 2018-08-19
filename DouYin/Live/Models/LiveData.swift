@@ -59,6 +59,7 @@ class Live: HandyJSON{
     var nickname: String = ""
     var description: String = ""
     var interests: [String]?
+    var channelId: String = ""
     var lon: Double = 0
     var lat: Double = 0
     var userLikeCount: Int = 0

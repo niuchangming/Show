@@ -33,11 +33,6 @@ class VideoPreviewVC: UITableViewController {
         
         tableView.tableFooterView = UIView()
     }
-
-    @IBAction func closeBtnClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     
     @IBAction func atFirendsBtnClicked(_ sender: Any) {
         
@@ -53,7 +48,15 @@ class VideoPreviewVC: UITableViewController {
 
 }
 
-extension VideoPreviewVC: 
+extension VideoPreviewVC: VideoPreviewHeaderDelegate{
+    func goBack() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func upload() {
+        
+    }
+}
 
 
 

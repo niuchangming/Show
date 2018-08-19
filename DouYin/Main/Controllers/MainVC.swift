@@ -191,7 +191,7 @@ class MainVC: UIViewController {
         alertController.addAction(momentAction)
         
         let videoAction = UIAlertAction(title: "Post A Video", style: .default) { (action) in
-//            self.postType = .video
+            self.postType = .video
 //            self.startImagePicker()
             
             let filterCameraVC = FilterCameraVC()

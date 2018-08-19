@@ -36,7 +36,6 @@ class GiftShowManager: NSObject {
     
     lazy var giftShowView1: GiftShowView = {
         let giftShowView = Bundle.main.loadNibNamed("GiftShowView", owner: nil, options: nil)?[0] as! GiftShowView
-        
         giftShowView.showViewKeyBlock = { [unowned self] (giftSend: GiftSend) -> Void in
                 self.curentGiftKeys.add(giftSend.id)
                 self.showGifImageBlock?(giftSend)
@@ -47,6 +46,7 @@ class GiftShowManager: NSObject {
     lazy var giftShowView2: GiftShowView = {
         let giftShowView = Bundle.main.loadNibNamed("GiftShowView", owner: nil, options: nil)?[0] as! GiftShowView
         
+        giftShowView.frame = CGRect(x: giftShowView.frame.origin.x, y: giftShowView.frame.origin.y - giftShowView.frame.size.height - Constants.Dimension.MARGIN_LARGE * 2, width: giftShowView.frame.size.width, height: giftShowView.frame.size.height)
         giftShowView.showViewKeyBlock = { [unowned self] (giftSend: GiftSend) -> Void in
             self.curentGiftKeys.add(giftSend.id)
             self.showGifImageBlock?(giftSend)
@@ -70,7 +70,7 @@ class GiftShowManager: NSObject {
     
     func showGiftViewWithBackView(backView: UIView, giftSend: GiftSend, completeBlock: completeBlock, showGifImageBlock: @escaping showGifImageBlock)  {
         self.showGifImageBlock = showGifImageBlock
-        
+      
         if(self.curentGiftKeys.count > 0 && self.curentGiftKeys.contains(giftSend.id)){
             if (self.operationCache.object(forKey: giftSend.id as NSString) != nil) {
                 let op: GiftOperation = self.operationCache.object(forKey: giftSend.id as NSString)!
@@ -78,11 +78,13 @@ class GiftShowManager: NSObject {
                     self.operationCache.removeObject(forKey: giftSend.id as NSString)
                     self.curentGiftKeys.remove(giftSend.id)
                 }else{
-                    op.giftShowView?.giftCount += (op.giftShowView?.giftCount)! + 1
+                    op.giftShowView?.giftCount = 1
                 }
             }else{
                 var queue: OperationQueue?
                 var showView: GiftShowView?
+                
+                print("if--------> 1: \(self.giftQueue1.operations.count), 2: \(self.giftQueue2.operations.count)")
                 if(self.giftQueue1.operations.count <= self.giftQueue2.operations.count){
                     queue = self.giftQueue1
                     showView = self.giftShowView1
@@ -113,6 +115,9 @@ class GiftShowManager: NSObject {
             }else{
                 let queue: OperationQueue?
                 let showView: GiftShowView?
+                
+                print("else--------> 1: \(self.giftQueue1.operations.count), 2: \(self.giftQueue2.operations.count)")
+                
                 
                 if(self.giftQueue1.operations.count <= self.giftQueue2.operations.count){
                     queue = self.giftQueue1

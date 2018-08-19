@@ -18,11 +18,14 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
     @IBOutlet weak var coinContainer: UIView!
     @IBOutlet weak var coinAmountLbl: UILabel!
     
+    @IBOutlet weak var coinAmountWidthConst: NSLayoutConstraint!
     public var live = Live() {
         didSet{
             self.avatarIV.setURLImageWithURL(url: URL(string: (live.avatar?.origin)!)!, placeHoldImage: UIImage.init(named: "placeholder")!, isCircle: true)
             self.nameLbl.text = live.nickname
+            self.nameLbl.sizeToFit()
             self.viewerAmountLbl.text = String(describing: live.audienceCount)
+            self.viewerAmountLbl.sizeToFit()
         
             let gradientLayer : CAGradientLayer = Utils.makeGradientColor(for: self.followBtn, startColor: UIColor(hexString: Constants.ColorScheme.redColor), endColor: UIColor(hexString: Constants.ColorScheme.orangeColor))
             gradientLayer.cornerRadius = self.followBtn.frame.size.height / 2
@@ -33,13 +36,14 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
             
             self.coinAmountLbl.text = String(live.coinAmount)
             self.coinAmountLbl.sizeToFit()
+            self.coinAmountWidthConst.constant = self.coinAmountLbl.frame.size.width + Constants.Dimension.MARGIN_SMALL
         }
     }
     
     @IBAction func followBtnClicked(_ sender: UIButton) {
         if(Utils.isNotNil(obj: AuthUtils.share.apiToken())){
             let apiFunc: String = sender.titleLabel?.text == "关注" ? "follows/follow" : "follows/unfollow"
-
+            
             ConnectionManager.shareManager.request(method: .post, url: String(format: "%@%@", Constants.HOST, apiFunc), parames: ["broadcastId": live.id as AnyObject, "token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
                 
                 let response = responseJson as! NSDictionary

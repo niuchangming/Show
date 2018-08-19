@@ -261,7 +261,6 @@ extension LiveCollectionViewCell{
         }else{
             let giftSend: GiftSend = GiftSend()
             giftSend.icon = (gift?.image)!
-//            giftSend.username = (gift?.username)!
             giftSend.name = (gift?.name)!
             giftSend.icon_gif = (gift?.animImage)!
             giftSend.id = (gift?.id)!;

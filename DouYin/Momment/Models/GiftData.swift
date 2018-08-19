@@ -48,6 +48,11 @@ class Gift: HandyJSON{
     var isSelected: Bool = false
 
     required init() {}
+    
+    func mapping(mapper: HelpingMapper) {
+        mapper <<<
+            self.id <-- "_id"
+    }
 }
 
 class GiftSend: HandyJSON{

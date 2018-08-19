@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatView" customModule="DouYin" customModuleProvider="target">
             <connections>
                 <outlet property="chattingTableView" destination="AIO-fz-kXo" id="Ejv-vq-klI"/>
+                <outlet property="unreadBtn" destination="Co9-Fr-heK" id="cZU-AO-KJ4"/>
+                <outlet property="unreadContainerView" destination="L6O-bq-kWR" id="4e9-NR-hf6"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,11 +30,39 @@
                         <outlet property="delegate" destination="-1" id="R65-mI-pfE"/>
                     </connections>
                 </tableView>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6O-bq-kWR">
+                    <rect key="frame" x="0.0" y="647" width="375" height="20"/>
+                    <color key="backgroundColor" red="0.20392156859999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="GYI-Qh-orl"/>
+                        <constraint firstAttribute="width" constant="375" id="QMg-2x-4VF"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Co9-Fr-heK">
+                    <rect key="frame" x="0.0" y="647" width="375" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="375" id="ZIu-TB-RSB"/>
+                        <constraint firstAttribute="height" constant="21" id="u99-Wq-9bR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <state key="normal" title="您有1条未读信息">
+                        <color key="titleColor" red="0.98823529409999999" green="0.050980392159999999" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="unreadBtnClick:" destination="-1" eventType="touchUpInside" id="rJf-wi-NsB"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="L6O-bq-kWR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6hv-7Z-UZW"/>
                 <constraint firstItem="AIO-fz-kXo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Eh-wq-Jjt"/>
+                <constraint firstAttribute="trailing" secondItem="L6O-bq-kWR" secondAttribute="trailing" id="Ffp-zY-6BJ"/>
+                <constraint firstAttribute="bottom" secondItem="L6O-bq-kWR" secondAttribute="bottom" id="HLn-vq-TO3"/>
+                <constraint firstItem="Co9-Fr-heK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Kxm-wU-W3r"/>
                 <constraint firstAttribute="bottom" secondItem="AIO-fz-kXo" secondAttribute="bottom" id="i9j-M6-6nx"/>
+                <constraint firstAttribute="trailing" secondItem="Co9-Fr-heK" secondAttribute="trailing" id="lgl-it-eb1"/>
+                <constraint firstAttribute="bottom" secondItem="Co9-Fr-heK" secondAttribute="bottom" constant="-1" id="oPP-yC-eM9"/>
                 <constraint firstItem="AIO-fz-kXo" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="v0c-1h-B5g"/>
                 <constraint firstItem="AIO-fz-kXo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wmg-V0-uaN"/>
             </constraints>

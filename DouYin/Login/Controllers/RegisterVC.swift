@@ -43,6 +43,12 @@ class RegisterVC: UIViewController {
         modalPresentationCapturesStatusBarAppearance = true
     }
     
+    
+    override func viewDidLayoutSubviews() {
+        super .viewDidLayoutSubviews()
+        print("--------> \(self.view.frame.size.width)")
+    }
+    
     @IBAction func cancelBtnClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }

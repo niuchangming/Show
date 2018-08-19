@@ -15,7 +15,17 @@ protocol ChatViewDelegate: class {
 }
 
 class ChatView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource {
-
+    @IBOutlet weak var unreadContainerView: UIView!{
+        didSet{
+            unreadContainerView.isHidden = true
+        }
+    }
+    @IBOutlet weak var unreadBtn: UIButton!{
+        didSet{
+            unreadBtn.isHidden = true
+        }
+    }
+    
     @IBOutlet weak var chattingTableView: UITableView!
     var incomingUserMessageCell: IncomingUserMessageCell?
     var outgoingUserMessageCell: OutgoingUserMessageCell?
@@ -77,11 +87,14 @@ class ChatView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource 
     }
     
     func isScrollToBottom() -> Bool {
-        if self.chattingTableView.contentOffset.y >= (self.chattingTableView.contentSize.height - self.chattingTableView.frame.size.height) {
-            return true
-        }
+        let bufferHeight: CGFloat = 100
         
-        return false
+        if self.chattingTableView.contentOffset.y >= (self.chattingTableView.contentSize.height - self.chattingTableView.frame.size.height - bufferHeight) {
+            return true
+        }else{
+            showUnreadBar()
+            return false
+        }
     }
     
     func scrollToBottom(force: Bool) {
@@ -93,6 +106,7 @@ class ChatView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource 
             return
         }
         
+        hideUnreadBar()
         self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
     
@@ -158,8 +172,18 @@ class ChatView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    @IBAction func sendBtnClicked(_ sender: UIButton) {
-        
+    @IBAction func unreadBtnClick(_ sender: Any) {
+        self.scrollToBottom(force: true)
+    }
+    
+    func hideUnreadBar(){
+        self.unreadContainerView.isHidden = true
+        self.unreadBtn.isHidden = true
+    }
+    
+    func showUnreadBar(){
+        self.unreadContainerView.isHidden = false
+        self.unreadBtn.isHidden = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

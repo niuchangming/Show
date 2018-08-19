@@ -31,9 +31,9 @@ class GiftShowView: UIView {
             self.countLabel.text = String(format: "x %zd", self.currentGiftCount)
             if self.currentGiftCount > 1 {
                 giftAnimation(view: self.countLabel)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideGiftShowView), object: nil)
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(GiftShowView.hideGiftShowView), object: nil)
             }
-            self.perform(#selector(hideGiftShowView), with: nil, afterDelay: TimeInterval(animationTime))
+            self.perform(#selector(GiftShowView.hideGiftShowView), with: nil, afterDelay: TimeInterval(animationTime))
         }
     }
     
@@ -87,7 +87,9 @@ class GiftShowView: UIView {
         UIView.animate(withDuration: 0.3, animations: { () in
             self.frame = CGRect(x: -self.frame.size.width, y: self.frame.origin.y, width: self.frame.size.width, height: self.frame.size.height)
         }, completion: { (finished: Bool) in
-            self.showViewFinishBlock?(true, (self.finishGift?.id)!)
+            if self.finishGift != nil {
+                self.showViewFinishBlock?(true, (self.finishGift?.id)!)
+            }
             self.finishGift = nil
             
             self.frame = CGRect(x: -self.frame.size.width, y: self.frame.origin.y, width: self.frame.size.width, height: self.frame.size.height)

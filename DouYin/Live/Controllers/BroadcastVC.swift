@@ -8,6 +8,7 @@
 
 import UIKit
 import SendBirdSDK
+import IQKeyboardManagerSwift
 
 class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
     @IBOutlet weak var contentView: UIView!
@@ -67,17 +68,24 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
         self.bambuserView.orientation = UIApplication.shared.statusBarOrientation
         self.bambuserView.delegate = self
         self.view.addSubview(self.bambuserView.view)
-        
+
         self.view.bringSubview(toFront: contentView)
-        
+
         SBDMain.add(self as SBDChannelDelegate, identifier: self.description)
         bambuserView.startCapture()
-        
+
         if Utils.isNotNil(obj: AuthUtils.share.channelId()) {
             enterOpenChannel(channelUrl: AuthUtils.share.channelId()!)
         }else{
             createOpenChannel()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared.enable = false
+        NotificationCenter.default.addObserver(self, selector: #selector(BroadcastVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BroadcastVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -97,8 +105,6 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
                 }
                 self.channelTryCount = self.channelTryCount + 1
             }else{
-                self.openChannel = channel
-                self.chatView.configureChattingView(channel: self.openChannel)
                 self.enterOpenChannel(channelUrl: (channel?.channelUrl)!)
                 AuthUtils.share.saveChannelId(channelId: (channel?.channelUrl)!)
                 self.uploadChannelId(channelId: (channel?.channelUrl)!)
@@ -114,6 +120,8 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
                 return
             }
             
+            self.openChannel = channel
+            self.chatView.configureChattingView(channel: self.openChannel)
             channel?.enter(completionHandler: { (error) in
                 if error != nil {
                     NSLog("Enter Open Channel Error: %@", error!)
@@ -159,6 +167,7 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
             }
         }
     }
+    @IBOutlet weak var bottomBar: UIView!
     
     @IBAction func swithCameraBtnClicked(_ sender: Any) {
         self.bambuserView.swapCamera()
@@ -179,10 +188,45 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight: CGFloat = keyboardFrame.cgRectValue.height
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        
+        self.chatInputBar.messageInputTv.contentSize = CGSize(width: self.chatInputBar.messageInputTv.frame.size.width, height: self.chatInputBar.messageInputTv.frame.size.height)
+        
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.bottomBar.transform = CGAffineTransform(translationX: 0, y: -Constants.Dimension.HOME_INDICATOR_HEIGHT)
+            self.chatInputBar.transform = CGAffineTransform(translationX: 0, y: -self.chatInputBar.frame.size.height)
+            self.contentView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
+        })
     }
-
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+    
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.bottomBar.transform = CGAffineTransform.identity
+            self.chatInputBar.transform = CGAffineTransform.identity
+            self.contentView.transform = CGAffineTransform.identity
+        })
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
 }
 
 extension BroadcastVC: BambuserViewDelegate{
