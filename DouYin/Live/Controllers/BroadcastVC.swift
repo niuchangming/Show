@@ -13,10 +13,10 @@ import IQKeyboardManagerSwift
 class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var bottomViewBottomContraint: NSLayoutConstraint!
-    
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var chatView: ChatView!
     fileprivate var openChannel: SBDOpenChannel!
+    let giftData = GiftData()
     
     var channelTryCount: Int = 0
 
@@ -60,6 +60,13 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
         chatInputBar.delegate = self
         self.contentView.addSubview(chatInputBar)
         return chatInputBar
+    }()
+    
+    lazy var gifImageView: FLAnimatedImageView = {
+        let gifImageView = FLAnimatedImageView(frame: CGRect(x: 7.5, y: 0, width: 360, height: 225))
+        gifImageView.contentMode = .scaleAspectFill
+        gifImageView.isHidden = true
+        return gifImageView
     }()
     
     override func viewDidLoad() {
@@ -247,17 +254,74 @@ extension BroadcastVC: BambuserViewDelegate{
     
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if sender == self.openChannel {
-            
-            DispatchQueue.main.async {
-                UIView.setAnimationsEnabled(false)
-                self.chatView.messages.append(message)
-                self.chatView.chattingTableView.reloadData()
-                UIView.setAnimationsEnabled(true)
-                DispatchQueue.main.async {
-                    self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
+            if message.isKind(of: SBDUserMessage.self) {
+                let userMessage = message as! SBDUserMessage
+                if userMessage.customType == ChatType.gift.rawValue{
+                    if Utils.isNotNil(obj: self.giftData.data) && self.giftData.data.count > 0{
+                        for gift in self.giftData.data {
+                            if gift.id == userMessage.data {
+                                self.showGiftView(gift: gift)
+                                break;
+                            }
+                        }
+                    }else{
+                        giftData.getData { [unowned self] (message) in
+                            if message == "Success" {
+                                for gift in self.giftData.data {
+                                    if gift.id == sender.data {
+                                        self.showGiftView(gift: gift)
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        UIView.setAnimationsEnabled(false)
+                        self.chatView.messages.append(message)
+                        self.chatView.chattingTableView.reloadData()
+                        UIView.setAnimationsEnabled(true)
+                        DispatchQueue.main.async {
+                            self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
+                        }
+                    }
                 }
             }
+    
         }
+    }
+    
+    func showGiftView(gift: Gift){
+        let giftSend: GiftSend = GiftSend()
+        giftSend.icon = gift.image
+        giftSend.name = gift.name
+        giftSend.icon_gif = gift.animImage
+        giftSend.id = gift.id
+        giftSend.defaultCount = 0
+        giftSend.sendCount = 1
         
+        GiftShowManager.shared().showGiftViewWithBackView(backView: self.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
+            
+        }, showGifImageBlock: { (giftSend: GiftSend) in
+            DispatchQueue.main.async {
+                let window: UIWindow = UIApplication.shared.keyWindow!
+                window.addSubview(self.gifImageView)
+
+                do{
+                    let gifData = try Data.init(contentsOf: URL(string: (giftSend.icon_gif))!)
+                    let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
+                    self.gifImageView.animatedImage = gifImage
+                    self.gifImageView.isHidden = false
+                }catch {
+                    print("Donwload Gif Image failed")
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in
+                    self.gifImageView.isHidden = true
+                    self.gifImageView.removeFromSuperview()
+                })
+            }
+        })
     }
 }

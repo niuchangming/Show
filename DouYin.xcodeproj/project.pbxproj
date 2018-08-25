@@ -18,7 +18,6 @@
 		7011EB0220EDCDD300D1A033 /* BroadcastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB0120EDCDD300D1A033 /* BroadcastVC.swift */; };
 		7011EB1520EE06AA00D1A033 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB1420EE06AA00D1A033 /* Utils.swift */; };
 		7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB4B20F08EDF00D1A033 /* MomentVC.swift */; };
-		7011EB5020F091AC00D1A033 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB4F20F091AC00D1A033 /* Moment.swift */; };
 		7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011EB6020F11C1000D1A033 /* MomentCell.swift */; };
 		7011EB6320F11C1000D1A033 /* MomentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7011EB6120F11C1000D1A033 /* MomentCell.xib */; };
 		7018B13820CFC0BE0040CCB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7018B13720CFC0BE0040CCB0 /* AppDelegate.swift */; };
@@ -124,6 +123,17 @@
 		7098236E20F7517F00B1292E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7098235E20F7517F00B1292E /* Media.xcassets */; };
 		70D5F0772127FB54003D2B04 /* VideoPreviewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0762127FB54003D2B04 /* VideoPreviewHeader.swift */; };
 		70D5F07C2127FB61003D2B04 /* VideoPreviewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70D5F07B2127FB61003D2B04 /* VideoPreviewHeader.xib */; };
+		70D5F0C2212FAC24003D2B04 /* PersonalInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D5F0C1212FAC24003D2B04 /* PersonalInfo.storyboard */; };
+		70D5F0D421305F5E003D2B04 /* PersonalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0D321305F5E003D2B04 /* PersonalVC.swift */; };
+		70D5F0D62130F8FA003D2B04 /* MomentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0D52130F8FA003D2B04 /* MomentData.swift */; };
+		70D5F0D82131051B003D2B04 /* NameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0D72131051B003D2B04 /* NameVC.swift */; };
+		70D5F0DA21310B44003D2B04 /* PersonActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0D921310B44003D2B04 /* PersonActionBar.swift */; };
+		70D5F0DC21310B5E003D2B04 /* PersonActionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70D5F0DB21310B5E003D2B04 /* PersonActionBar.xib */; };
+		70D5F0DF21311226003D2B04 /* PersonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0DE21311226003D2B04 /* PersonData.swift */; };
+		70D5F0E321312A20003D2B04 /* GenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0E221312A20003D2B04 /* GenderVC.swift */; };
+		70D5F0E5213132A4003D2B04 /* BirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0E4213132A4003D2B04 /* BirthdayVC.swift */; };
+		70D5F0E7213142BC003D2B04 /* WhatupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0E6213142BC003D2B04 /* WhatupVC.swift */; };
+		70D5F0E921314AFC003D2B04 /* RegionListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D5F0E821314AFC003D2B04 /* RegionListVC.swift */; };
 		70E5812420E1015100F50B5E /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812320E1015100F50B5E /* MessageVC.swift */; };
 		70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812920E1F38500F50B5E /* LiveCell.swift */; };
 		70E5812C20E2194900F50B5E /* LiveDemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5812B20E2194900F50B5E /* LiveDemoData.swift */; };
@@ -293,7 +303,6 @@
 		7011EB0120EDCDD300D1A033 /* BroadcastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastVC.swift; sourceTree = "<group>"; };
 		7011EB1420EE06AA00D1A033 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7011EB4B20F08EDF00D1A033 /* MomentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentVC.swift; sourceTree = "<group>"; };
-		7011EB4F20F091AC00D1A033 /* Moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
 		7011EB6020F11C1000D1A033 /* MomentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentCell.swift; sourceTree = "<group>"; };
 		7011EB6120F11C1000D1A033 /* MomentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MomentCell.xib; sourceTree = "<group>"; };
 		7018B13420CFC0BE0040CCB0 /* DouYin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouYin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -413,6 +422,17 @@
 		7098235E20F7517F00B1292E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		70D5F0762127FB54003D2B04 /* VideoPreviewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewHeader.swift; sourceTree = "<group>"; };
 		70D5F07B2127FB61003D2B04 /* VideoPreviewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPreviewHeader.xib; sourceTree = "<group>"; };
+		70D5F0C1212FAC24003D2B04 /* PersonalInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalInfo.storyboard; sourceTree = "<group>"; };
+		70D5F0D321305F5E003D2B04 /* PersonalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVC.swift; sourceTree = "<group>"; };
+		70D5F0D52130F8FA003D2B04 /* MomentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentData.swift; sourceTree = "<group>"; };
+		70D5F0D72131051B003D2B04 /* NameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameVC.swift; sourceTree = "<group>"; };
+		70D5F0D921310B44003D2B04 /* PersonActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonActionBar.swift; sourceTree = "<group>"; };
+		70D5F0DB21310B5E003D2B04 /* PersonActionBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonActionBar.xib; sourceTree = "<group>"; };
+		70D5F0DE21311226003D2B04 /* PersonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonData.swift; sourceTree = "<group>"; };
+		70D5F0E221312A20003D2B04 /* GenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderVC.swift; sourceTree = "<group>"; };
+		70D5F0E4213132A4003D2B04 /* BirthdayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayVC.swift; sourceTree = "<group>"; };
+		70D5F0E6213142BC003D2B04 /* WhatupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatupVC.swift; sourceTree = "<group>"; };
+		70D5F0E821314AFC003D2B04 /* RegionListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionListVC.swift; sourceTree = "<group>"; };
 		70E5812320E1015100F50B5E /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		70E5812920E1F38500F50B5E /* LiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCell.swift; sourceTree = "<group>"; };
 		70E5812B20E2194900F50B5E /* LiveDemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDemoData.swift; sourceTree = "<group>"; };
@@ -562,7 +582,7 @@
 		7011EB5120F091CE00D1A033 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7011EB4F20F091AC00D1A033 /* Moment.swift */,
+				70D5F0D52130F8FA003D2B04 /* MomentData.swift */,
 				7086967720FA49E200E8BAE1 /* GiftData.swift */,
 				70FB9D05211FDB7700D12833 /* FilterOperations.swift */,
 				70FB9D04211FDB7700D12833 /* FilterOperationTypes.swift */,
@@ -700,6 +720,7 @@
 		7040255A2110776500C2A3B3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				70D5F0DD21311210003D2B04 /* Models */,
 				70FB86362115443F00D12833 /* Views */,
 				7040255B2110776500C2A3B3 /* Controllers */,
 			);
@@ -717,6 +738,13 @@
 				70FB861D2113597300D12833 /* MyMomentVC.xib */,
 				70FB86202113598900D12833 /* MyVideoVC.swift */,
 				70FB86212113598900D12833 /* MyVideoVC.xib */,
+				70D5F0D321305F5E003D2B04 /* PersonalVC.swift */,
+				70D5F0D72131051B003D2B04 /* NameVC.swift */,
+				70D5F0E221312A20003D2B04 /* GenderVC.swift */,
+				70D5F0E4213132A4003D2B04 /* BirthdayVC.swift */,
+				70D5F0E6213142BC003D2B04 /* WhatupVC.swift */,
+				70D5F0E821314AFC003D2B04 /* RegionListVC.swift */,
+				70D5F0C1212FAC24003D2B04 /* PersonalInfo.storyboard */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -919,6 +947,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		70D5F0DD21311210003D2B04 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70D5F0DE21311226003D2B04 /* PersonData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		70E5812220E1012700F50B5E /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -973,6 +1009,8 @@
 				70FB864D2115AF4D00D12833 /* TextMomentCell.xib */,
 				70FB86502115BEA200D12833 /* LinkMomentCell.swift */,
 				70FB86512115BEA200D12833 /* LinkMomentCell.xib */,
+				70D5F0D921310B44003D2B04 /* PersonActionBar.swift */,
+				70D5F0DB21310B5E003D2B04 /* PersonActionBar.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1260,6 +1298,7 @@
 				70FB86532115BEA200D12833 /* LinkMomentCell.xib in Resources */,
 				70FB864F2115AF4D00D12833 /* TextMomentCell.xib in Resources */,
 				706966DA21087E3F00A2B5F9 /* NickCell.xib in Resources */,
+				70D5F0C2212FAC24003D2B04 /* PersonalInfo.storyboard in Resources */,
 				70FB9E92212177CE00D12833 /* BeautyBarView.xib in Resources */,
 				70FB863A2115446800D12833 /* FavouriteVideoCell.xib in Resources */,
 				70F2721C20FF1C1000FD62CA /* GiftShowView.xib in Resources */,
@@ -1269,6 +1308,7 @@
 				7072AA2320E61F50000ECA1C /* LiveCollectionCellBottom.xib in Resources */,
 				706966D621084A6700A2B5F9 /* NameCell.xib in Resources */,
 				7086967A20FA4CBC00E8BAE1 /* gift_data.json in Resources */,
+				70D5F0DC21310B5E003D2B04 /* PersonActionBar.xib in Resources */,
 				7098236E20F7517F00B1292E /* Media.xcassets in Resources */,
 				7069670F210D920C00A2B5F9 /* BroadcastVC.xib in Resources */,
 				703E236A21032DC8007D65BF /* AdminMessageCell.xib in Resources */,
@@ -1394,6 +1434,7 @@
 				70D5F0772127FB54003D2B04 /* VideoPreviewHeader.swift in Sources */,
 				70FB862B2113F69400D12833 /* Account.swift in Sources */,
 				70663DEB20D251E000707F87 /* FlowLayout.swift in Sources */,
+				70D5F0DA21310B44003D2B04 /* PersonActionBar.swift in Sources */,
 				7027939B20F4BB7B00D4FA91 /* LoginVC.swift in Sources */,
 				70FB9E90212177AF00D12833 /* BeautyBarView.swift in Sources */,
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
@@ -1407,10 +1448,12 @@
 				70FB861E2113597300D12833 /* MyMomentVC.swift in Sources */,
 				7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */,
 				70F2720E20FC82B300FD62CA /* GiftShowManager.swift in Sources */,
+				70D5F0E921314AFC003D2B04 /* RegionListVC.swift in Sources */,
 				70FB9EA221228E7B00D12833 /* LiveData.swift in Sources */,
 				7086966B20F8826000E8BAE1 /* CommentTextBar.swift in Sources */,
 				7098236820F7517F00B1292E /* ViewerPagingScrollView.swift in Sources */,
 				7098236520F7517F00B1292E /* ViewerButton.swift in Sources */,
+				70D5F0E7213142BC003D2B04 /* WhatupVC.swift in Sources */,
 				70696705210C2E0E00A2B5F9 /* Date+Utils.swift in Sources */,
 				70F272472101D8F300FD62CA /* IncomingUserMessageCell.swift in Sources */,
 				7018B17720D20C7C0040CCB0 /* WorkCollectionCell.swift in Sources */,
@@ -1436,17 +1479,19 @@
 				70FB86BE211C691100D12833 /* CreateMomentVC.swift in Sources */,
 				7011EB4D20F08EDF00D1A033 /* MomentVC.swift in Sources */,
 				70696711210DFB8000A2B5F9 /* ChatLabel.swift in Sources */,
+				70D5F0E5213132A4003D2B04 /* BirthdayVC.swift in Sources */,
 				70F2721220FC9DF500FD62CA /* GiftCountLabel.swift in Sources */,
 				70FB9F1721266AA800D12833 /* VideoPreviewVC.swift in Sources */,
 				7011EB0220EDCDD300D1A033 /* BroadcastVC.swift in Sources */,
+				70D5F0D62130F8FA003D2B04 /* MomentData.swift in Sources */,
 				706966D521084A6700A2B5F9 /* NameCell.swift in Sources */,
-				7011EB5020F091AC00D1A033 /* Moment.swift in Sources */,
 				7072A95C20E33ACE000ECA1C /* ConnectionManager.swift in Sources */,
 				7011EB6220F11C1000D1A033 /* MomentCell.swift in Sources */,
 				7060ECB42105AC2E00C902C8 /* Verify2faVC.swift in Sources */,
 				70FB9D07211FDB7700D12833 /* FilterOperations.swift in Sources */,
 				70FB86C1211DF78A00D12833 /* UIView+Borders.swift in Sources */,
 				7098236920F7517F00B1292E /* ViewerZoomingScrollView.swift in Sources */,
+				70D5F0E321312A20003D2B04 /* GenderVC.swift in Sources */,
 				7086967C20FB0A9A00E8BAE1 /* GiftCollectionViewCell.swift in Sources */,
 				70F2722621007E3800FD62CA /* ChatManager.swift in Sources */,
 				7098236720F7517F00B1292E /* TapDetectingImageView.swift in Sources */,
@@ -1455,11 +1500,13 @@
 				70FB86222113598900D12833 /* MyVideoVC.swift in Sources */,
 				70FB9E7321201C3F00D12833 /* CircleCell.swift in Sources */,
 				70E5812A20E1F38500F50B5E /* LiveCell.swift in Sources */,
+				70D5F0D82131051B003D2B04 /* NameVC.swift in Sources */,
 				704E960B20DBAC1F002881FA /* Constants.swift in Sources */,
 				7018B13820CFC0BE0040CCB0 /* AppDelegate.swift in Sources */,
 				7072A98320E5D31A000ECA1C /* LiveCollectionViewCell.swift in Sources */,
 				70FB864B2115AEB800D12833 /* ImageMomentCell.swift in Sources */,
 				7072A97F20E5D1BF000ECA1C /* LiveCVFlowLayout.swift in Sources */,
+				70D5F0D421305F5E003D2B04 /* PersonalVC.swift in Sources */,
 				7098236320F7517F00B1292E /* ViewerImage.swift in Sources */,
 				70402553211017AE00C2A3B3 /* CountryData.swift in Sources */,
 				7072AA2220E61F50000ECA1C /* LiveCollectionCellBottom.swift in Sources */,
@@ -1467,6 +1514,7 @@
 				7072A97D20E4EBE4000ECA1C /* LiveListVC.swift in Sources */,
 				70FB9D06211FDB7700D12833 /* FilterOperationTypes.swift in Sources */,
 				7060ECD021074B9900C902C8 /* AnchorFormVC.swift in Sources */,
+				70D5F0DF21311226003D2B04 /* PersonData.swift in Sources */,
 				70FB864E2115AF4D00D12833 /* TextMomentCell.swift in Sources */,
 				70FB86A1211AD62900D12833 /* LocationManager.swift in Sources */,
 				704E962020DCEEA4002881FA /* PlayScrollView.swift in Sources */,
@@ -1689,7 +1737,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DouYin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1743,7 +1791,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DouYin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

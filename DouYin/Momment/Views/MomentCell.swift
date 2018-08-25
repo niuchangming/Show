@@ -76,8 +76,8 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
 
     func updateUI(moment: Moment){
         self.moment = moment
-        self.avatarIV.sd_setImage(with: URL(string: moment.avatarLink), placeholderImage: UIImage(named: "placeholder.png"))
-        self.nameLbl.text = moment.author
+        self.avatarIV.sd_setImage(with: URL(string: (moment.creator?.userAvatar?.small)!), placeholderImage: UIImage(named: "placeholder.png"))
+        self.nameLbl.text = moment.creator?.name
         self.bodyLbl.text = moment.body
         
         if(moment.comments != nil && (moment.comments?.count)! > 0){ //有comment
@@ -115,11 +115,11 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         self.btnCommentContainerConstraint.priority = UILayoutPriority(rawValue: 999)
         self.btnContainerBottomConstraint.priority = UILayoutPriority(rawValue: 750)
         
-        if(moment.type == 1){
+        if(moment.type == "link"){
             self.linkView.isHidden = false
             self.picContainerView.isHidden = true
-            self.linkIconIV.sd_setImage(with: URL(string: (moment.link?.icon)!), placeholderImage: UIImage(named: "placeholder.png"))
-            self.linkTitleLbl.text = moment.link?.title
+//            self.linkIconIV.sd_setImage(with: URL(string: (moment.link?.icon)!), placeholderImage: UIImage(named: "placeholder.png"))
+//            self.linkTitleLbl.text = moment.link?.title
             
             self.bodyLinkConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.bodyLinkConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -129,19 +129,19 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             self.linkBtnContainerConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.linkBtnContainerConstraint.priority = UILayoutPriority(rawValue: 999)
             self.linkPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
-        }else if(moment.type == 2){
+        }else if(moment.type == "picture"){
             self.picContainerView.isHidden = false
             self.linkView.isHidden = true
             
             let picWidth: CGFloat = 80 * Constants.Dimension.W_RATIO
             let picHeight: CGFloat = picWidth
             let colCount = 3
-            let rowCount = moment.pictures.count / colCount + 1
+            let rowCount = (moment.images?.count)! / colCount + 1
             
             for r in 0..<rowCount{
                 for c in 0..<3{
                     let index = 3*r+c
-                    if(index == moment.pictures.count){
+                    if(index == moment.images?.count){
                         break;
                     }
                     
@@ -149,7 +149,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                                                           y: CGFloat(r)*picHeight + CGFloat(1 + r)*Constants.Dimension.MARGIN_SMALL,
                                                           width: picWidth,
                                                           height: picHeight))
-                    picIV.sd_setImage(with: URL(string: moment.pictures[index]), placeholderImage: UIImage(named: "placeholder.png"))
+                    picIV.sd_setImage(with: URL(string: moment.images![index].small), placeholderImage: UIImage(named: "placeholder.png"))
                     picIV.clipsToBounds = true
                     picIV.tag = index
                     picIV.contentMode = .scaleAspectFill
@@ -260,7 +260,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                         self.gifImageView.animatedImage = gifImage
                         self.gifImageView.isHidden = false
                     }catch {
-                        print("Donwload Gif Image file")
+                        print("Donwload Gif Image failed")
                     }
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in

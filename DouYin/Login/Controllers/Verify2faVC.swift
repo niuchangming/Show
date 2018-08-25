@@ -46,6 +46,7 @@ class Verify2faVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         modalPresentationCapturesStatusBarAppearance = true
+        view.frame = UIScreen.main.bounds
         runTimer()
     }
     

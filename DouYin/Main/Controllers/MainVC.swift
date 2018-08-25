@@ -13,10 +13,20 @@ import CoreLocation
 import TLPhotoPicker
 import Photos
 
-enum PostType {
-    case text
-    case moment
-    case video
+enum MomentType: String {
+    case text = "text"
+    case picture = "picture"
+    case video = "video"
+    
+    static func iterateEnum() -> AnyIterator<ChatType> {
+        var i = 0
+        return AnyIterator {
+            let next = withUnsafeBytes(of: &i) { $0.load(as: ChatType.self) }
+            if next.hashValue != i { return nil }
+            i += 1
+            return next
+        }
+    }
 }
 
 class CustomPagingView: PagingView {
@@ -38,7 +48,7 @@ class CustomPagingViewController: FixedPagingViewController {
 class MainVC: UIViewController {
     
     var isVideo: Bool! = false
-    var postType: PostType! = .text
+    var postType: MomentType! = .text
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,33 +182,35 @@ class MainVC: UIViewController {
     }
     
     @objc func cameraBtnClicked(_ sender: Any){
-        let alertController = UIAlertController(title: nil, message: "Choose your content", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        if(AuthUtils.share.validate() == AuthType.LOGGED && Utils.isNotNil(obj: AuthUtils.share.apiToken())){
+            let alertController = UIAlertController(title: nil, message: "Choose your content", preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                
+            }
+            alertController.addAction(cancelAction)
             
-        }
-        alertController.addAction(cancelAction)
-        
-        let textAction = UIAlertAction(title: "Post A Text", style: .default) { (action) in
-            self.postType = .text
-            self.goCreateMoment(withTLPHAssets: nil)
-        }
-        alertController.addAction(textAction)
-        
-        let momentAction = UIAlertAction(title: "Post A Moment", style: .default) { (action) in
-            self.postType = .moment
-            self.startImagePicker()
-        }
-        alertController.addAction(momentAction)
-        
-        let videoAction = UIAlertAction(title: "Post A Video", style: .default) { (action) in
-            self.postType = .video
-//            self.startImagePicker()
+            let textAction = UIAlertAction(title: "Post A Text", style: .default) { (action) in
+                self.postType = .text
+                self.goCreateMoment(withTLPHAssets: nil)
+            }
+            alertController.addAction(textAction)
             
-            let filterCameraVC = FilterCameraVC()
-            self.present(filterCameraVC, animated: true, completion: nil)
+            let momentAction = UIAlertAction(title: "Post Pictures", style: .default) { (action) in
+                self.postType = .picture
+                self.startImagePicker()
+            }
+            alertController.addAction(momentAction)
+            
+            let videoAction = UIAlertAction(title: "Post A Video", style: .default) { (action) in
+                self.postType = .video
+                let filterCameraVC = FilterCameraVC()
+                self.present(filterCameraVC, animated: true, completion: nil)
+            }
+            alertController.addAction(videoAction)
+            self.present(alertController, animated: true, completion: nil)
+        }else {
+            loginTapped()
         }
-        alertController.addAction(videoAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
     func startImagePicker() {

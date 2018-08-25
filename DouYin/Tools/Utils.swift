@@ -59,7 +59,7 @@ class Utils: NSObject {
                 return false
             }
         }
-        return false
+        return obj != nil
     }
     
     static func viewController(responder: UIResponder) -> UIViewController? {
@@ -109,6 +109,12 @@ class Utils: NSObject {
         gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: object.frame.size.width, height: object.frame.size.height)
         return gradient
+    }
+    
+    static func popAlert(title: String?, message: String?, controller: UIViewController){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        controller.present(alert, animated: true, completion: nil)
     }
 }
 

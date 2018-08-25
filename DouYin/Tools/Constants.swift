@@ -34,6 +34,7 @@ struct Constants {
         static let darkBlackColor = "#333"
         static let orangeColor = "#FC5C1B"
         static let redColor = "#D50065"
+        static let pinkColor = "#EC4A86"
         static let blueColor = "#35A3FB"
         static let greenColor = "#6bc92c"
         static let grayColor = "#C3C3C3"

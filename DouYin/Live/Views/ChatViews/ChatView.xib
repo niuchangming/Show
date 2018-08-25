@@ -35,14 +35,12 @@
                     <color key="backgroundColor" red="0.20392156859999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="GYI-Qh-orl"/>
-                        <constraint firstAttribute="width" constant="375" id="QMg-2x-4VF"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Co9-Fr-heK">
-                    <rect key="frame" x="0.0" y="647" width="375" height="21"/>
+                    <rect key="frame" x="0.0" y="647" width="375" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="375" id="ZIu-TB-RSB"/>
-                        <constraint firstAttribute="height" constant="21" id="u99-Wq-9bR"/>
+                        <constraint firstAttribute="height" constant="20" id="u99-Wq-9bR"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                     <state key="normal" title="您有1条未读信息">
@@ -62,8 +60,8 @@
                 <constraint firstItem="Co9-Fr-heK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Kxm-wU-W3r"/>
                 <constraint firstAttribute="bottom" secondItem="AIO-fz-kXo" secondAttribute="bottom" id="i9j-M6-6nx"/>
                 <constraint firstAttribute="trailing" secondItem="Co9-Fr-heK" secondAttribute="trailing" id="lgl-it-eb1"/>
-                <constraint firstAttribute="bottom" secondItem="Co9-Fr-heK" secondAttribute="bottom" constant="-1" id="oPP-yC-eM9"/>
                 <constraint firstItem="AIO-fz-kXo" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="v0c-1h-B5g"/>
+                <constraint firstAttribute="bottom" secondItem="Co9-Fr-heK" secondAttribute="bottom" id="vF3-2B-fpD"/>
                 <constraint firstItem="AIO-fz-kXo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wmg-V0-uaN"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="65.5"/>

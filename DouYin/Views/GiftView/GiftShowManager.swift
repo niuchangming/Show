@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SendBirdSDK
 
 typealias completeBlock = (_ finished: Bool) -> Void
 typealias showGifImageBlock = (_ giftSend: GiftSend) -> Void
@@ -83,8 +84,7 @@ class GiftShowManager: NSObject {
             }else{
                 var queue: OperationQueue?
                 var showView: GiftShowView?
-                
-                print("if--------> 1: \(self.giftQueue1.operations.count), 2: \(self.giftQueue2.operations.count)")
+    
                 if(self.giftQueue1.operations.count <= self.giftQueue2.operations.count){
                     queue = self.giftQueue1
                     showView = self.giftShowView1
@@ -116,9 +116,6 @@ class GiftShowManager: NSObject {
                 let queue: OperationQueue?
                 let showView: GiftShowView?
                 
-                print("else--------> 1: \(self.giftQueue1.operations.count), 2: \(self.giftQueue2.operations.count)")
-                
-                
                 if(self.giftQueue1.operations.count <= self.giftQueue2.operations.count){
                     queue = self.giftQueue1
                     showView = self.giftShowView1
@@ -144,5 +141,21 @@ class GiftShowManager: NSObject {
         }
     }
 
-
+    func sendGiftMessage(channel: SBDOpenChannel!, giftSend: GiftSend!, completed: @escaping(_ userMessage: SBDUserMessage, _ error: SBDError?) -> () ){
+        channel.sendUserMessage("", data: giftSend.id, customType: ChatType.gift.rawValue, targetLanguages: [], completionHandler: { (userMessage, error) in
+            completed(userMessage!, error)
+        })
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+

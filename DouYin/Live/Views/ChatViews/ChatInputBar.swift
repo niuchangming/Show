@@ -22,14 +22,14 @@ class ChatInputBar: ReusableViewFromXib {
     @IBAction func sendBtnClicked(_ sender: UIButton){
         self.delegate?.sendMessage()
     }
-
+    
     func sendMessage(channel: SBDOpenChannel!, completed: @escaping(_ userMessage: SBDUserMessage, _ error: SBDError?) -> () ) {
         if self.messageInputTv.text.count > 0 {
             let message = self.messageInputTv.text
             self.messageInputTv.text = ""
             
             self.sendBtn.isEnabled = false
-            channel.sendUserMessage(message, data: "", customType: "", targetLanguages: [], completionHandler: { (userMessage, error) in
+            channel.sendUserMessage(message, data: "", customType: ChatType.text.rawValue, targetLanguages: [], completionHandler: { (userMessage, error) in
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(150), execute: {
                     completed(userMessage!, error)
@@ -39,3 +39,30 @@ class ChatInputBar: ReusableViewFromXib {
         }
     }
 }
+
+enum ChatType: String {
+    case text = "text"
+    case gift = "gift"
+
+    static func iterateEnum() -> AnyIterator<ChatType> {
+        var i = 0
+        return AnyIterator {
+            let next = withUnsafeBytes(of: &i) { $0.load(as: ChatType.self) }
+            if next.hashValue != i { return nil }
+            i += 1
+            return next
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

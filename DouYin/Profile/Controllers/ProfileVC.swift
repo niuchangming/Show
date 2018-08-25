@@ -11,15 +11,24 @@ import Parchment
 
 class ProfileVC: UITableViewController {
     
+    let personData = PersonData()
+    
     @IBOutlet weak var avatarIV: UIImageView! {
         didSet{
-            avatarIV.sd_setImage(with: URL(string: "http://s6.gigacircle.com/media/s6_58f6272ade43c.jpg"), placeholderImage: UIImage(named: "placeholder.png"))
             avatarIV.clipsToBounds = true
             avatarIV.layer.cornerRadius = avatarIV.frame.size.width / 2
         }
     }
     @IBOutlet weak var followerAmountLbl: UILabel!
     @IBOutlet weak var followingAmountLbl: UILabel!
+    
+    @IBOutlet weak var genderLbl: UILabel!
+    
+    @IBOutlet weak var birthdayLbl: UILabel!
+    
+    @IBOutlet weak var regionLbl: UILabel!
+    
+    
     @IBOutlet weak var coinAmountLbl: UILabel!
     @IBOutlet weak var editBtn: UIButton!{
         didSet{
@@ -59,10 +68,14 @@ class ProfileVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "小白不败"
+        self.navigationItem.title = "Profile"
         
         initDetailContainerView()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadPersonalData()
     }
     
     func initDetailContainerView (){
@@ -86,19 +99,53 @@ class ProfileVC: UITableViewController {
         pagingViewController.didMove(toParentViewController: self)
     }
     
+    func loadPersonalData(){
+        personData.getData { (status) in
+            if status == .success {
+                self.updateViews()
+            }
+        }
+    }
+    
+    func updateViews(){
+        self.followerAmountLbl.text = String(format: "%i", (self.personData.data?.followerAmount)!)
+        self.followingAmountLbl.text = String(format: "%i", (self.personData.data?.followingAmount)!)
+        
+        if Utils.isNotNil(obj: self.personData.data?.name) {
+            self.navigationItem.title = self.personData.data?.name
+        }
+        
+        if Utils.isNotNil(obj: self.personData.data?.nickName) {
+            self.navigationItem.title = self.personData.data?.nickName
+        }
+        
+        self.genderLbl.text = self.personData.data?.gender == 0 ? "Male" : "Female"
+        
+        if (self.personData.data?.birthday)! > 0 {
+            let birthdayDate = Date.init(millis: (self.personData.data?.birthday)!)
+            self.birthdayLbl.text = birthdayDate.toDateStr()
+        }
+        
+        if Utils.isNotNil(obj: self.personData.data?.region) {
+            self.regionLbl.text = self.personData.data?.region
+        }
+        
+        if Utils.isNotNil(obj: self.personData.data?.avatar) {
+            avatarIV.sd_setImage(with: URL(string: (self.personData.data?.avatar?.origin)!), placeholderImage: UIImage(named: "placeholder.png"))
+        }
+    }
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
     
     @IBAction func editBtnClicked(_ sender: UIButton){
-        
+        self.goPersonalVC()
     }
     
     @IBAction func topupBtnClicked(_ sender: UIButton){
@@ -112,6 +159,24 @@ class ProfileVC: UITableViewController {
             return 60;
         }
         return tableView.frame.size.height - 180
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            self.goPersonalVC()
+        }
+    }
+    
+    func goPersonalVC(){
+        if AuthUtils.share.validate() == AuthType.LOGGED && Utils.isNotNil(obj: AuthUtils.share.apiToken()) {
+            let storyboard = UIStoryboard(name: "PersonalInfo", bundle: nil)
+            let personalVC = storyboard.instantiateViewController(withIdentifier: "PersonalVC") as! PersonalVC
+            personalVC.person = self.personData.data
+            self.navigationController?.pushViewController(personalVC, animated: true)
+        }else {
+            let loginVC = LoginVC()
+            self.present(loginVC, animated: true, completion: nil)
+        }
     }
 
 }

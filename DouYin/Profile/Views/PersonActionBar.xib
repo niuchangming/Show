@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PersonActionBar" customModule="DouYin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJs-ny-EH0">
+                    <rect key="frame" x="10" y="0.0" width="53" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="53" id="7gt-Of-8qG"/>
+                        <constraint firstAttribute="height" constant="44" id="g10-Ch-tZb"/>
+                    </constraints>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="X0H-8a-ReK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehd-Lk-QvK">
+                    <rect key="frame" x="319" y="0.0" width="46" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="Pp1-X4-8c7"/>
+                        <constraint firstAttribute="height" constant="44" id="R6k-eI-ZfH"/>
+                    </constraints>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="0.41960784313725491" green="0.78823529411764703" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="saveBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qcw-N4-J6k"/>
+                    </connections>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F9R-f7-hTx">
+                    <rect key="frame" x="332" y="12" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="HcR-pl-jKG"/>
+                        <constraint firstAttribute="height" constant="20" id="OkL-5X-W06"/>
+                    </constraints>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfV-BM-4Tl">
+                    <rect key="frame" x="71" y="12" width="240" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="6pQ-ic-8XX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ehd-Lk-QvK" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="3jB-kS-Fr6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RfV-BM-4Tl" secondAttribute="bottom" constant="11" id="HlH-eb-B0d"/>
+                <constraint firstItem="RfV-BM-4Tl" firstAttribute="leading" secondItem="oJs-ny-EH0" secondAttribute="trailing" constant="8" id="TrY-gf-GTn"/>
+                <constraint firstItem="oJs-ny-EH0" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="cWP-Vj-N3O"/>
+                <constraint firstItem="F9R-f7-hTx" firstAttribute="centerY" secondItem="ehd-Lk-QvK" secondAttribute="centerY" id="gIz-1m-aUy"/>
+                <constraint firstItem="F9R-f7-hTx" firstAttribute="centerX" secondItem="ehd-Lk-QvK" secondAttribute="centerX" id="lhw-Rd-mge"/>
+                <constraint firstItem="oJs-ny-EH0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="pa2-hy-n9B"/>
+                <constraint firstItem="ehd-Lk-QvK" firstAttribute="leading" secondItem="RfV-BM-4Tl" secondAttribute="trailing" constant="8" id="rRd-rh-bwD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ehd-Lk-QvK" secondAttribute="trailing" constant="10" id="xJw-1G-Gpj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelBtn" destination="oJs-ny-EH0" id="aIA-ub-Saq"/>
+                <outlet property="loadingBar" destination="F9R-f7-hTx" id="Kdl-gU-Msi"/>
+                <outlet property="saveBtn" destination="ehd-Lk-QvK" id="Xdw-Qs-jgq"/>
+                <outlet property="titleLbl" destination="RfV-BM-4Tl" id="qAT-Mt-uKu"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="59"/>
+        </view>
+    </objects>
+</document>

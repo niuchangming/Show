@@ -14,7 +14,8 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
     fileprivate var placeHolderView = UIImageView()
     fileprivate var liveLink : String = ""
     fileprivate var openChannel: SBDOpenChannel?
-    
+    let giftData: GiftData =  GiftData()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
@@ -83,16 +84,19 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
                 self.chatInputBar.messageInputTv.becomeFirstResponder()
                 break
             case .hot_e_mailClickType:
-
+                
                 break
             case .hot_giftClickType:
-                let giftData: GiftData =  GiftData()
-                
-                giftData.getData { [unowned self] (message) in
-                    if message == "Success" {
-                        self.giftView.giftArray = giftData.data
-                        self.giftView.show()
-                        self.giftView.collectionView.reloadData()
+                if Utils.isNotNil(obj: self.giftView.giftArray) && self.giftView.giftArray.count > 0{
+                    self.giftView.show()
+                    self.giftView.collectionView.reloadData()
+                }else{
+                    self.giftData.getData { [unowned self] (message) in
+                        if message == "Success" {
+                            self.giftView.show()
+                             self.giftView.giftArray = self.giftData.data
+                            self.giftView.collectionView.reloadData()
+                        }
                     }
                 }
                 break
@@ -195,6 +199,7 @@ class LiveCollectionViewCell: UICollectionViewCell, BambuserPlayerDelegate, Chat
     
     lazy var gifImageView: FLAnimatedImageView = {
         let gifImageView = FLAnimatedImageView(frame: CGRect(x: 7.5, y: 0, width: 360, height: 225))
+        gifImageView.contentMode = .scaleAspectFill
         gifImageView.isHidden = true
         return gifImageView
     }()
@@ -267,45 +272,114 @@ extension LiveCollectionViewCell{
             giftSend.defaultCount = 0;
             giftSend.sendCount = 1;
             
-            GiftShowManager.shared().showGiftViewWithBackView(backView: liveVC.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
-                
-            }, showGifImageBlock: { (giftSend: GiftSend) in
-                
-                DispatchQueue.main.async {
-                    let window: UIWindow = UIApplication.shared.keyWindow!
-                    window.addSubview(self.gifImageView)
-                    
-                    if let asset = NSDataAsset(name: "live_yanhua") {
-                        let data = asset.data
-                        let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: data)
-                        self.gifImageView.animatedImage = gifImage
-                        self.gifImageView.isHidden = false
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in
-                        self.gifImageView.isHidden = true
-                        self.gifImageView.removeFromSuperview()
-                    })
-                    
+            GiftShowManager.shared().sendGiftMessage(channel: self.openChannel, giftSend: giftSend) { (userMessage, error) in
+                if error != nil{
+                    print("Send gift error: \(String(describing: error?.localizedDescription))")
+                    return
                 }
-                
-            })
+                self.showGiftView(giftSend: giftSend)
+            }
             
         }
     }
     
+    func showGiftView(giftSend: GiftSend){
+        let liveVC: LiveVC = Utils.viewController(responder: self) as! LiveVC
+        GiftShowManager.shared().showGiftViewWithBackView(backView: liveVC.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
+            
+        }, showGifImageBlock: { (giftSend: GiftSend) in
+            DispatchQueue.main.async {
+                let window: UIWindow = UIApplication.shared.keyWindow!
+                window.addSubview(self.gifImageView)
+                
+                do{
+                    let gifData = try Data.init(contentsOf: URL(string: (giftSend.icon_gif))!)
+                    let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
+                    self.gifImageView.animatedImage = gifImage
+                    self.gifImageView.isHidden = false
+                }catch {
+                    print("Donwload Gif Image failed")
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in
+                    self.gifImageView.isHidden = true
+                    self.gifImageView.removeFromSuperview()
+                })
+            }
+        })
+    }
+    
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if sender == self.openChannel {
-            
-            DispatchQueue.main.async {
-                UIView.setAnimationsEnabled(false)
-                self.chatView.messages.append(message)
-                self.chatView.chattingTableView.reloadData()
-                UIView.setAnimationsEnabled(true)
-                DispatchQueue.main.async {
-                    self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
+            if message.isKind(of: SBDUserMessage.self) {
+                let userMessage = message as! SBDUserMessage
+                if userMessage.customType == ChatType.gift.rawValue{
+                    if Utils.isNotNil(obj: self.giftData.data) && self.giftData.data.count > 0{
+                        for gift in self.giftData.data {
+                            if gift.id == userMessage.data {
+                                self.showGiftView(gift: gift)
+                                break;
+                            }
+                        }
+                    }else{
+                        giftData.getData { [unowned self] (message) in
+                            if message == "Success" {
+                                for gift in self.giftData.data {
+                                    if gift.id == sender.data {
+                                        self.showGiftView(gift: gift)
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        UIView.setAnimationsEnabled(false)
+                        self.chatView.messages.append(message)
+                        self.chatView.chattingTableView.reloadData()
+                        UIView.setAnimationsEnabled(true)
+                        DispatchQueue.main.async {
+                            self.chatView.scrollToBottom(force: self.chatView.isScrollToBottom())
+                        }
+                    }
                 }
             }
+            
         }
+    }
+    
+    func showGiftView(gift: Gift){
+        let giftSend: GiftSend = GiftSend()
+        giftSend.icon = gift.image
+        giftSend.name = gift.name
+        giftSend.icon_gif = gift.animImage
+        giftSend.id = gift.id
+        giftSend.defaultCount = 0
+        giftSend.sendCount = 1
+        
+        let liveVC: LiveVC = Utils.viewController(responder: self) as! LiveVC
+        GiftShowManager.shared().showGiftViewWithBackView(backView: liveVC.view, giftSend: giftSend, completeBlock: { (finished: Bool) in
+            
+        }, showGifImageBlock: { (giftSend: GiftSend) in
+            DispatchQueue.main.async {
+                let window: UIWindow = UIApplication.shared.keyWindow!
+                window.addSubview(self.gifImageView)
+                
+                do{
+                    let gifData = try Data.init(contentsOf: URL(string: (giftSend.icon_gif))!)
+                    let gifImage: FLAnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
+                    self.gifImageView.animatedImage = gifImage
+                    self.gifImageView.isHidden = false
+                }catch {
+                    print("Donwload Gif Image failed")
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2), execute: { () in
+                    self.gifImageView.isHidden = true
+                    self.gifImageView.removeFromSuperview()
+                })
+            }
+        })
     }
 }

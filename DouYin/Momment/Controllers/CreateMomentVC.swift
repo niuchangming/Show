@@ -9,9 +9,10 @@
 import UIKit
 import TLPhotoPicker
 import Photos
+import DropDown
 
 class CreateMomentVC: UIViewController {
-    var postType: PostType! = .text
+    var postType: MomentType! = .text
     let maxImageAmount: Int = 9
     var imageAssets = [TLPHAsset]()
     @IBOutlet weak var messageTv: UITextView! {
@@ -20,20 +21,23 @@ class CreateMomentVC: UIViewController {
         }
     }
     
+    @IBOutlet weak var actionBar: UIView!
+    @IBOutlet weak var actionBarHeight: NSLayoutConstraint!
     @IBOutlet weak var imageContainer: UIView!
     @IBOutlet weak var imageContainerHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var arrowIv: UIImageView!{
         didSet{
             arrowIv.image = arrowIv.image?.withRenderingMode(.alwaysTemplate)
-            arrowIv.tintColor = UIColor(hexString: Constants.ColorScheme.darkBlackColor)
+            arrowIv.tintColor = UIColor(hexString: Constants.ColorScheme.grayColor)
         }
     }
+    @IBOutlet weak internal var postBtn: UIButton!
     
     @IBOutlet weak var palceholderLbl: UILabel!
     @IBOutlet weak var permissionView: UIView! {
         didSet{
-            permissionView.addBorder(side: .top, thickness: 0.5, color: UIColor(hexString: Constants.ColorScheme.blackColor))
-            permissionView.addBorder(side: .bottom, thickness: 0.5, color: UIColor(hexString: Constants.ColorScheme.blackColor))
+            let gestureTap = UITapGestureRecognizer(target: self, action: #selector (CreateMomentVC.showPermissions))
+            permissionView.addGestureRecognizer(gestureTap)
         }
     }
     
@@ -45,12 +49,8 @@ class CreateMomentVC: UIViewController {
     }
     
     @IBOutlet weak var permissionViewTopToMessageTv: NSLayoutConstraint!
-    
     @IBOutlet weak var permissionViewTopToImageContainer: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var permissionLbl: UILabel!
-    
     @IBOutlet weak var loadingBar: UIActivityIndicatorView!
     
     lazy var addMoreIV: UIImageView! = {
@@ -60,6 +60,19 @@ class CreateMomentVC: UIViewController {
         addImageView.isUserInteractionEnabled = true
         addImageView.image = UIImage(named: "add_image")
         return addImageView
+    }()
+    
+    lazy var permissionPicker: DropDown = {
+        let dropDown = DropDown()
+        dropDown.anchorView = self.permissionView
+        dropDown.width = self.permissionView.frame.size.width / 3
+        dropDown.dataSource = ["Public", "Follower", "Private"]
+        dropDown.dismissMode = .automatic
+        dropDown.direction = .any
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.permissionLbl.text = item
+        }
+        return dropDown
     }()
     
     override func viewDidLoad() {
@@ -75,6 +88,13 @@ class CreateMomentVC: UIViewController {
             self.permissionViewTopToMessageTv.priority = UILayoutPriority(rawValue: 750)
             updateImagesContainer()
         }
+        self.actionBarHeight.constant = self.actionBar.frame.size.height + Constants.Dimension.STATUS_BAR_HEIGHT
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        permissionView.addBorder(side: .top, thickness: 0.5, color: UIColor(hexString: Constants.ColorScheme.grayColor))
+        permissionView.addBorder(side: .bottom, thickness: 0.5, color: UIColor(hexString: Constants.ColorScheme.grayColor))
     }
     
     func updateImagesContainer(){
@@ -130,7 +150,6 @@ class CreateMomentVC: UIViewController {
     }
 
     @IBAction func pickImages(_ sender: Any) {
-        
         if imageAssets.count < maxImageAmount {
             let viewController = TLPhotosPickerViewController()
             viewController.delegate = self
@@ -149,7 +168,11 @@ class CreateMomentVC: UIViewController {
             viewController.configure = configure
             self.present(viewController, animated: true, completion: nil)
         }
-        
+    }
+    
+    @objc func showPermissions(){
+        DropDown.startListeningToKeyboard()
+        permissionPicker.show();
     }
     
     @IBAction func cancelBtnClicked(_ sender: Any) {
@@ -157,6 +180,63 @@ class CreateMomentVC: UIViewController {
     }
     
     @IBAction func postBtnClicked(_ sender: Any) {
+        postMoment()
+    }
+    
+    func postMoment(){
+        var pictureData: [Data]? = nil
+        var pictureArr: [String: AnyObject]? = nil
+        if postType == .text {
+            if(!Utils.isNotNil(obj: messageTv.text)){
+                Utils.popAlert(title: "Failed", message: "Body cannot be empty!", controller: self)
+                return
+            }
+        }else{
+            if(self.imageAssets.count == 0){
+                Utils.popAlert(title: "Failed", message: "Body cannot be empty!", controller: self)
+                return
+            }
+            pictureData = [Data]()
+        }
+        
+        let postUrl = String(format: "%@moment/publish", Constants.HOST)
+        let lat = LocationManager.share.currentLocation.coordinate.latitude
+        let lon = LocationManager.share.currentLocation.coordinate.longitude
+        
+        let params = ["token": AuthUtils.share.apiToken()!, "body": messageTv.text!, "type": postType.rawValue, "lat": String(lat), "lon": String(lon), "permission": permissionLbl.text?.lowercased() as Any] as [String : Any]
+    
+        for tlphAsset in self.imageAssets {
+            pictureData?.append(UIImageJPEGRepresentation(tlphAsset.fullResolutionImage!, 1)!)
+        }
+        
+        if pictureData != nil && (pictureData?.count)! > 0 {
+            pictureArr = ["momentPhotos" : pictureData as AnyObject]
+        }
+    
+        beforePost()
+        ConnectionManager.shareManager.uploadMultiparts(url: postUrl, params: params as [String : AnyObject], multiparts: pictureArr, succeed: { (responseJson) in
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            let message = response["message"] as! String
+            if errorCode == 1 {
+                Utils.popAlert(title: "Success", message: message, controller: self)
+            }else{
+                Utils.popAlert(title: "Failed", message: message, controller: self)
+            }
+            self.afterPost()
+        }) { (error) in
+            Utils.popAlert(title: "Failed", message: error?.localizedDescription, controller: self)
+            self.afterPost()
+        }
+    }
+    
+    func beforePost(){
+        loadingBar.startAnimating()
+        postBtn.isHidden = true
+    }
+    func afterPost(){
+        self.loadingBar.stopAnimating()
+        self.postBtn.isHidden = false
     }
 }
 

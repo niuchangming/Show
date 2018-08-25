@@ -16,8 +16,15 @@ protocol RegisterDelegate: class {
 
 class RegisterVC: UIViewController {
     
+    weak var delegate: RegisterDelegate?
     @IBOutlet weak var mobileNoTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
+    @IBOutlet weak var loadingBar: UIActivityIndicatorView!
+    @IBOutlet weak var popupContainer: UIView! {
+        didSet {
+            popupContainer.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
+        }
+    }
     @IBOutlet weak var signupBtn: UIButton! {
         didSet{
             signupBtn.clipsToBounds = true
@@ -30,23 +37,11 @@ class RegisterVC: UIViewController {
             cancelBtn.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
         }
     }
-    @IBOutlet weak var loadingBar: UIActivityIndicatorView!
-    @IBOutlet weak var popupContainer: UIView! {
-        didSet {
-            popupContainer.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
-        }
-    }
-    weak var delegate: RegisterDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         modalPresentationCapturesStatusBarAppearance = true
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
-        print("--------> \(self.view.frame.size.width)")
+        view.frame = UIScreen.main.bounds
     }
     
     @IBAction func cancelBtnClicked(_ sender: UIButton) {
