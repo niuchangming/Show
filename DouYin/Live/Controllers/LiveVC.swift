@@ -123,6 +123,10 @@ extension LiveVC : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let liveCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? LiveCollectionViewCell
         liveCell?.liveData = self.live!
+        liveCell?.headerView.authBlock = { 
+            let loginVC = LoginVC()
+            self.present(loginVC, animated: true, completion: nil)
+        }
         liveCell?.enterOpenChannel(channelUrl: (self.live?.channelId)!)
         return liveCell!
     }

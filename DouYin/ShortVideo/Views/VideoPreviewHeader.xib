@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoPreviewHeader" customModule="DouYin" customModuleProvider="target">
             <connections>
                 <outlet property="backBtn" destination="JT7-vR-KSc" id="Xho-WI-Hfd"/>
+                <outlet property="loadingBar" destination="Hr7-83-aQZ" id="LH3-ks-ePt"/>
                 <outlet property="uploadBtn" destination="10S-wh-Mz2" id="f3n-hH-ycg"/>
             </connections>
         </placeholder>
@@ -57,6 +58,13 @@
                         <action selector="uploadBtnClicked:" destination="-1" eventType="touchUpInside" id="Uu3-gD-9Oy"/>
                     </connections>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Hr7-83-aQZ">
+                    <rect key="frame" x="335" y="12" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="6Xz-F8-8NF"/>
+                        <constraint firstAttribute="height" constant="20" id="iar-nc-Vho"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -64,6 +72,8 @@
                 <constraint firstItem="JT7-vR-KSc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="QZZ-Sc-a5b"/>
                 <constraint firstItem="bXr-VB-yaw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="VZH-Hh-UuX"/>
                 <constraint firstItem="bXr-VB-yaw" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="duu-u4-AYv"/>
+                <constraint firstItem="Hr7-83-aQZ" firstAttribute="centerY" secondItem="10S-wh-Mz2" secondAttribute="centerY" id="hlz-L7-77J"/>
+                <constraint firstItem="Hr7-83-aQZ" firstAttribute="centerX" secondItem="10S-wh-Mz2" secondAttribute="centerX" id="s8r-5z-bc3"/>
                 <constraint firstItem="10S-wh-Mz2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vkm-Jl-oW0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="10S-wh-Mz2" secondAttribute="trailing" constant="8" id="w8D-Ka-Mst"/>
             </constraints>

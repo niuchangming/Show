@@ -13,19 +13,26 @@ class LiveListVC: UITableViewController {
     
     let liveData = LiveData()
     
-//    lazy var refreshControl: UIRefreshControl = {
-//        let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action:
-//            #selector(LiveListVC.handleRefresh(_:)),
-//                                 for: UIControlEvents.valueChanged)
-//        refreshControl.tintColor = UIColor.red
-//
-//        return refreshControl
-//    }()
+    lazy var refreshCtrl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor(hexString: Constants.ColorScheme.blackColor)
+        refreshControl.addTarget(self, action:
+            #selector(LiveListVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadData()
+        
+        self.tableView.addSubview(refreshCtrl)
+    }
+    
+    func loadData(){
         liveData.getData { [unowned self] (status) in
             if status == .success {
                 self.tableView.reloadData()
@@ -33,11 +40,13 @@ class LiveListVC: UITableViewController {
         }
     }
     
-    func handleRefresh(_ refreshControl: UIRefreshControl) {
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.liveData.isFinished = false
+        self.liveData.requiredTime = Date()
         self.liveData.data .removeAll()
-        
-        
         self.tableView.reloadData()
+        
+        loadData()
         refreshControl.endRefreshing()
     }
     

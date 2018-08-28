@@ -50,20 +50,29 @@ class MainVC: UIViewController {
     var isVideo: Bool! = false
     var postType: MomentType! = .text
     
+    lazy var recommandVC: ShortVideoVC = {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ShortVideoVC") as! ShortVideoVC
+        vc.title = "视频"
+        return vc
+    }()
+    
+    lazy var featuredVC: LiveListVC = {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LiveListVC") as! LiveListVC
+        vc.title = "直播"
+        return vc
+    }()
+    
+    lazy var momentVC: MomentVC = {
+        let vc = MomentVC()
+        vc.title = "图文"
+        return vc
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let recommandVC: UIViewController = storyboard.instantiateViewController(withIdentifier: "WorkVC")
-        recommandVC.title = "视频"
-        
-        let featuredVC: UIViewController = storyboard.instantiateViewController(withIdentifier: "LiveListVC")
-        featuredVC.title = "直播"
-        
-        let momentVC: UIViewController = MomentVC()
-        momentVC.title = "图文"
-    
-        let pagingViewController = CustomPagingViewController(viewControllers: [momentVC, recommandVC, featuredVC])
+        let pagingViewController = CustomPagingViewController(viewControllers: [self.momentVC, self.recommandVC, self.featuredVC])
         pagingViewController.delegate = self
         pagingViewController.borderOptions = .hidden
         pagingViewController.menuBackgroundColor = .clear
@@ -235,6 +244,11 @@ class MainVC: UIViewController {
         if withTLPHAssets != nil {
             createMomentVC.imageAssets = withTLPHAssets!
         }
+        
+        createMomentVC.completedBlock = { (moment) -> () in
+            self.momentVC.handleRefresh(nil)
+        }
+        
         DispatchQueue.main.async {
             self.present(createMomentVC, animated: true, completion: nil)
         }

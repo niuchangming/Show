@@ -113,9 +113,7 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
                 self.channelTryCount = self.channelTryCount + 1
             }else{
                 self.enterOpenChannel(channelUrl: (channel?.channelUrl)!)
-                AuthUtils.share.saveChannelId(channelId: (channel?.channelUrl)!)
                 self.uploadChannelId(channelId: (channel?.channelUrl)!)
-                
             }
         }
     }
@@ -143,8 +141,10 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int
             let message = response["message"] as! String
-            if errorCode != 1 {
-                NSLog("Upload ChannelID Error: %@", message)
+            if errorCode == 1 {
+                AuthUtils.share.saveChannelId(channelId: channelId)
+            }else{
+                print("Upload ChannelId failed: \(message)")
             }
         }) { (error) in
             print("Upload ChannelID Error: \(String(describing: error?.localizedDescription))")

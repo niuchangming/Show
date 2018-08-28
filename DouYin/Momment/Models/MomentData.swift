@@ -23,7 +23,7 @@ class MomentData: HandyJSON {
             return
         }
         
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@moment/momentlist", Constants.HOST), parames: ["expires": NSNumber.init(value: requiredTime.toMillis()), "pageIndex": NSNumber.init(value: pageIndex), "pageSize": NSNumber.init(value: pageSize)], succeed: { (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@moment/momentsall", Constants.HOST), parames: ["permission": "public" as AnyObject, "token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
             
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int
@@ -50,29 +50,40 @@ class MomentData: HandyJSON {
 class Moment: HandyJSON{
     var momentId: String = ""
     var body: String = ""
-    var lon: Double = 0
-    var lat: Double = 0
+    var likeCount: Int = 0
+    var followingCount: Int = 0
+    var favouriteCount: Int = 0
+    var type: String = "";
+    var lon: Int64 = 0
+    var lat: Int64 = 0
     var comments: [Comment]?
     var creator: Creator?
-    var likeCount: Int = 0
-    var type: String = "";
-    var images: [Photo]?
+    var photoArray: [Photo]?
     
     required init() {}
+    
+    func mapping(mapper: HelpingMapper) {
+        mapper <<<
+            self.momentId <-- "resourceId"
+    }
 }
 
 class Creator: HandyJSON{
     var name : String = ""
     var userCode : String = ""
     var title : String = ""
-    var userAvatar: Photo?
+    var avatar: Photo?
     
     required init() {}
 }
 
 class Comment: HandyJSON{
-    var author: String = ""
-    var content: String = ""
+    var commentId: String = ""
+    var creator: Creator?
+    var body: String = ""
+    var replyTo: String = ""
+    var replyToName: String = ""
+    var childCount: Int = 0
     
     required init() {}
 }

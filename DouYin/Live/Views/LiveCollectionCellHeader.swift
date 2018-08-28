@@ -8,6 +8,7 @@
 
 import UIKit
 
+typealias AuthFailedBlock = () -> Void
 class LiveCollectionCellHeader: ReusableViewFromXib {
     @IBOutlet weak var userInfoContainer: UIView!
     @IBOutlet weak var avatarIV: UIImageView!
@@ -17,6 +18,7 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
     @IBOutlet weak var followerContainer: UIScrollView!
     @IBOutlet weak var coinContainer: UIView!
     @IBOutlet weak var coinAmountLbl: UILabel!
+    var authBlock: AuthFailedBlock?
     
     @IBOutlet weak var coinAmountWidthConst: NSLayoutConstraint!
     public var live = Live() {
@@ -56,6 +58,9 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
             }) { (error) in
                 print("Follow user error: \(String(describing: error?.localizedDescription))")
             }
+        }else {
+            guard let cb = self.authBlock else {return}
+            cb()
         }
     }
     

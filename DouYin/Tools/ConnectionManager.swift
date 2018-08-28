@@ -37,6 +37,13 @@ class ConnectionManager: NSObject {
     }
     
     func uploadMultiparts(url: String, params: [String:AnyObject], multiparts: [String:AnyObject]?, succeed: @escaping(AnyObject?)->(), failure:@escaping(Error?)->()) {
+        
+        uploadMultiparts(url: url, params: params, multiparts: multiparts, mimeType: "image/jpeg", succeed: succeed, failure: failure)
+        
+    }
+    
+    func uploadMultiparts(url: String, params: [String:AnyObject], multiparts: [String:AnyObject]?, mimeType: String, succeed: @escaping(AnyObject?)->(), failure:@escaping(Error?)->()) {
+    
         Alamofire.upload(multipartFormData: { multipartFormData in
             for (key, value) in params {
                 multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
@@ -47,15 +54,15 @@ class ConnectionManager: NSObject {
                     
                     if let dataArr = partData as? [Data]{
                         for data in dataArr {
-                            multipartFormData.append(data , withName: key, fileName: UUID().uuidString, mimeType: "image/jpeg")
+                            multipartFormData.append(data , withName: key, fileName: UUID().uuidString, mimeType: mimeType)
                         }
                     } else {
-                        multipartFormData.append(partData as! Data, withName: key, fileName: UUID().uuidString, mimeType: "image/jpeg")
+                        multipartFormData.append(partData as! Data, withName: key, fileName: UUID().uuidString, mimeType: mimeType)
                     }
                     
                 }
             }
-        
+            
         }, to: url, encodingCompletion: { encodingResult in
             switch encodingResult {
             case .success(let upload, _, _):
@@ -70,9 +77,6 @@ class ConnectionManager: NSObject {
                 failure(encodingError)
             }
         })
-        
-    
-//        print("request body: \(String(describing: (request as! UploadRequest).request?.httpBody))")
     }
     
 }

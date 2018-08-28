@@ -16,7 +16,12 @@ protocol ChatInputBarDelegate: class {
 class ChatInputBar: ReusableViewFromXib {
     
     @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var messageInputTv: UITextView!
+    @IBOutlet weak var messageInputTv: UITextView!{
+        didSet{
+            messageInputTv.clipsToBounds = true
+            messageInputTv.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
+        }
+    }
     var delegate: ChatInputBarDelegate?
     
     @IBAction func sendBtnClicked(_ sender: UIButton){
@@ -36,6 +41,33 @@ class ChatInputBar: ReusableViewFromXib {
                 })
                 self.sendBtn.isEnabled = true
             })
+        }
+    }
+    
+    func sendComment(momentId: String, commentId: String, completed: @escaping(_ status: Status, _ error: String) -> () ) {
+        if self.messageInputTv.text.count > 0 {
+            let message = self.messageInputTv.text
+            self.messageInputTv.text = ""
+            self.sendBtn.isEnabled = false
+            
+            let commentAPI = String(format: "%@comments/comment", Constants.HOST)
+            
+            let params = ["body": message, "token": AuthUtils.share.apiToken(), "resourceId": momentId, "commentId": commentId] as [String : AnyObject]
+        
+            ConnectionManager.shareManager.request(method: .post, url: commentAPI, parames: params, succeed: { (responseJson) in
+                let response = responseJson as! NSDictionary
+                let errorCode = response["errorCode"] as! Int
+                let message = response["message"] as! String
+                if errorCode == 1 {
+                    completed(.success, message)
+                }else{
+                    completed(.failure, message)
+                }
+                self.sendBtn.isEnabled = true
+            }) { (error) in
+                completed(.failure, (error?.localizedDescription)!)
+                self.sendBtn.isEnabled = true
+            }
         }
     }
 }

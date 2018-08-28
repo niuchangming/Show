@@ -76,16 +76,20 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
 
     func updateUI(moment: Moment){
         self.moment = moment
-        self.avatarIV.sd_setImage(with: URL(string: (moment.creator?.userAvatar?.small)!), placeholderImage: UIImage(named: "placeholder.png"))
+        guard let avararUrl = moment.creator?.avatar?.origin else { return }
+        self.avatarIV.sd_setImage(with: URL(string: avararUrl), placeholderImage: UIImage(named: "placeholder.png"))
         self.nameLbl.text = moment.creator?.name
         self.bodyLbl.text = moment.body
-        
+
         if(moment.comments != nil && (moment.comments?.count)! > 0){ //有comment
+            for view in self.commentContainerView.subviews {
+                view .removeFromSuperview()
+            }
             self.commentContainerView.isHidden = false
             let commentRowHeight: CGFloat = 30.0
             let padding: CGFloat = Constants.Dimension.MARGIN_SMALL
             let commentContainerHeight = CGFloat((moment.comments?.count)!) * commentRowHeight + 2 * padding
-            
+
             if let commentList = moment.comments {
                 for i in 0..<commentList.count {
                     let comment: Comment = commentList[i]
@@ -93,16 +97,17 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                     commentLbl.numberOfLines = 0
                     commentLbl.font = UIFont.systemFont(ofSize: Constants.Dimension.TEXT_SIZE_SMALL)
                     commentLbl.textColor = UIColor(hexString: Constants.ColorScheme.blackColor)
-                    let commentStr: String = String(format: "%@: %@", comment.author, comment.content)
-                    let range = (commentStr as NSString).range(of: String(format: "%@", comment.author))
+                    let commentStr: String = String(format: "%@: %@", (comment.creator?.name)!, comment.body)
+                    let range = (commentStr as NSString).range(of: String(format: "%@", (comment.creator?.name)!))
                     let attribute = NSMutableAttributedString(string: commentStr)
                     attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(hexString: Constants.ColorScheme.blueColor), range: range)
                     commentLbl.attributedText = attribute
                     commentContainerView.addSubview(commentLbl)
                 }
             }
-            
+
             self.commentContainerHeightConstraint.constant = commentContainerHeight
+            self.commentContainerHeightConstraint.priority = UILayoutPriority(rawValue: 999)
             self.commentContainerBottomConstraint.constant = Constants.Dimension.MARGIN_MIDDLE
             self.commentContainerBottomConstraint.priority = UILayoutPriority(rawValue: 999)
         }else{ //无comment
@@ -114,47 +119,47 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         self.btnCommentContainerConstraint.constant = Constants.Dimension.MARGIN_MIDDLE
         self.btnCommentContainerConstraint.priority = UILayoutPriority(rawValue: 999)
         self.btnContainerBottomConstraint.priority = UILayoutPriority(rawValue: 750)
-        
+
         if(moment.type == "link"){
             self.linkView.isHidden = false
             self.picContainerView.isHidden = true
 //            self.linkIconIV.sd_setImage(with: URL(string: (moment.link?.icon)!), placeholderImage: UIImage(named: "placeholder.png"))
 //            self.linkTitleLbl.text = moment.link?.title
-            
+
             self.bodyLinkConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.bodyLinkConstraint.priority = UILayoutPriority(rawValue: 999)
             self.bodyPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
             self.bodyBtnContainerConstraint.priority = UILayoutPriority(rawValue: 750)
-            
+
             self.linkBtnContainerConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.linkBtnContainerConstraint.priority = UILayoutPriority(rawValue: 999)
             self.linkPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
         }else if(moment.type == "picture"){
             self.picContainerView.isHidden = false
             self.linkView.isHidden = true
-            
+
             let picWidth: CGFloat = 80 * Constants.Dimension.W_RATIO
             let picHeight: CGFloat = picWidth
             let colCount = 3
-            let rowCount = (moment.images?.count)! / colCount + 1
-            
+            let rowCount = (moment.photoArray?.count)! / colCount + 1
+
             for r in 0..<rowCount{
                 for c in 0..<3{
                     let index = 3*r+c
-                    if(index == moment.images?.count){
+                    if(index == moment.photoArray?.count){
                         break;
                     }
-                    
+
                     let picIV = UIImageView(frame: CGRect(x: CGFloat(1 + c)*Constants.Dimension.MARGIN_SMALL + CGFloat(c) * picWidth,
                                                           y: CGFloat(r)*picHeight + CGFloat(1 + r)*Constants.Dimension.MARGIN_SMALL,
                                                           width: picWidth,
                                                           height: picHeight))
-                    picIV.sd_setImage(with: URL(string: moment.images![index].small), placeholderImage: UIImage(named: "placeholder.png"))
+                    picIV.sd_setImage(with: URL(string: moment.photoArray![index].origin), placeholderImage: UIImage(named: "placeholder.png"))
                     picIV.clipsToBounds = true
                     picIV.tag = index
                     picIV.contentMode = .scaleAspectFill
                     self.picContainerView.addSubview(picIV)
-                    
+
                     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
                     picIV.isUserInteractionEnabled = true
                     picIV.addGestureRecognizer(tapGestureRecognizer)
@@ -165,11 +170,11 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             self.bodyPicContainerConstraint.priority = UILayoutPriority(rawValue: 999)
             self.bodyLinkConstraint.priority = UILayoutPriority(rawValue: 750)
             self.bodyBtnContainerConstraint.priority = UILayoutPriority(rawValue: 750)
-            
+
             self.picContainerHeightConstraint.constant = CGFloat(rowCount) * picHeight + Constants.Dimension.MARGIN_SMALL * CGFloat(rowCount + 1)
             self.picBtnContainerConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.picBtnContainerConstraint.priority = UILayoutPriority(rawValue: 999)
-        
+
             self.linkPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
             self.linkBtnContainerConstraint.priority = UILayoutPriority(rawValue: 750)
         }else{
@@ -177,11 +182,10 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             self.picContainerView.isHidden = true
             self.bodyBtnContainerConstraint.constant = Constants.Dimension.MARGIN_NOR
             self.bodyBtnContainerConstraint.priority = UILayoutPriority(rawValue: 999)
-            
+
             self.bodyLinkConstraint.priority = UILayoutPriority(rawValue: 750)
             self.bodyPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
         }
-
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)  {
@@ -204,7 +208,13 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     
     @IBAction func commentBtnClicked(_ sender: UIButton) {
         let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
-        momentVC.commentBar.commentTF.becomeFirstResponder()
+        if AuthUtils.share.validate() == .LOGGED && Utils.isNotNil(obj: AuthUtils.share.apiToken()) {
+            momentVC.foucsMoment = self.moment
+            momentVC.chatInputBar.messageInputTv.becomeFirstResponder()
+        }else{
+            let loginVC = LoginVC()
+            momentVC.present(loginVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func likeBtnClicked(_ sender: UIButton) {

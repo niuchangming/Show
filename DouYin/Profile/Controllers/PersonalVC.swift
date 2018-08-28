@@ -121,8 +121,11 @@ class PersonalVC: UITableViewController {
             }
         } else {
             if Utils.isNotNil(obj: person?.avatar) {
-                coverIv.sd_setImage(with: URL(string: (person?.avatar?.origin)!), placeholderImage: UIImage(named: "placeholder.png"))
-                let blurImage: UIImage = (coverIv.image?.gaussianBlur(blurAmount: 0.5))!
+                guard let coverImageUrl = person?.coverImage?.origin else { return }
+                coverIv.sd_setImage(with: URL(string: coverImageUrl), placeholderImage: UIImage(named: "placeholder.png"))
+                
+                guard let coverImage = coverIv.image else { return }
+                let blurImage: UIImage = (coverImage.gaussianBlur(blurAmount: 0.5))
                 coverIv.image = blurImage
             }
         }

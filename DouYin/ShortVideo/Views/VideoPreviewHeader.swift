@@ -15,6 +15,7 @@ protocol VideoPreviewHeaderDelegate: class {
 
 class VideoPreviewHeader: ReusableViewFromXib {
 
+    @IBOutlet weak var loadingBar: UIActivityIndicatorView!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var uploadBtn: UIButton!
     weak var delegate: VideoPreviewHeaderDelegate?

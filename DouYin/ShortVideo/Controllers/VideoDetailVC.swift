@@ -278,7 +278,6 @@ extension VideoDetailVC{
             playerScrollView.downPlayer?.view.isHidden = true
         }
         
-        
         if(playerScrollView.middlePlayer?.view.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT){
             playerScrollView.middlePlayer?.view.isHidden = true
             

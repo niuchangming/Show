@@ -11,6 +11,7 @@ import TLPhotoPicker
 import Photos
 import DropDown
 
+typealias CompletedCallBack = (_ moment: Moment?) ->()
 class CreateMomentVC: UIViewController {
     var postType: MomentType! = .text
     let maxImageAmount: Int = 9
@@ -25,6 +26,7 @@ class CreateMomentVC: UIViewController {
     @IBOutlet weak var actionBarHeight: NSLayoutConstraint!
     @IBOutlet weak var imageContainer: UIView!
     @IBOutlet weak var imageContainerHeightContraint: NSLayoutConstraint!
+    var completedBlock: CompletedCallBack?
     @IBOutlet weak var arrowIv: UIImageView!{
         didSet{
             arrowIv.image = arrowIv.image?.withRenderingMode(.alwaysTemplate)
@@ -219,7 +221,9 @@ class CreateMomentVC: UIViewController {
             let errorCode = response["errorCode"] as! Int
             let message = response["message"] as! String
             if errorCode == 1 {
-                Utils.popAlert(title: "Success", message: message, controller: self)
+                self.dismiss(animated: true, completion: nil)
+                guard let cb = self.completedBlock else {return}
+                cb(nil)
             }else{
                 Utils.popAlert(title: "Failed", message: message, controller: self)
             }

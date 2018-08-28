@@ -154,7 +154,7 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
     func submit(){
         let name: String?
         let nickname: String?
-        let gender: String?
+        var gender: Int = 0
         let dialCode: String?
         let category: String?
         
@@ -194,7 +194,9 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
         
         let genderIndexPath = IndexPath(item: 3, section: 0)
         let genderCell = self.tableView.cellForRow(at: genderIndexPath) as! GenderCell
-        gender = genderCell.genderSwitch.rightSelected ? genderCell.genderSwitch.rightText : genderCell.genderSwitch.leftText
+        let genderStr = genderCell.genderSwitch.rightSelected ? genderCell.genderSwitch.rightText : genderCell.genderSwitch.leftText
+        
+        gender = genderStr == "Male" ? 0 : 1
         
         let areaIndexPath = IndexPath(item: 4, section: 0)
         let areaCell = self.tableView.cellForRow(at: areaIndexPath) as! AreaCell
@@ -204,7 +206,7 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
         let categoryCell = self.tableView.cellForRow(at: categoryIndexPath) as! CategoryCell
         category = categoryCell.categoryLbl.text
         
-        let params = ["name": name, "nickname": nickname, "gender": gender, "countryCode": dialCode, "category": category, "token": AuthUtils.share.apiToken()]
+        let params = ["name": name, "nickname": nickname, "gender": String(gender), "countryCode": dialCode, "category": category, "token": AuthUtils.share.apiToken()]
         let multiParts = ["coverImage": UIImageJPEGRepresentation((self.coverAssets.first?.fullResolutionImage)!, 1), "avatar": UIImageJPEGRepresentation((self.avatarAssets.first?.fullResolutionImage)!, 1)]
         
         let coverIndexPath = IndexPath(item: 0, section: 0)
@@ -228,9 +230,7 @@ class AnchorFormVC: UITableViewController, TLPhotosPickerViewControllerDelegate{
                 coverCell.saveBtn.isEnabled = true
             }, failure: { (error) in
                 
-                let alert = UIAlertController(title: "Failed", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                Utils.popAlert(title: "Failed", message: error?.localizedDescription, controller: self)
                 
                 coverCell.loadingBar.stopAnimating()
                 coverCell.saveBtn.isHidden = false

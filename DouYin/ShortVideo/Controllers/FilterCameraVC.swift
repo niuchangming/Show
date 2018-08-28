@@ -10,7 +10,7 @@ import UIKit
 import GPUImage
 import KeyframePicker
 
-let blendImageName = "WID-small.jpg"
+let blendImageName = "login_bg.jpg"
 let tmpFilename = "tmpfile.mp4"
 let maxSeconds: CGFloat = 15
 
@@ -214,6 +214,7 @@ class FilterCameraVC: UIViewController {
             let storyboard = UIStoryboard(name: "Moment", bundle: nil)
             let videoPreviewVC = storyboard.instantiateViewController(withIdentifier: "VideoPreviewVC") as! VideoPreviewVC
             videoPreviewVC.previewImage = image
+            videoPreviewVC.videoUrl = self.fileUrl
             self.present(videoPreviewVC, animated: true, completion: nil)
         }
     }
@@ -271,37 +272,103 @@ extension FilterCameraVC: BeautyBarDelegate{
         self.currentFilter = filterOperation
         
         if self.currentFilter?.listName == "aile" {
-            self.currentFilter?.updateBasedOnSliderValue(Float(0.8))
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.68))
             
-            let filter = currentFilter?.filter as! SaturationAdjustment
+            let filter = self.currentFilter?.filter as! RGBAdjustment
             videoCamera! --> filter --> renderView
             videoCamera?.startCapture()
         }else if self.currentFilter?.listName == "cute" {
-            self.currentFilter?.updateBasedOnSliderValue(Float(2.0))
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.84))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        }else if self.currentFilter?.listName == "april" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.73))
             
             let filter = self.currentFilter?.filter as! RGBAdjustment
             videoCamera! --> filter --> renderView
             videoCamera?.startCapture()
         }else if self.currentFilter?.listName == "caomulv" {
-            self.currentFilter?.updateBasedOnSliderValue(Float(1.3))
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.12))
             
-            let filter = RGBAdjustment()
+            let filter = self.currentFilter?.filter as! RGBAdjustment
             videoCamera! --> filter --> renderView
             videoCamera?.startCapture()
         }else if self.currentFilter?.listName == "chaotuo" {
-            self.currentFilter?.updateBasedOnSliderValue(Float(0.3))
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.4))
             
-            let filter = MonochromeFilter()
+            let filter = self.currentFilter?.filter as! RGBAdjustment
             videoCamera! --> filter --> renderView
             videoCamera?.startCapture()
-        }else{
-            self.currentFilter?.updateBasedOnSliderValue(Float(0.8))
+        }else if self.currentFilter?.listName == "chunzhen" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.3))
             
-            let filter = SaturationAdjustment()
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "fenchun" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.1))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "hongchun" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.42))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "jiaopi" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.2))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "mianhuatang" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(2.0))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "musi" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.82))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "qimiao" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(1.45))
+            
+            let filter = self.currentFilter?.filter as! RGBAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "qingxin" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.3))
+            
+            let filter = self.currentFilter?.filter as! BrightnessAdjustment
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "shengdai" {
+            self.currentFilter?.updateBasedOnSliderValue(Float(0.3))
+            
+            let filter = self.currentFilter?.filter as! HighlightsAndShadows
+            videoCamera! --> filter --> renderView
+            videoCamera?.startCapture()
+        } else if self.currentFilter?.listName == "taohua" {
+            let filter = self.currentFilter?.filter as! ColorBlend
+            videoCamera?.addTarget(filter)
+            blendImage = PictureInput(imageName:blendImageName)
+            blendImage?.addTarget(filter)
+            blendImage?.processImage()
+            filter.addTarget(renderView)
+            videoCamera?.startCapture()
+        }else if self.currentFilter?.listName == "wennuan" {
+            let filter = self.currentFilter?.filter as! MissEtikateFilter
+            
             videoCamera! --> filter --> renderView
             videoCamera?.startCapture()
         }
-    
     }
 }
 
