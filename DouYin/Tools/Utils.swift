@@ -24,6 +24,18 @@ class Utils: NSObject {
         return gradient
     }
     
+    static func generateUniqueCode() -> String {
+        var code: String = ""
+        let uuid = UUID.init().uuidString
+        let codeArray: [String] = uuid.components(separatedBy: "-")
+        if codeArray.count == 5 {
+            code = codeArray[codeArray.count-1]
+        }else{
+            code = deviceId()
+        }
+        return code
+    }
+    
     static func isNotNil(obj: Any?) -> Bool {
         if obj is String {
             if (obj as? String) != nil && ((obj as? String)?.count)! > 0{

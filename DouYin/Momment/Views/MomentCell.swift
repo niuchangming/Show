@@ -80,7 +80,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         self.avatarIV.sd_setImage(with: URL(string: avararUrl), placeholderImage: UIImage(named: "placeholder.png"))
         self.nameLbl.text = moment.creator?.name
         self.bodyLbl.text = moment.body
-
+        
         if(moment.comments != nil && (moment.comments?.count)! > 0){ //有comment
             for view in self.commentContainerView.subviews {
                 view .removeFromSuperview()
@@ -135,6 +135,10 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             self.linkBtnContainerConstraint.priority = UILayoutPriority(rawValue: 999)
             self.linkPicContainerConstraint.priority = UILayoutPriority(rawValue: 750)
         }else if(moment.type == "picture"){
+            for view in self.picContainerView.subviews {
+                view .removeFromSuperview()
+            }
+            
             self.picContainerView.isHidden = false
             self.linkView.isHidden = true
 

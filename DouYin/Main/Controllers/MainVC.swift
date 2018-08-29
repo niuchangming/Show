@@ -115,30 +115,15 @@ class MainVC: UIViewController {
     }
     
     func initOpenChat(){
-        var userId = Utils.deviceId()
-        if(AuthUtils.share.validate() == .LOGGED){
-            let userDefault: UserDefaults = UserDefaults.standard
-            let userType = userDefault.object(forKey: Constants.Auth.LOGIN_TYPE) as! String
-            
-            if(userType == Constants.MOBILE_LOGGED){
-                userId = userDefault.object(forKey: Constants.Auth.MOBILE) as! String
-            }else if(userType == Constants.FACEBOOK_APP_ID){
-                userId = userDefault.object(forKey: Constants.Auth.FB_USER_ID) as! String
-            }else if(userType == Constants.WECHAT_APP_ID){
-                userId = userDefault.object(forKey: Constants.Auth.WX_UNION_ID) as! String
+        ChatManager.login { (user, error) in
+            if(error != nil){
+                print("SendBird Login Failed: \(String(describing: error?.localizedDescription))")
+            }else{
+                let userDefault: UserDefaults = UserDefaults.standard
+                userDefault.set(SBDMain.getCurrentUser()?.userId, forKey: "sendbird_user_id")
+                userDefault.set(SBDMain.getCurrentUser()?.nickname, forKey: "sendbird_user_nickname")
+                userDefault.synchronize()
             }
-        }
-        if Utils.isNotNil(obj: userId) {
-            ChatManager.login(userId: userId, nickname: Utils.fakeName(), completionHandler: { (user, error) in
-                if(error != nil){
-                    print("SendBird Login Failed: \(String(describing: error?.localizedDescription))")
-                }else{
-                    let userDefault: UserDefaults = UserDefaults.standard
-                    userDefault.set(SBDMain.getCurrentUser()?.userId, forKey: "sendbird_user_id")
-                    userDefault.set(SBDMain.getCurrentUser()?.nickname, forKey: "sendbird_user_nickname")
-                    userDefault.synchronize()
-                }
-            })
         }
     }
     

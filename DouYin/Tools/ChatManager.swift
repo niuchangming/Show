@@ -12,13 +12,7 @@ import SendBirdSDK
 let ErrorDomainConnection = "com.ekooshow.connection"
 let ErrorDomainUser = "com.ekooshow.user"
 
-protocol ChatManagerDelegate: NSObjectProtocol {
-    func didConnect(isReconnection: Bool)
-    func didDisconnect();
-}
-
-class ChatManager: NSObject, SBDConnectionDelegate {
-
+class ChatManager: NSObject {
     var observers: NSMapTable<NSString, AnyObject> = NSMapTable(keyOptions: .copyIn, valueOptions: .weakMemory)
     
     static let sharedInstance = ChatManager();
@@ -33,19 +27,32 @@ class ChatManager: NSObject, SBDConnectionDelegate {
     }
     
     static public func login(completionHandler: ((_ user: SBDUser?, _ error: NSError?) -> Void)?) {
-        let userId: String? = UserDefaults.standard.string(forKey: "sendbird_user_id")
-        let userNickname: String? = UserDefaults.standard.string(forKey: "sendbird_user_nickname")
+        var userId: String? = UserDefaults.standard.string(forKey: "sendbird_user_id")
+        var userNickname: String? = UserDefaults.standard.string(forKey: "sendbird_user_nickname")
         
-        if let theUserId: String = userId, let theNickname: String = userNickname {
-            self.login(userId: theUserId, nickname: theNickname, completionHandler: completionHandler)
-        }
-        else {
-            if let handler: ((_ :SBDUser?, _ :NSError?) -> ()) = completionHandler {
-                let error: NSError = NSError(domain: ErrorDomainConnection, code: -1, userInfo: [NSLocalizedDescriptionKey:"User id or user nickname is nil.",NSLocalizedFailureReasonErrorKey:"Saved user data does not exist."])
-                handler(nil, error);
+        if !Utils.isNotNil(obj: userId) {
+            if(AuthUtils.share.validate() == .LOGGED){
+                let userDefault: UserDefaults = UserDefaults.standard
+                let userType = userDefault.object(forKey: Constants.Auth.LOGIN_TYPE) as! String
+                
+                if(userType == Constants.MOBILE_LOGGED){
+                    userId = userDefault.object(forKey: Constants.Auth.MOBILE) as? String
+                }else if(userType == Constants.FACEBOOK_APP_ID){
+                    userId = userDefault.object(forKey: Constants.Auth.FB_USER_ID) as? String
+                }else if(userType == Constants.WECHAT_APP_ID){
+                    userId = userDefault.object(forKey: Constants.Auth.WX_UNION_ID) as? String
+                }else{
+                    userId = Utils.generateUniqueCode()
+                }
+            }else{
+                userId = Utils.generateUniqueCode()
             }
-            return;
         }
+        
+        if !Utils.isNotNil(obj: userNickname) {
+            userNickname = Utils.fakeName()
+        }
+        self.login(userId: userId!, nickname: userNickname!, completionHandler: completionHandler)
     }
     
     static public func login(userId: String, nickname: String, completionHandler: ((_ user: SBDUser?, _ error: NSError?) -> Void)?) {
@@ -69,45 +76,9 @@ class ChatManager: NSObject, SBDConnectionDelegate {
                 return;
             }
             
-            if let pushToken: Data = SBDMain.getPendingPushToken() {
-                SBDMain.registerDevicePushToken(pushToken, unique: true, completionHandler: { (status, error) in
-                    guard error == nil else {
-                        print("APNS registration failed.")
-                        return
-                    }
-                    
-                    if status == .pending {
-                        print("Push registration is pending.")
-                    }
-                    else {
-                        print("APNS Token is registered.")
-                    }
-                })
+            if let handler = completionHandler {
+                handler(user, nil)
             }
-            
-            self.broadcastConnection(isReconnection: false)
-            
-            SBDMain.updateCurrentUserInfo(withNickname: nickname, profileUrl: nil, completionHandler: { (error) in
-                guard error == nil else {
-                    self.logout(completionHandler: {
-                        if let handler = completionHandler {
-                            var userInfo: [String: Any]?
-                            if let reason: String = error?.localizedFailureReason {
-                                userInfo?[NSLocalizedFailureReasonErrorKey] = reason
-                            }
-                            userInfo?[NSLocalizedDescriptionKey] = error?.localizedDescription
-                            userInfo?[NSUnderlyingErrorKey] = error;
-                            let connectionError: NSError = NSError.init(domain: ErrorDomainUser, code: error!.code, userInfo: userInfo)
-                            handler(nil, connectionError)
-                        }
-                    })
-                    return;
-                }
-                
-                if let handler = completionHandler {
-                    handler(user, nil)
-                }
-            })
         }
     }
     
@@ -124,7 +95,6 @@ class ChatManager: NSObject, SBDConnectionDelegate {
     
     private func logout(completionHandler: (() -> Void)?) {
         SBDMain.disconnect {
-            self.broadcastDisconnection()
             self.removeUserInfo()
             
             if let handler: () -> Void = completionHandler {
@@ -133,53 +103,36 @@ class ChatManager: NSObject, SBDConnectionDelegate {
         }
     }
     
-    static public func add(connectionObserver: ChatManagerDelegate) {
-        self.sharedInstance.observers.setObject(connectionObserver as AnyObject, forKey:self.instanceIdentifier(instance: connectionObserver))
-        if SBDMain.getConnectState() == .open {
-            connectionObserver.didConnect(isReconnection: false)
-        }
-        else if SBDMain.getConnectState() == .closed {
-            self.login(completionHandler: nil)
-        }
-    }
-    
-    static public func remove(connectionObserver: ChatManagerDelegate) {
-        let observerIdentifier: NSString = self.instanceIdentifier(instance: connectionObserver)
-        self.sharedInstance.observers.removeObject(forKey: observerIdentifier)
-    }
-    
-    private func broadcastConnection(isReconnection: Bool) {
-        let enumerator: NSEnumerator? = self.observers.objectEnumerator()
-        while let observer = enumerator?.nextObject() as! ChatManagerDelegate? {
-            observer.didConnect(isReconnection: isReconnection)
-        }
-    }
-    
-    private func broadcastDisconnection() {
-        let enumerator: NSEnumerator? = self.observers.objectEnumerator()
-        while let observer = enumerator?.nextObject() as! ChatManagerDelegate? {
-            observer.didDisconnect()
-        }
-    }
-    
-    static private func instanceIdentifier(instance: Any) -> NSString {
-        return NSString(format: "%zd", self.hash())
-    }
-    
+}
+
+extension ChatManager: SBDConnectionDelegate{
     func didStartReconnection() {
-        self.broadcastDisconnection()
+        
     }
     
     func didSucceedReconnection() {
-        self.broadcastConnection(isReconnection: true)
+        
     }
     
     func didFailReconnection() {
-        //
+        
     }
     
     func didCancelReconnection() {
-        //
+        
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@ class MomentData: HandyJSON {
             return
         }
         
-        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@moment/momentsall", Constants.HOST), parames: ["permission": "public" as AnyObject, "token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@moment/listall", Constants.HOST), parames: ["pageIndex": NSNumber.init(value: pageIndex), "pageSize": NSNumber.init(value: pageSize), " token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
             
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int
@@ -50,10 +50,12 @@ class MomentData: HandyJSON {
 class Moment: HandyJSON{
     var momentId: String = ""
     var body: String = ""
+    var uploadTime: Date?
     var likeCount: Int = 0
     var followingCount: Int = 0
     var favouriteCount: Int = 0
     var type: String = "";
+    var permission: String = ""
     var lon: Int64 = 0
     var lat: Int64 = 0
     var comments: [Comment]?

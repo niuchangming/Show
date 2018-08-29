@@ -120,7 +120,6 @@ class FilterCameraVC: UIViewController {
         }
     }
     
-    
     @IBAction func musicBtnClicked(_ sender: Any) {
         
     }
