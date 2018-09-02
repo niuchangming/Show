@@ -8,22 +8,11 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import CoreData
 
-class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, ChatInputBarDelegate {
-    
-    func sendMessage() {
-        guard let m = self.foucsMoment else { return }
-        self.chatInputBar.sendComment(momentId: m.momentId, commentId: "") { (status, message) in
-            if status == .success {
-                self.handleRefresh(nil)
-            }
-        }
-        self.chatInputBar.messageInputTv.resignFirstResponder()
-    }
-    
-    var moments: [Moment] = []
+class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let momentData = MomentData()
-    var foucsMoment: Moment?
+    var tmpObject: AnyObject?
     let cellID = "MomentCell"
     
     @IBOutlet weak var tableView: UITableView!
@@ -38,12 +27,6 @@ class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ch
         
         return refreshControl
     }()
-    
-//    lazy var commentBar: CommentTextBar = {
-//        let commentBar = Bundle.main.loadNibNamed("CommentTextBar", owner: nil, options: nil)?[0] as! CommentTextBar
-//        self.view.addSubview(commentBar)
-//        return commentBar
-//    }()
     
     lazy var chatInputBar: ChatInputBar = {
         let chatInputBar = ChatInputBar(frame: CGRect(x: 0, y: self.view.frame.size.height, width: self.view.frame.size.width, height: 48))
@@ -90,11 +73,6 @@ class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ch
         
         NotificationCenter.default.addObserver(self, selector: #selector(MomentVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MomentVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,4 +121,46 @@ class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ch
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
+}
+
+extension MomentVC: ChatInputBarDelegate{
+    func send() {
+        guard let o = self.tmpObject else { return }
+        
+        if o.isKind(of: Moment.self) {
+            sendCommentForMoment(moment: o as! Moment)
+        }else{
+            replyComment(comment: o as! Comment)
+        }
+    }
+    
+    func sendCommentForMoment(moment: Moment){
+        self.chatInputBar.commentMoment(moment: moment) { (moment, error) in
+
+            guard let m = moment else { return }
+            
+            var row = -1
+            for i in 0..<self.momentData.data.count {
+                if self.momentData.data[i].momentId == m.momentId {
+                    row = i
+                    break
+                }
+            }
+            
+            if row >= 0{
+                let indexPath = IndexPath(item: row, section: 0)
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+            }
+            
+            self.chatInputBar.messageInputTv.resignFirstResponder()
+        }
+    }
+    
+    func replyComment(comment: Comment){
+        self.chatInputBar.replyComment(comment: comment) { (comment, error) in
+            
+            print("---------> %@", comment)
+            
+        }
+    }
 }

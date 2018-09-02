@@ -11,7 +11,6 @@ import HandyJSON
 
 class MomentData: HandyJSON {
     var data = [Moment]()
-    var requiredTime = Date()
     var pageIndex: Int = 0
     var pageSize: Int = 20
     var isFinished: Bool = false
@@ -30,13 +29,17 @@ class MomentData: HandyJSON {
             if errorCode == 1 {
                 let model = MomentData.deserialize(from: responseJson as? NSDictionary)
                 
-                if (model?.data.count)! < 20 {
-                    self.data = self.data + (model?.data)!
+                guard let md = model else { return }
+                
+                let sortData = md.data.sorted(by: { $0.uploadTime > $1.uploadTime})
+                if sortData.count < 20 {
+                    self.data = self.data + sortData
                     self.isFinished = true
                 }else{
-                    self.data = self.data + (model?.data)!
+                    self.data = self.data + sortData
                     self.pageIndex = self.pageIndex + 1
                 }
+                
                 completed(.success)
             }else{
                 completed(.failure)
@@ -50,7 +53,7 @@ class MomentData: HandyJSON {
 class Moment: HandyJSON{
     var momentId: String = ""
     var body: String = ""
-    var uploadTime: Date?
+    var uploadTime: CLongLong = 0
     var likeCount: Int = 0
     var followingCount: Int = 0
     var favouriteCount: Int = 0
@@ -58,9 +61,9 @@ class Moment: HandyJSON{
     var permission: String = ""
     var lon: Int64 = 0
     var lat: Int64 = 0
-    var comments: [Comment]?
-    var creator: Creator?
-    var photoArray: [Photo]?
+    var comments: [Comment] = []
+    var creator: Creator = Creator()
+    var photoArray: [Photo] = []
     
     required init() {}
     
@@ -73,7 +76,6 @@ class Moment: HandyJSON{
 class Creator: HandyJSON{
     var name : String = ""
     var userCode : String = ""
-    var title : String = ""
     var avatar: Photo?
     
     required init() {}
@@ -86,6 +88,7 @@ class Comment: HandyJSON{
     var replyTo: String = ""
     var replyToName: String = ""
     var childCount: Int = 0
+    var comments: [Comment] = []
     
     required init() {}
 }

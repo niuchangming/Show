@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class MomentCell: UITableViewCell, GiftViewDelegate {
     var moment: Moment?
     
+    @IBOutlet weak var publishTimeLbl: UILabel!
+    
+    @IBOutlet weak var likeCountLbl: UILabel!
     @IBOutlet weak var avatarIV: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var bodyLbl: UILabel!
@@ -33,7 +37,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     @IBOutlet weak var btnContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var awardBtn: UIButton!
-    @IBOutlet weak var commentBtn: UIButton!
+    @IBOutlet weak var momentCommentBtn: UIButton!
     
     @IBOutlet weak var commentContainerView: UIView!
     @IBOutlet weak var commentContainerHeightConstraint: NSLayoutConstraint!
@@ -51,6 +55,18 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         gifImageView.isHidden = true
         return gifImageView
     }()
+    
+    lazy var dataContext: NSManagedObjectContext = {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        return context
+    }()
+    
+    lazy var likeManagedObject: NSManagedObject = {
+        let entity = NSEntityDescription.entity(forEntityName: "ResourceLikeMap", in: dataContext)
+        let likeManagedObj = NSManagedObject(entity: entity!, insertInto: dataContext)
+        return likeManagedObj
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,51 +75,71 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         
         self.commentContainerView.clipsToBounds = true
         self.commentContainerView.layer.cornerRadius = Constants.Dimension.CORNER_SIZE
-        
-        self.likeBtn.setImage(likeBtn.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.likeBtn.tintColor = UIColor(hexString: Constants.ColorScheme.redColor)
 
         self.awardBtn.setImage(awardBtn.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.awardBtn.tintColor = UIColor(hexString: Constants.ColorScheme.orangeColor)
         
-        self.commentBtn.setImage(commentBtn.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.commentBtn.tintColor = UIColor(hexString: Constants.ColorScheme.blueColor)
+        self.momentCommentBtn.setImage(momentCommentBtn.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.momentCommentBtn.tintColor = UIColor(hexString: Constants.ColorScheme.blueColor)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
     }
+    
+    func configLikeBtnColor(){
+        self.likeBtn.setImage(likeBtn.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.likeBtn.tintColor = UIColor(hexString: Constants.ColorScheme.redColor)
+    }
 
     func updateUI(moment: Moment){
         self.moment = moment
-        guard let avararUrl = moment.creator?.avatar?.origin else { return }
+        guard let avararUrl = moment.creator.avatar?.origin else { return }
         self.avatarIV.sd_setImage(with: URL(string: avararUrl), placeholderImage: UIImage(named: "placeholder.png"))
-        self.nameLbl.text = moment.creator?.name
+        self.nameLbl.text = moment.creator.name
         self.bodyLbl.text = moment.body
+        self.likeCountLbl.text = String(moment.likeCount)
+        self.publishTimeLbl.text = Date(timeIntervalSince1970: TimeInterval(moment.uploadTime / 1000)).getElapsedInterval()
+        self.likeCountLbl.text = String(moment.likeCount)
         
-        if(moment.comments != nil && (moment.comments?.count)! > 0){ //有comment
+        if fetchMomentLike() > 0 {
+            self.likeBtn.tag = 1
+            self.likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+        }else{
+            self.likeBtn.tag = 0
+            self.likeBtn.setImage(UIImage(named: "heart_line"), for: .normal)
+        }
+        configLikeBtnColor()
+    
+        if(moment.comments.count > 0){ //有comment
             for view in self.commentContainerView.subviews {
                 view .removeFromSuperview()
             }
             self.commentContainerView.isHidden = false
             let commentRowHeight: CGFloat = 30.0
             let padding: CGFloat = Constants.Dimension.MARGIN_SMALL
-            let commentContainerHeight = CGFloat((moment.comments?.count)!) * commentRowHeight + 2 * padding
+            let comments: [Comment] = filterComment(moment: self.moment!)
+            let commentContainerHeight = CGFloat(comments.count) * commentRowHeight + 2 * padding
 
-            if let commentList = moment.comments {
-                for i in 0..<commentList.count {
-                    let comment: Comment = commentList[i]
-                    let commentLbl: UILabel = UILabel(frame: CGRect(x: padding, y: padding + CGFloat(i) * commentRowHeight, width: commentContainerView.frame.size.width * Constants.Dimension.W_RATIO - 2 * padding, height: commentRowHeight))
-                    commentLbl.numberOfLines = 0
-                    commentLbl.font = UIFont.systemFont(ofSize: Constants.Dimension.TEXT_SIZE_SMALL)
-                    commentLbl.textColor = UIColor(hexString: Constants.ColorScheme.blackColor)
-                    let commentStr: String = String(format: "%@: %@", (comment.creator?.name)!, comment.body)
-                    let range = (commentStr as NSString).range(of: String(format: "%@", (comment.creator?.name)!))
-                    let attribute = NSMutableAttributedString(string: commentStr)
-                    attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(hexString: Constants.ColorScheme.blueColor), range: range)
-                    commentLbl.attributedText = attribute
-                    commentContainerView.addSubview(commentLbl)
-                }
+            for i in 0..<comments.count {
+                let comment: Comment = moment.comments[i]
+                let commentLblBtn: UIButton = UIButton(frame: CGRect(x: padding, y: padding + CGFloat(i) * commentRowHeight, width: commentContainerView.frame.size.width * Constants.Dimension.W_RATIO - 2 * padding, height: commentRowHeight))
+
+                commentLblBtn.titleLabel?.numberOfLines = 0
+                commentLblBtn.titleLabel?.font = UIFont.systemFont(ofSize: Constants.Dimension.TEXT_SIZE_SMALL)
+                commentLblBtn.titleLabel?.textColor = UIColor(hexString: Constants.ColorScheme.blackColor)
+                commentLblBtn.setBackgroundColor(color: UIColor(hexString: Constants.ColorScheme.lightGrayColor), forState: .highlighted)
+                commentLblBtn.contentHorizontalAlignment = .left
+                
+                let commentStr: String = String(format: "%@: %@", (comment.creator?.name)!, comment.body)
+                let range = (commentStr as NSString).range(of: String(format: "%@", (comment.creator?.name)!))
+                let attribute = NSMutableAttributedString(string: commentStr)
+                attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(hexString: Constants.ColorScheme.blueColor), range: range)
+                
+                commentLblBtn.setAttributedTitle(attribute, for: .normal)
+                commentLblBtn.addTarget(self, action: #selector(MomentCell.commentBtnClicked(_:)), for: .touchUpInside)
+                commentLblBtn.layer.setValue(comment, forKey: "comment")
+                commentContainerView.addSubview(commentLblBtn)
             }
 
             self.commentContainerHeightConstraint.constant = commentContainerHeight
@@ -145,12 +181,15 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
             let picWidth: CGFloat = 80 * Constants.Dimension.W_RATIO
             let picHeight: CGFloat = picWidth
             let colCount = 3
-            let rowCount = (moment.photoArray?.count)! / colCount + 1
+            var rowCount = moment.photoArray.count / colCount + 1
+            if(moment.photoArray.count % colCount == 0){
+                rowCount = rowCount - 1
+            }
 
             for r in 0..<rowCount{
                 for c in 0..<3{
                     let index = 3*r+c
-                    if(index == moment.photoArray?.count){
+                    if(index == moment.photoArray.count){
                         break;
                     }
 
@@ -158,7 +197,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                                                           y: CGFloat(r)*picHeight + CGFloat(1 + r)*Constants.Dimension.MARGIN_SMALL,
                                                           width: picWidth,
                                                           height: picHeight))
-                    picIV.sd_setImage(with: URL(string: moment.photoArray![index].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                    picIV.sd_setImage(with: URL(string: moment.photoArray[index].origin), placeholderImage: UIImage(named: "placeholder.png"))
                     picIV.clipsToBounds = true
                     picIV.tag = index
                     picIV.contentMode = .scaleAspectFill
@@ -192,6 +231,46 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         }
     }
     
+    func filterComment(moment: Moment) -> [Comment]{
+        var comments: [Comment] = []
+        for comment in moment.comments {
+            comments = gatherComment(comment: comment, comments: comments)
+        }
+        
+        return comments
+    }
+    
+    func gatherComment(comment: Comment, comments: [Comment]) -> [Comment] {
+        var copyComments = comments
+        
+        if comment.comments.count > 0 {
+            for comment in comment.comments {
+                if comment.comments.count > 0 {
+                    copyComments = gatherComment(comment: comment, comments: copyComments)
+                }
+                copyComments.append(comment)
+            }
+        }else{
+            copyComments.append(comment)
+        }
+        return copyComments
+    }
+    
+    @objc func commentBtnClicked(_ sender: UIButton){
+        let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
+        if AuthUtils.share.validate() == .LOGGED && Utils.isNotNil(obj: AuthUtils.share.apiToken()) {
+            let comment = sender.layer.value(forKey: "comment") as? Comment
+            
+            if comment != nil {
+                momentVC.tmpObject = comment
+                momentVC.chatInputBar.messageInputTv.becomeFirstResponder()
+            }
+        }else{
+            let loginVC = LoginVC()
+            momentVC.present(loginVC, animated: true, completion: nil)
+        }
+    }
+    
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)  {
         let tappedImageView = tapGestureRecognizer.view as! UIImageView
         
@@ -210,10 +289,10 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         relatedVC?.present(viewer, animated: true, completion: nil)
     }
     
-    @IBAction func commentBtnClicked(_ sender: UIButton) {
+    @IBAction func momentCommentBtnClicked(_ sender: UIButton) {
         let momentVC: MomentVC = Utils.viewController(responder: self) as! MomentVC
         if AuthUtils.share.validate() == .LOGGED && Utils.isNotNil(obj: AuthUtils.share.apiToken()) {
-            momentVC.foucsMoment = self.moment
+            momentVC.tmpObject = self.moment
             momentVC.chatInputBar.messageInputTv.becomeFirstResponder()
         }else{
             let loginVC = LoginVC()
@@ -222,7 +301,11 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     }
     
     @IBAction func likeBtnClicked(_ sender: UIButton) {
-        
+        if sender.tag == 1 {
+            unlike()
+        }else{
+            like()
+        }
     }
     
     @IBAction func awardBtnClicked(_ sender: UIButton){
@@ -235,6 +318,105 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                 self.giftView.collectionView.reloadData()
             }
         }
+    }
+    
+    func like(){
+        likeBtn.isEnabled = false
+        let likeAPI = String(format: "%@likes/like", Constants.HOST)
+        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "contentType": "moment", "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
+            
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            let message = response["message"] as! String
+            if errorCode == 1 {
+                self.likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+                self.configLikeBtnColor()
+                self.save()
+            } else {
+                print("Like Error: \(message)")
+            }
+            self.likeBtn.isEnabled = true
+        }) { (error) in
+            print("Like Error: \(String(describing: error?.localizedDescription))")
+            self.likeBtn.isEnabled = true
+        }
+    }
+    
+    func unlike(){
+        likeBtn.isEnabled = false
+        let likeAPI = String(format: "%@likes/unlike", Constants.HOST)
+        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "contentType": "moment", "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
+            
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            let message = response["message"] as! String
+            if errorCode == 1 {
+                self.likeBtn.setImage(UIImage(named: "heart_line"), for: .normal)
+                self.configLikeBtnColor()
+                self.delete()
+            } else {
+                print("Unlike Error: \(message)")
+            }
+            self.likeBtn.isEnabled = true
+        }) { (error) in
+            print("Unlike Error: \(String(describing: error?.localizedDescription))")
+            self.likeBtn.isEnabled = true
+        }
+    }
+    
+    func save(){
+        guard let m = moment else { return }
+        
+        self.likeManagedObject.setValue(m.momentId, forKey: "resourceId")
+        self.likeManagedObject.setValue(m.likeCount+1, forKey: "likeCount")
+        
+        do {
+            try dataContext.save()
+        } catch {
+            print("Failed Save Moment Like")
+        }
+    }
+    
+    func delete() {
+        guard let m = moment else { return }
+        
+        do {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ResourceLikeMap")
+            request.fetchLimit = 1
+            request.predicate = NSPredicate(format: "resourceId = %@", m.momentId)
+            request.returnsObjectsAsFaults = false
+            
+            let fetchResult = try dataContext.fetch(request)
+            let likeObj = fetchResult.first as! NSManagedObject
+            
+            dataContext.delete(likeObj)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.saveContext()
+        } catch {
+            print("Failed Delete Moment Like")
+        }
+    }
+    
+    func fetchMomentLike() -> Int32{
+        guard let m = moment else { return 0 }
+        
+        var likeCount: Int32 = 0
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ResourceLikeMap")
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(format: "resourceId = %@", m.momentId)
+        request.returnsObjectsAsFaults = false
+    
+        do {
+            let result = try dataContext.fetch(request)
+            
+            if result.count == 1 {
+                let likeObj = result.first as! NSManagedObject
+                likeCount = likeObj.value(forKey: "likeCount") as! Int32
+            }
+        } catch {
+            print("Fetch Moment Like Failed")
+        }
+        return likeCount
     }
     
     @objc func alertControllerBackgroundTapped(){
@@ -290,6 +472,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     }
     
 }
+
 
 
 

@@ -221,9 +221,11 @@ class CreateMomentVC: UIViewController {
             let errorCode = response["errorCode"] as! Int
             let message = response["message"] as! String
             if errorCode == 1 {
+                let newMoment = Moment.deserialize(from: response["data"] as? NSDictionary)
+                
                 self.dismiss(animated: true, completion: nil)
                 guard let cb = self.completedBlock else {return}
-                cb(nil)
+                cb(newMoment)
             }else{
                 Utils.popAlert(title: "Failed", message: message, controller: self)
             }

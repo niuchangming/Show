@@ -234,7 +234,7 @@ extension LiveCollectionViewCell{
         NSLog("Failed to load video for %@", moviePlayer.resourceUri);
     }
     
-    func sendMessage() {
+    func send() {
         self.chatInputBar.sendMessage(channel: self.openChannel) { (userMessage, error) in
             if error != nil {
                 self.chatView.resendableMessages[userMessage.requestId!] = userMessage

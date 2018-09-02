@@ -10,7 +10,7 @@ import UIKit
 import SendBirdSDK
 
 protocol ChatInputBarDelegate: class {
-    func sendMessage()
+    func send()
 }
 
 class ChatInputBar: ReusableViewFromXib {
@@ -25,7 +25,7 @@ class ChatInputBar: ReusableViewFromXib {
     var delegate: ChatInputBarDelegate?
     
     @IBAction func sendBtnClicked(_ sender: UIButton){
-        self.delegate?.sendMessage()
+        self.delegate?.send()
     }
     
     func sendMessage(channel: SBDOpenChannel!, completed: @escaping(_ userMessage: SBDUserMessage, _ error: SBDError?) -> () ) {
@@ -44,21 +44,58 @@ class ChatInputBar: ReusableViewFromXib {
         }
     }
     
-    func sendComment(momentId: String, commentId: String, completed: @escaping(_ status: Status, _ error: String) -> () ) {
+    func commentMoment(moment: Moment?, completed: @escaping(_ moment: Moment?, _ error: String) -> () ) {
         if self.messageInputTv.text.count > 0 {
-            let message = self.messageInputTv.text
+            let body = self.messageInputTv.text!
             self.messageInputTv.text = ""
             self.sendBtn.isEnabled = false
             
             let commentAPI = String(format: "%@comments/comment", Constants.HOST)
-            
-            let params = ["body": message, "token": AuthUtils.share.apiToken(), "resourceId": momentId, "commentId": commentId] as [String : AnyObject]
+    
+            let params = ["body": body, "token": AuthUtils.share.apiToken(), "resourceId": moment?.momentId, "resourceType": "moment"] as [String : AnyObject]
         
             ConnectionManager.shareManager.request(method: .post, url: commentAPI, parames: params, succeed: { (responseJson) in
                 let response = responseJson as! NSDictionary
                 let errorCode = response["errorCode"] as! Int
                 let message = response["message"] as! String
                 if errorCode == 1 {
+                    let newComment = Comment.deserialize(from: response["data"] as? NSDictionary)
+                    
+                    if let comm = newComment {
+                        moment?.comments.append(comm)
+                        completed(moment, message)
+                    }
+
+                }else{
+                    completed(nil, message)
+                }
+                self.sendBtn.isEnabled = true
+            }) { (error) in
+                completed(nil, (error?.localizedDescription)!)
+                self.sendBtn.isEnabled = true
+            }
+        }
+    }
+    
+    func replyComment(comment: Comment?, completed: @escaping(_ status: Status, _ error: String) -> () ) {
+        if self.messageInputTv.text.count > 0 {
+            let body = self.messageInputTv.text!
+            self.messageInputTv.text = ""
+            self.sendBtn.isEnabled = false
+            
+            let commentAPI = String(format: "%@comments/comment", Constants.HOST)
+            
+            let params = ["body": body, "token": AuthUtils.share.apiToken(), "commentId": comment?.commentId, "resourceType": "moment"] as [String : AnyObject]
+            
+            ConnectionManager.shareManager.request(method: .post, url: commentAPI, parames: params, succeed: { (responseJson) in
+                let response = responseJson as! NSDictionary
+                let errorCode = response["errorCode"] as! Int
+                let message = response["message"] as! String
+                if errorCode == 1 {
+                    let newComment = Comment.deserialize(from: response["data"] as? NSDictionary)
+                    if let comm = newComment {
+                        comment?.comments.append(comm)
+                    }
                     completed(.success, message)
                 }else{
                     completed(.failure, message)

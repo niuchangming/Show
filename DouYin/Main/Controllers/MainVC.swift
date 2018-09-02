@@ -231,7 +231,12 @@ class MainVC: UIViewController {
         }
         
         createMomentVC.completedBlock = { (moment) -> () in
-            self.momentVC.handleRefresh(nil)
+            
+            if moment != nil {
+                self.momentVC.momentData.data.append(moment!)
+                self.momentVC.tableView.reloadData()
+            }
+            
         }
         
         DispatchQueue.main.async {

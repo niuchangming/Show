@@ -155,7 +155,7 @@ class BroadcastVC: UIViewController, SBDChannelDelegate, ChatInputBarDelegate{
         self.chatInputBar.messageInputTv.becomeFirstResponder()
     }
     
-    func sendMessage() {
+    func send() {
         self.chatInputBar.sendMessage(channel: self.openChannel) { (userMessage, error) in
             if error != nil {
                 self.chatView.resendableMessages[userMessage.requestId!] = userMessage

@@ -172,7 +172,34 @@ class GiftView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
                 break;
             }
         }
-        self.delegate?.giftViewSendGiftInView(giftView: self, gift: selectedGift)
+        
+        guard let gift = selectedGift else { return }
+        
+        sendGift(gift: gift)
+        self.delegate?.giftViewSendGiftInView(giftView: self, gift: gift)
+    }
+    
+    func sendGift(gift: Gift){
+        let sendGiftAPI = String(format: "%@user/sendgift", Constants.HOST)
+        
+        let currentVC = Utils.viewController(responder: self)
+        guard let vc = currentVC else { return }
+        
+        var params = ["token": AuthUtils.share.apiToken(), "giftid": gift.giftid]
+        if vc.isKind(of: LiveVC.self) {
+            params["userCode"] = (vc as! LiveVC).live?.userCode
+        }
+        
+        ConnectionManager.shareManager.request(method: .post, url: sendGiftAPI, parames: params as [String : AnyObject], succeed: { (responseJson) in
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            let message = response["message"] as! String
+            if errorCode != 1 {
+                print("Send Gift Error: \(message)")
+            }
+        }) { (error) in
+            print("Send Gift Error: \(String(describing: error?.localizedDescription))")
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

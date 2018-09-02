@@ -26,23 +26,23 @@
                             <constraint firstAttribute="height" constant="32" id="rUW-ZT-rzs"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hy0-6M-GrZ">
-                        <rect key="frame" x="58" y="12" width="233" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hy0-6M-GrZ">
+                        <rect key="frame" x="58" y="12" width="0.0" height="34"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGO-F3-wq1">
-                        <rect key="frame" x="58" y="36" width="301" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGO-F3-wq1">
+                        <rect key="frame" x="58" y="52" width="301" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3分钟前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lB-mq-YQ3">
-                        <rect key="frame" x="299" y="12" width="60" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0分钟前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lB-mq-YQ3">
+                        <rect key="frame" x="66" y="12" width="293" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="2fg-TD-imO"/>
-                            <constraint firstAttribute="width" constant="60" id="uHR-zL-HCV"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="uHR-zL-HCV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="height" constant="32" id="wZQ-Xf-hnL"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yH-M9-6r7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yH-M9-6r7">
                                 <rect key="frame" x="48" y="8" width="245" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="mhm-GF-0Gd"/>
@@ -96,7 +96,7 @@
                                 </constraints>
                                 <state key="normal" image="comment_sel"/>
                                 <connections>
-                                    <action selector="commentBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UMa-SJ-DRl"/>
+                                    <action selector="momentCommentBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UMa-SJ-DRl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVU-bi-oGU">
@@ -117,18 +117,31 @@
                                     <constraint firstAttribute="height" constant="20" id="hOc-KV-sDo"/>
                                 </constraints>
                                 <state key="normal" image="heart_line"/>
+                                <state key="highlighted" image="heart"/>
                                 <connections>
                                     <action selector="likeBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wd7-GM-yxV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql6-l6-hvF">
+                                <rect key="frame" x="22" y="0.0" width="8" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="UXj-S0-ksA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.83529411764705885" green="0.0" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="1mL-Eb-gLJ"/>
+                            <constraint firstItem="Ql6-l6-hvF" firstAttribute="leading" secondItem="sgf-kb-LcE" secondAttribute="trailing" constant="2" id="54F-Jc-amH"/>
+                            <constraint firstAttribute="bottom" secondItem="Ql6-l6-hvF" secondAttribute="bottom" id="5Qe-ha-cKA"/>
                             <constraint firstItem="sgf-kb-LcE" firstAttribute="leading" secondItem="3S3-lk-Wck" secondAttribute="leading" id="5VR-gF-h94"/>
                             <constraint firstItem="SVU-bi-oGU" firstAttribute="top" secondItem="3S3-lk-Wck" secondAttribute="top" id="CCy-6W-SQG"/>
                             <constraint firstItem="PIq-De-NBm" firstAttribute="leading" secondItem="SVU-bi-oGU" secondAttribute="trailing" constant="15" id="KmH-NV-bAj"/>
                             <constraint firstAttribute="trailing" secondItem="PIq-De-NBm" secondAttribute="trailing" id="Ll7-Hn-zww"/>
                             <constraint firstItem="sgf-kb-LcE" firstAttribute="top" secondItem="3S3-lk-Wck" secondAttribute="top" id="bfe-DH-I7i"/>
+                            <constraint firstItem="Ql6-l6-hvF" firstAttribute="top" secondItem="3S3-lk-Wck" secondAttribute="top" id="c31-d2-5FP"/>
                             <constraint firstItem="PIq-De-NBm" firstAttribute="top" secondItem="3S3-lk-Wck" secondAttribute="top" id="eiR-YL-Klm"/>
                             <constraint firstItem="PIq-De-NBm" firstAttribute="leading" secondItem="SVU-bi-oGU" secondAttribute="trailing" constant="15" id="ocm-dT-jQV"/>
                         </constraints>
@@ -181,20 +194,22 @@
                 <outlet property="btnCommentContainerConstraint" destination="vRf-uU-7Yd" id="V9w-qR-BlJ"/>
                 <outlet property="btnContainerBottomConstraint" destination="6xk-Tc-Mk8" id="b8E-ux-NkO"/>
                 <outlet property="btnContainerView" destination="3S3-lk-Wck" id="Q3x-ZD-Bqk"/>
-                <outlet property="commentBtn" destination="PIq-De-NBm" id="p6n-wO-jM5"/>
                 <outlet property="commentContainerBottomConstraint" destination="bsG-UA-Bdc" id="XoU-lX-HNi"/>
                 <outlet property="commentContainerHeightConstraint" destination="34d-z8-bku" id="mo8-cL-axo"/>
                 <outlet property="commentContainerView" destination="cyR-aW-mq4" id="E9W-W2-9ow"/>
                 <outlet property="likeBtn" destination="sgf-kb-LcE" id="PgS-f3-kc5"/>
+                <outlet property="likeCountLbl" destination="Ql6-l6-hvF" id="lmW-xP-8lp"/>
                 <outlet property="linkBtnContainerConstraint" destination="gbX-4i-j5Z" id="56P-Gc-7M9"/>
                 <outlet property="linkIconIV" destination="z0f-EW-VMc" id="lab-vb-0k1"/>
                 <outlet property="linkPicContainerConstraint" destination="B1c-Hc-d64" id="SJa-0C-OuX"/>
                 <outlet property="linkTitleLbl" destination="6yH-M9-6r7" id="vBo-Ly-qpU"/>
                 <outlet property="linkView" destination="Wph-JC-QHa" id="Sm0-Sr-dna"/>
+                <outlet property="momentCommentBtn" destination="PIq-De-NBm" id="p6n-wO-jM5"/>
                 <outlet property="nameLbl" destination="hy0-6M-GrZ" id="s8q-fb-fvD"/>
                 <outlet property="picBtnContainerConstraint" destination="Iky-yu-g2p" id="gYR-4N-Ff4"/>
                 <outlet property="picContainerHeightConstraint" destination="ZWV-Pt-v1H" id="lnY-r4-VoQ"/>
                 <outlet property="picContainerView" destination="dnY-Wy-Gzb" id="QUc-vu-u4x"/>
+                <outlet property="publishTimeLbl" destination="1lB-mq-YQ3" id="XiW-0x-g98"/>
             </connections>
             <point key="canvasLocation" x="34" y="158"/>
         </tableViewCell>
@@ -202,6 +217,7 @@
     <resources>
         <image name="award" width="32" height="32"/>
         <image name="comment_sel" width="32" height="32"/>
+        <image name="heart" width="96" height="96"/>
         <image name="heart_line" width="100" height="100"/>
     </resources>
 </document>

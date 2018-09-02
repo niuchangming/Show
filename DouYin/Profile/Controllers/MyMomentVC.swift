@@ -68,18 +68,18 @@ extension MyMomentVC: UITableViewDelegate, UITableViewDataSource{
             }
         
             let containerWidth: CGFloat = (cell as! ImageMomentCell).imageContainer.frame.width
-            if moment.photoArray?.count == 1 {
+            if moment.photoArray.count == 1 {
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: containerWidth))
-                imageView.sd_setImage(with: URL(string: (moment.photoArray?.first?.small)!), placeholderImage: UIImage(named: "placeholder.png"))
+                imageView.sd_setImage(with: URL(string: (moment.photoArray.first?.small)!), placeholderImage: UIImage(named: "placeholder.png"))
                 (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
-            }else if moment.photoArray?.count == 2 {
+            }else if moment.photoArray.count == 2 {
                 for i in 0..<2 {
                     let imageWidth: CGFloat = containerWidth / 2
                     
                     let imageView = UIImageView(frame: CGRect(x: CGFloat(i)*imageWidth, y: 0, width: imageWidth, height: (cell as! ImageMomentCell).imageContainer.frame.height))
                     imageView.contentMode = .scaleAspectFill
                     imageView.clipsToBounds = true
-                    imageView.sd_setImage(with: URL(string: moment.photoArray![i].small), placeholderImage: UIImage(named: "placeholder.png"))
+                    imageView.sd_setImage(with: URL(string: moment.photoArray[i].small), placeholderImage: UIImage(named: "placeholder.png"))
                     (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
                 }
             }else{
@@ -98,7 +98,7 @@ extension MyMomentVC: UITableViewDelegate, UITableViewDataSource{
                     let imageView = UIImageView(frame: CGRect(x: imageX, y: imageY, width: imageWidth, height: imageHeight))
                     imageView.contentMode = .scaleAspectFill
                     imageView.clipsToBounds = true
-                    imageView.sd_setImage(with: URL(string: moment.photoArray![i].small), placeholderImage: UIImage(named: "placeholder.png"))
+                    imageView.sd_setImage(with: URL(string: moment.photoArray[i].small), placeholderImage: UIImage(named: "placeholder.png"))
                     (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
                 }
             }

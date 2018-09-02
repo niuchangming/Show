@@ -37,6 +37,7 @@ class LiveListVC: UITableViewController {
             if status == .success {
                 self.tableView.reloadData()
             }
+            self.refreshCtrl.endRefreshing()
         }
     }
     
@@ -47,7 +48,6 @@ class LiveListVC: UITableViewController {
         self.tableView.reloadData()
         
         loadData()
-        refreshControl.endRefreshing()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

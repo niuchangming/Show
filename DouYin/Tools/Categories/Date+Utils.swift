@@ -24,6 +24,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    func toShortDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter.string(from: self)
+    }
+    
     static func stringToDate(str: String) -> Date{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
@@ -32,5 +38,35 @@ extension Date {
             return Date()
         }
         return date
+    }
+    
+    func getElapsedInterval() -> String {
+        
+        var interval = Calendar.current.dateComponents([.year], from: self, to: Date()).year!
+        if interval > 0 {
+            return interval == 1 ? "\(interval)" + " year ago" : "\(interval)" + " years ago"
+        }
+        
+        interval = Calendar.current.dateComponents([.month], from: self, to: Date()).month!
+        if interval > 0 {
+            return interval == 1 ? "\(interval)" + " month ago" : "\(interval)" + " months ago"
+        }
+        
+        interval = Calendar.current.dateComponents([.day], from: self, to: Date()).day!
+        if interval > 0 {
+            return interval == 1 ? "\(interval)" + " day ago" : "\(interval)" + " days ago"
+        }
+        
+        interval = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour!
+        if interval > 0 {
+            return interval == 1 ? "\(interval)" + " hour ago" : "\(interval)" + " hours ago"
+        }
+        
+        interval = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute!
+        if interval > 0 {
+            return interval == 1 ? "\(interval)" + " minute ago" : "\(interval)" + " minutes ago"
+        }
+        
+        return "a moment ago"
     }
 }
