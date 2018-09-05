@@ -94,8 +94,10 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
 
     func updateUI(moment: Moment){
         self.moment = moment
-        guard let avararUrl = moment.creator.avatar?.origin else { return }
-        self.avatarIV.sd_setImage(with: URL(string: avararUrl), placeholderImage: UIImage(named: "placeholder.png"))
+        if let avarar = moment.creator.avatar {
+            self.avatarIV.sd_setImage(with: URL(string: avarar.origin), placeholderImage: UIImage(named: "placeholder.png"))
+        }
+        
         self.nameLbl.text = moment.creator.name
         self.bodyLbl.text = moment.body
         self.likeCountLbl.text = String(moment.likeCount)
