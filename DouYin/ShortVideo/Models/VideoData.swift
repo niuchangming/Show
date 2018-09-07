@@ -63,6 +63,8 @@ class Video: HandyJSON {
     var creator: Creator?
     var commentCount: Int = 0
     var type: String = "video"
+    var likeCount: Int = 0
+    var favouriteCount: Int = 0
     
     required init() {}
     
@@ -72,6 +74,24 @@ class Video: HandyJSON {
         
         mapper <<<
             self.url <-- "resourceUri"
+    }
+    
+    func favorite(completed :@escaping (Status) -> ()) {
+        ConnectionManager.shareManager.request(method: .post, url: String(format: "%@favourites/favourite", Constants.HOST), parames: ["token": AuthUtils.share.apiToken() as AnyObject, "resourceId": videoId as AnyObject], succeed: { (responseJson) in
+            
+            let response = responseJson as! NSDictionary
+            let errorCode = response["errorCode"] as! Int
+            if errorCode == 1 {
+                
+                print("--------> \(response)")
+                
+                completed(.success)
+            }else{
+                completed(.failure)
+            }
+        }) { (error) in
+            completed(.failure)
+        }
     }
 }
 

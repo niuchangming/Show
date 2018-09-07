@@ -77,8 +77,6 @@ class Creator: HandyJSON{
     var name : String = ""
     var userCode : String = ""
     var avatar: Photo?
-    var likeCount: Int = 0
-    var favouriteCount: Int = 0
     
     required init() {}
 }

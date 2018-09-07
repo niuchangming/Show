@@ -41,6 +41,8 @@
 		70402559211050BE00C2A3B3 /* DescribeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70402557211050BE00C2A3B3 /* DescribeCell.xib */; };
 		7040255D2110779800C2A3B3 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7040255C2110779800C2A3B3 /* ProfileVC.swift */; };
 		7048AB3F213A8F04008E69DF /* DouYin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7048AB3D213A8F04008E69DF /* DouYin.xcdatamodeld */; };
+		704C9A832142785C006D10D9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704C9A822142785C006D10D9 /* PlayerView.swift */; };
+		704C9A8521427867006D10D9 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704C9A8421427867006D10D9 /* PlayerView.xib */; };
 		704E95F520D8AAE4002881FA /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E95F420D8AAE4002881FA /* MainVC.swift */; };
 		704E95F720D8B334002881FA /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E95F620D8B334002881FA /* UIView+constraints.swift */; };
 		704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E960020DA00BE002881FA /* UIColor+hex.swift */; };
@@ -335,6 +337,8 @@
 		70402557211050BE00C2A3B3 /* DescribeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescribeCell.xib; sourceTree = "<group>"; };
 		7040255C2110779800C2A3B3 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		7048AB3E213A8F04008E69DF /* DouYin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DouYin.xcdatamodel; sourceTree = "<group>"; };
+		704C9A822142785C006D10D9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		704C9A8421427867006D10D9 /* PlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
 		704E95F420D8AAE4002881FA /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		704E95F620D8B334002881FA /* UIView+constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		704E960020DA00BE002881FA /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
@@ -827,7 +831,6 @@
 			children = (
 				70F2721A20FF1BF300FD62CA /* GiftView */,
 				7098234D20F750ED00B1292E /* AppImageViewer */,
-				704E961F20DCEEA4002881FA /* PlayScrollView.swift */,
 				702793AC20F5A7DC00D4FA91 /* InsetTextField.swift */,
 				70F2723C2101C30700FD62CA /* ReusableViewFromXib.swift */,
 				70696712210E022200A2B5F9 /* EdgeShadowLayer.swift */,
@@ -1036,6 +1039,9 @@
 				70D5F12A21345B12003D2B04 /* VideoPreviewHeader.swift */,
 				70D5F12721345B12003D2B04 /* VideoPreviewHeader.xib */,
 				70D5F12621345B12003D2B04 /* VideoView.swift */,
+				704E961F20DCEEA4002881FA /* PlayScrollView.swift */,
+				704C9A822142785C006D10D9 /* PlayerView.swift */,
+				704C9A8421427867006D10D9 /* PlayerView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1324,6 +1330,7 @@
 				70F2721C20FF1C1000FD62CA /* GiftShowView.xib in Resources */,
 				70F272482101D8F300FD62CA /* IncomingUserMessageCell.xib in Resources */,
 				7027939C20F4BB7B00D4FA91 /* LoginVC.xib in Resources */,
+				704C9A8521427867006D10D9 /* PlayerView.xib in Resources */,
 				7018B14220CFC0C00040CCB0 /* LaunchScreen.storyboard in Resources */,
 				7072AA2320E61F50000ECA1C /* LiveCollectionCellBottom.xib in Resources */,
 				706966D621084A6700A2B5F9 /* NameCell.xib in Resources */,
@@ -1457,6 +1464,7 @@
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
 				7098236020F7517F00B1292E /* AppImageViewer.swift in Sources */,
 				70D5F1482134651D003D2B04 /* Location.swift in Sources */,
+				704C9A832142785C006D10D9 /* PlayerView.swift in Sources */,
 				70FB86552115E8E300D12833 /* Meaturable+Label.swift in Sources */,
 				7060ECAB2103793300C902C8 /* ChatInputBar.swift in Sources */,
 				703E236921032DC8007D65BF /* AdminMessageCell.swift in Sources */,
