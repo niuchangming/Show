@@ -75,66 +75,21 @@ extension UIImage {
         高斯模糊
      */
     func gaussianBlur(blurAmount:CGFloat) -> UIImage {
-        //高斯模糊参数(0-1)之间，超出范围强行转成0.5
-        var blurAmount = blurAmount
+        let context = CIContext(options: nil)
         
-        if (blurAmount < 0.0 || blurAmount > 1.0) {
-            blurAmount = 0.6
-        }
+        let currentFilter = CIFilter(name: "CIGaussianBlur")
+        let beginImage = CIImage(image: self)
+        currentFilter!.setValue(beginImage, forKey: kCIInputImageKey)
+        currentFilter!.setValue(blurAmount, forKey: kCIInputRadiusKey)
         
-        var boxSize = Int(blurAmount * 40)
-        boxSize = boxSize - (boxSize % 2) + 1
+        let cropFilter = CIFilter(name: "CICrop")
+        cropFilter!.setValue(currentFilter!.outputImage, forKey: kCIInputImageKey)
+        cropFilter!.setValue(CIVector(cgRect: beginImage!.extent), forKey: "inputRectangle")
         
-        let img = self.cgImage
-        
-        var inBuffer = vImage_Buffer()
-        var outBuffer = vImage_Buffer()
-        
-        let inProvider =  img!.dataProvider
-        let inBitmapData =  inProvider!.data
-        
-        inBuffer.width = vImagePixelCount(img!.width)
-        inBuffer.height = vImagePixelCount(img!.height)
-        inBuffer.rowBytes = img!.bytesPerRow
-        inBuffer.data = UnsafeMutableRawPointer(mutating: CFDataGetBytePtr(inBitmapData))
-        
-        //手动申请内存
-        let pixelBuffer = malloc(img!.bytesPerRow * img!.height)
-        
-        outBuffer.width = vImagePixelCount(img!.width)
-        outBuffer.height = vImagePixelCount(img!.height)
-        outBuffer.rowBytes = img!.bytesPerRow
-        outBuffer.data = pixelBuffer
-        
-        var error = vImageBoxConvolve_ARGB8888(&inBuffer,
-                                               &outBuffer, nil, vImagePixelCount(0), vImagePixelCount(0),
-                                               UInt32(boxSize), UInt32(boxSize), nil, vImage_Flags(kvImageEdgeExtend))
-        if (kvImageNoError != error) {
-            error = vImageBoxConvolve_ARGB8888(&inBuffer,
-                                               &outBuffer, nil, vImagePixelCount(0), vImagePixelCount(0),
-                                               UInt32(boxSize), UInt32(boxSize), nil, vImage_Flags(kvImageEdgeExtend))
-            if (kvImageNoError != error) {
-                error = vImageBoxConvolve_ARGB8888(&inBuffer,
-                                                   &outBuffer, nil, vImagePixelCount(0), vImagePixelCount(0),
-                                                   UInt32(boxSize), UInt32(boxSize), nil, vImage_Flags(kvImageEdgeExtend))
-            }
-        }
-        
-        let colorSpace =  CGColorSpaceCreateDeviceRGB()
-        let ctx = CGContext(data: outBuffer.data,
-                            width: Int(outBuffer.width),
-                            height: Int(outBuffer.height),
-                            bitsPerComponent: 8,
-                            bytesPerRow: outBuffer.rowBytes,
-                            space: colorSpace,
-                            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
-        
-        let imageRef = ctx!.makeImage()
-        
-        //手动申请内存
-        free(pixelBuffer)
-        
-        return UIImage(cgImage: imageRef!)
+        let output = cropFilter!.outputImage
+        let cgimg = context.createCGImage(output!, from: output!.extent)
+        let processedImage = UIImage(cgImage: cgimg!)
+        return processedImage
     }
     
 }

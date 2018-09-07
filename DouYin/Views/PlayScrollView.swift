@@ -19,10 +19,10 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
     var index: NSInteger?
     var upperImageView, middleImageView, downImageView: UIImageView?
     var upperPlayer, middlePlayer, downPlayer: KSYMoviePlayerController?
-    var upperLive, middleLive, downLive: ShortVideo?
+    var upperLive, middleLive, downLive: Video!
     var currentIndex: NSInteger = 0
     var previousIndex: NSInteger = 0
-    var lives: [ShortVideo] = []
+    var lives: [Video] = []
     
     override init(frame: CGRect) {
        super.init(frame:frame)
@@ -97,46 +97,51 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
         self.addSubview((downPlayer?.view!)!)
     }
     
-    func updateForLives(livesArray: [ShortVideo], index: NSInteger) -> () {
+    func setVideos(livesArray: [Video], index: NSInteger) -> () {
         if (livesArray.count > 0) {
             lives.removeAll()
             lives = livesArray
             currentIndex = index
             previousIndex = index
             
-            var upperLive: ShortVideo = ShortVideo()
-            let middleLive: ShortVideo = lives[index]
-            var downLive: ShortVideo = ShortVideo()
-
-            if(currentIndex == 0){
-                upperLive = lives.last!
-            }else{
+            upperLive = Video()
+            middleLive = lives[currentIndex]
+            downLive = Video()
+            
+            if (currentIndex == 0) {
+                upperLive = lives.last
+            } else {
                 upperLive = lives[currentIndex - 1]
             }
             
-            if(currentIndex == 0){
-                downLive = lives.first!
-            }else{
-                downLive = lives[currentIndex + 1]
+            if (currentIndex == lives.count - 1) {
+                downLive = lives.first
+            } else {
+                downLive = lives[currentIndex + 1];
             }
             
-            prepareForImageView(imageView: upperImageView!, work: upperLive)
-            prepareForImageView(imageView: middleImageView!, work: middleLive)
-            prepareForImageView(imageView: downImageView!, work: downLive)
             
-            prepareForVideo(player: upperPlayer!, work: upperLive)
-            prepareForVideo(player: middlePlayer!, work: middleLive)
-            prepareForVideo(player: downPlayer!, work: downLive)
+            prepareForImageView(imageView: upperImageView!, video: upperLive)
+            prepareForImageView(imageView: middleImageView!, video: middleLive)
+            prepareForImageView(imageView: downImageView!, video: downLive)
+            
+            prepareForVideo(player: upperPlayer!, video: upperLive)
+            prepareForVideo(player: middlePlayer!, video: middleLive)
+            prepareForVideo(player: downPlayer!, video: downLive)
         }
     }
     
-    func prepareForImageView(imageView: UIImageView, work: ShortVideo) {
-        imageView.sd_setImage(with: URL(string: work.coverImage), placeholderImage: UIImage(named: "placeholder.png"))
+    func prepareForImageView(imageView: UIImageView, video: Video) {
+        if let preview = video.preview{
+            imageView.sd_setImage(with: URL(string: preview.origin), placeholderImage: UIImage(named: "placeholder.png"))
+        }else{
+            imageView.image = UIImage(named: "placeholder.png")
+        }
     }
     
-    func prepareForVideo(player: KSYMoviePlayerController, work: ShortVideo) {
+    func prepareForVideo(player: KSYMoviePlayerController, video: Video) {
         player.reset(false)
-        player.setUrl(URL(string: work.workLink))
+        player.setUrl(URL(string: video.url))
         player.shouldAutoplay = false
         player.bufferSizeMax = 1
         player.shouldLoop = true
@@ -147,13 +152,14 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
     func switchPlayer(scrollView: UIScrollView) {
         let offset: CGFloat = scrollView.contentOffset.y;
         
-        if(lives.count > 0){
+        if(lives.count > 0){ // 下一个
             if(offset >= 2 * self.frame.size.height){
                 scrollView.contentOffset = CGPoint(x: 0, y: self.frame.size.height)
-                self.currentIndex = self.currentIndex + 1
-                
+                currentIndex = currentIndex + 1
+            
                 upperImageView?.image = middleImageView?.image
                 middleImageView?.image = downImageView?.image
+                
                 
                 if(upperPlayer?.view.frame.origin.y == 0){
                     upperPlayer?.view.frame = CGRect(x: 0, y: Constants.Dimension.SCREEN_HEIGHT * 2, width: Constants.Dimension.SCREEN_WIDTH, height: Constants.Dimension.SCREEN_HEIGHT)
@@ -175,7 +181,8 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
                 }else{
                     self.downLive = self.lives[currentIndex + 1]
                 }
-                prepareForImageView(imageView: downImageView!, work: downLive!)
+                
+                prepareForImageView(imageView: downImageView!, video: downLive!)
                 
                 if(self.downPlayer?.view.frame.origin.y == 0){
                     self.downPlayer?.view.frame = CGRect(x: 0, y: Constants.Dimension.SCREEN_HEIGHT * 2, width: Constants.Dimension.SCREEN_WIDTH, height: Constants.Dimension.SCREEN_HEIGHT)
@@ -184,25 +191,26 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
                 }
                 
                 if(self.upperPlayer?.view.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT * 2){
-                    prepareForVideo(player: self.upperPlayer!, work: self.downLive!)
+                    prepareForVideo(player: self.upperPlayer!, video: self.downLive!)
                 }
                 if(middlePlayer?.view.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT * 2){
-                    prepareForVideo(player: self.middlePlayer!, work: self.downLive!)
+                    prepareForVideo(player: self.middlePlayer!, video: self.downLive!)
                 }
                 if(downPlayer?.view.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT * 2){
-                    prepareForVideo(player: self.downPlayer!, work: self.downLive!)
+                    prepareForVideo(player: self.downPlayer!, video: self.downLive!)
                 }
 
-                
                 if(self.previousIndex == self.currentIndex){
                     return
                 }
 
-                self.playerDelegate?.playerScrollView(playerScrollView: self, index: currentIndex)
+                guard let delegate = self.playerDelegate else { return }
+                delegate.playerScrollView(playerScrollView: self, index: currentIndex)
                 previousIndex = currentIndex
-            }else if(offset <= 0){
+            }else if(offset <= 0){  // 上一个
                 scrollView.contentOffset = CGPoint(x: 0, y: self.frame.size.height)
-                self.currentIndex = self.currentIndex - 1
+                currentIndex = currentIndex - 1
+                
                 self.downImageView?.image = self.middleImageView?.image
                 
                 if(self.downPlayer?.view.frame.origin.y == 2 * Constants.Dimension.SCREEN_HEIGHT){
@@ -227,7 +235,8 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
                 }else{
                     self.upperLive = self.lives[self.currentIndex - 1]
                 }
-                prepareForImageView(imageView: self.upperImageView!, work: self.upperLive!)
+                
+                prepareForImageView(imageView: self.upperImageView!, video: self.upperLive!)
                 
                 if(self.upperPlayer?.view.frame.origin.y == 2 * Constants.Dimension.SCREEN_HEIGHT){
                     self.upperPlayer?.view.frame = CGRect(x: 0, y: Constants.Dimension.SCREEN_HEIGHT * 0, width: Constants.Dimension.SCREEN_WIDTH, height: Constants.Dimension.SCREEN_HEIGHT)
@@ -236,27 +245,27 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
                 }
                 
                 if(self.upperPlayer?.view.frame.origin.y == 0){
-                    prepareForVideo(player: self.upperPlayer!, work: self.upperLive!)
+                    prepareForVideo(player: self.upperPlayer!, video: self.upperLive!)
                 }
                 
                 if(self.middlePlayer?.view.frame.origin.y == 0){
-                    prepareForVideo(player: self.middlePlayer!, work: self.upperLive!)
+                    prepareForVideo(player: self.middlePlayer!, video: self.upperLive!)
                 }
                 
                 if(downPlayer?.view.frame.origin.y == 0){
-                    prepareForVideo(player: self.downPlayer!, work: self.upperLive!)
+                    prepareForVideo(player: self.downPlayer!, video: self.upperLive!)
                 }
                 
                 if(self.previousIndex == self.currentIndex){
                     return
                 }
                 
-                self.playerDelegate?.playerScrollView(playerScrollView: self, index: currentIndex)
-                self.previousIndex = self.currentIndex
+                guard let delegate = self.playerDelegate else { return }
+                delegate.playerScrollView(playerScrollView: self, index: currentIndex)
+                previousIndex = currentIndex
             }
         }
     }
-    
 }
 
 extension PlayScrollView{

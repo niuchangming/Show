@@ -8,9 +8,9 @@
 
 import UIKit
 
-class WorkCollectionCell: UICollectionViewCell {
+class VideoCollectionCell: UICollectionViewCell {
 
-    @IBOutlet weak var workIV: UIImageView!
+    @IBOutlet weak var coverIV: UIImageView!
     @IBOutlet weak var userPhotoIV: UIImageView!
     @IBOutlet weak var distanceLbl: UILabel!
     @IBOutlet weak var usernameLbl: UILabel!

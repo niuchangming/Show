@@ -116,20 +116,20 @@ class PersonalVC: UITableViewController {
         if person?.role == 2 { //主播
             editCoverBtn.isHidden = false
             
-            if Utils.isNotNil(obj: person?.coverImage) {
-                coverIv.sd_setImage(with: URL(string: (person?.coverImage?.origin)!), placeholderImage: UIImage(named: "placeholder.png"))
+            guard let cover = person?.coverImage else { return }
+            coverIv.sd_setImage(with: URL(string: cover.origin), placeholderImage: UIImage(named: "placeholder.png")) { (image, error, cacheType, url) in
+                let blurImage: UIImage = (image!.gaussianBlur(blurAmount: 5))
+                self.coverIv.image = blurImage
             }
         } else {
-            if Utils.isNotNil(obj: person?.avatar) {
-                guard let coverImageUrl = person?.coverImage?.origin else { return }
-                coverIv.sd_setImage(with: URL(string: coverImageUrl), placeholderImage: UIImage(named: "placeholder.png"))
-                
-                guard let coverImage = coverIv.image else { return }
-                let blurImage: UIImage = (coverImage.gaussianBlur(blurAmount: 0.5))
-                coverIv.image = blurImage
+            guard let avatar = person?.avatar else { return }
+            coverIv.sd_setImage(with: URL(string: avatar.origin), placeholderImage: UIImage(named: "placeholder.png")) { (image, error, cacheType, url) in
+                let blurImage: UIImage = (image!.gaussianBlur(blurAmount: 5))
+                self.coverIv.image = blurImage
             }
         }
     }
+
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "PersonalInfo", bundle: nil)

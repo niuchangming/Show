@@ -325,7 +325,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     func like(){
         likeBtn.isEnabled = false
         let likeAPI = String(format: "%@likes/like", Constants.HOST)
-        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "contentType": "moment", "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
             
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int
@@ -347,7 +347,7 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     func unlike(){
         likeBtn.isEnabled = false
         let likeAPI = String(format: "%@likes/unlike", Constants.HOST)
-        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "contentType": "moment", "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
+        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
             
             let response = responseJson as! NSDictionary
             let errorCode = response["errorCode"] as! Int

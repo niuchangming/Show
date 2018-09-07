@@ -132,7 +132,7 @@ extension VideoPreviewVC: VideoPreviewHeaderDelegate, UITextViewDelegate{
             let multiParts = ["videofile": videoData, "preview": UIImageJPEGRepresentation(self.previewImage, 1)]
         
             beforeUpload()
-            ConnectionManager.shareManager.uploadMultiparts(url: String(format: "%@video/uploadvideo", Constants.HOST), params: params as [String : AnyObject], multiparts: multiParts as [String : AnyObject], mimeType: "video/*", succeed: { (responseJson) in
+            ConnectionManager.shareManager.uploadMultiparts(url: String(format: "%@video/upload", Constants.HOST), params: params as [String : AnyObject], multiparts: multiParts as [String : AnyObject], mimeType: "video/*", succeed: { (responseJson) in
                 
                 let response = responseJson as! NSDictionary
                 let errorCode = response["errorCode"] as! Int

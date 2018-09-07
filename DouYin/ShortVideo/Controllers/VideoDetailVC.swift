@@ -11,10 +11,10 @@ import KSYMediaPlayer
 
 class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
     
-    var works:[ShortVideo] = [ShortVideo]()
+    var videos:[Video] = [Video]()
+    var currentIndex: Int = 0
     var playScrollView: PlayScrollView!
     var userInfoView: UIView!
-    var index: NSInteger = 0
     var avatarIV: UIImageView!
     var usernameLbl: UILabel!
     var followBtn: UIButton!
@@ -49,9 +49,8 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
         
         playScrollView = PlayScrollView(frame: self.view.frame)
         playScrollView?.playerDelegate = self
-        playScrollView?.index = self.index;
-        playScrollView?.updateForLives(livesArray: works, index: self.index)
-        
+        playScrollView?.index = self.currentIndex
+        playScrollView?.setVideos(livesArray: videos, index: self.currentIndex)
         self.view.addSubview(playScrollView!)
         
         userInfoView = UIView(frame: CGRect(x: Constants.Dimension.MARGIN_NOR, y: Constants.Dimension.TOP_SPACE +  Constants.Dimension.MARGIN_NOR, width: 200 * Constants.Dimension.W_RATIO, height: 36 * Constants.Dimension.H_RATIO))
@@ -200,7 +199,7 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
     
     func initPlayer(){
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerNotify(notify:)), name: NSNotification.Name.MPMoviePlayerFirstVideoFrameRendered, object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerPreparedToPlayNotify(notify:)), name: NSNotification.Name.MPMediaPlaybackIsPreparedToPlayDidChange, object: nil)
     }
     
@@ -258,8 +257,8 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
 
 extension VideoDetailVC{
     func playerScrollView(playerScrollView: PlayScrollView, index: NSInteger) {
-        
-        if(self.index==index){
+
+        if(self.currentIndex==index){
             return
         }
         
@@ -309,6 +308,6 @@ extension VideoDetailVC{
             playerScrollView.upperPlayer?.view.isHidden = true
             playerScrollView.middlePlayer?.view.isHidden = true
         }
-        self.index = index
+        self.currentIndex = index
     }
 }

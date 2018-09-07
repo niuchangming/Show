@@ -30,7 +30,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkCollectionCell" id="Ug4-vw-oeo" customClass="WorkCollectionCell" customModule="DouYin" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkCollectionCell" id="Ug4-vw-oeo" customClass="VideoCollectionCell" customModule="DouYin" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="186" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -81,10 +81,10 @@
                                             <constraint firstItem="k3u-m2-pRw" firstAttribute="trailing" secondItem="Ug4-vw-oeo" secondAttribute="trailingMargin" id="wpd-rD-fnJ"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="coverIV" destination="aYR-wD-o5s" id="HkP-D8-PPq"/>
                                             <outlet property="distanceLbl" destination="k3u-m2-pRw" id="Lwf-HO-QgW"/>
                                             <outlet property="userPhotoIV" destination="It1-Jd-JlE" id="74i-td-gQq"/>
                                             <outlet property="usernameLbl" destination="Z4g-dW-lFb" id="D6B-aF-Chr"/>
-                                            <outlet property="workIV" destination="aYR-wD-o5s" id="HkP-D8-PPq"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

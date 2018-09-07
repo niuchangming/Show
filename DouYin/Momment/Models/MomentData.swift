@@ -59,8 +59,8 @@ class Moment: HandyJSON{
     var favouriteCount: Int = 0
     var type: String = "";
     var permission: String = ""
-    var lon: Int64 = 0
-    var lat: Int64 = 0
+    var lon: Double = 0
+    var lat: Double = 0
     var comments: [Comment] = []
     var creator: Creator = Creator()
     var photoArray: [Photo] = []
@@ -77,6 +77,8 @@ class Creator: HandyJSON{
     var name : String = ""
     var userCode : String = ""
     var avatar: Photo?
+    var likeCount: Int = 0
+    var favouriteCount: Int = 0
     
     required init() {}
 }

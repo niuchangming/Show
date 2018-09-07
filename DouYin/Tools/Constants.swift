@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 struct Constants {
+    static let TOKBOX_APP_KEY = "46178592"
+    static let TOKBOX_APP_SECRET = "a7a580ced8ed9eb680cc641b7d403e5d6f71b523"
     static let SENDBIRD_APP_ID = "9FFC187F-1F31-46B3-A77D-BB96008A8EED"
     static let BAMBUSER_APP_ID = "AaXc6qwSYn4LWD1egxzpAg" //"g9spSwNrRb1bR8soIE9OUA"
     static let FACEBOOK_APP_ID = "977193229120279"
