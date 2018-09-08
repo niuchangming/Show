@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TwoImageView" customModule="DouYin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lwv-BW-wUl">
+                    <rect key="frame" x="0.0" y="0.0" width="39.5" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Lwv-BW-wUl" secondAttribute="height" multiplier="39:80" id="hDH-9n-BG6"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GPz-ii-XB6">
+                    <rect key="frame" x="41" y="0.0" width="39.5" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="GPz-ii-XB6" secondAttribute="height" multiplier="39:80" id="Atd-I0-Mb1"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GPz-ii-XB6" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="D93-1w-jDo"/>
+                <constraint firstItem="GPz-ii-XB6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="NeB-rT-nOx"/>
+                <constraint firstItem="Lwv-BW-wUl" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="iJn-nn-CM3"/>
+                <constraint firstItem="Lwv-BW-wUl" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="koB-VU-0Tx"/>
+                <constraint firstAttribute="trailing" secondItem="GPz-ii-XB6" secondAttribute="trailing" constant="-0.5" id="tgv-eW-3gB"/>
+                <constraint firstItem="Lwv-BW-wUl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wOi-2f-hak"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="image1Iv" destination="Lwv-BW-wUl" id="rkw-9R-lzW"/>
+                <outlet property="image2Iv" destination="GPz-ii-XB6" id="rRd-5g-GgC"/>
+            </connections>
+        </view>
+    </objects>
+</document>

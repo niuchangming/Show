@@ -39,9 +39,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jh4-nn-7OG">
-                        <rect key="frame" x="150" y="10" width="160" height="80"/>
+                        <rect key="frame" x="150" y="10" width="160" height="0.0"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="80" id="QOn-5v-nqY"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="QOn-5v-nqY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,8 +64,8 @@
                     <constraint firstItem="Jh4-nn-7OG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Slo-mn-DUd"/>
                     <constraint firstAttribute="trailing" secondItem="Jh4-nn-7OG" secondAttribute="trailing" constant="10" id="g6E-bq-iif"/>
                     <constraint firstItem="Jh4-nn-7OG" firstAttribute="leading" secondItem="Rgr-eO-dNf" secondAttribute="trailing" constant="8" id="hct-mB-YmD"/>
-                    <constraint firstAttribute="bottom" secondItem="Jh4-nn-7OG" secondAttribute="bottom" constant="9.5" id="iS1-Pw-jNr"/>
                     <constraint firstItem="DRg-OG-rw6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="v7l-c6-2vl"/>
+                    <constraint firstAttribute="bottom" secondItem="Rgr-eO-dNf" secondAttribute="bottom" constant="9.5" id="xMn-zB-NfT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

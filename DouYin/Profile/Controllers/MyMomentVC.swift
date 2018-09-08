@@ -10,7 +10,7 @@ import UIKit
 
 class MyMomentVC: UIViewController {
     
-    var moments: [Moment] = []
+    let momentData = MomentData()
     @IBOutlet weak var momentTV: UITableView!{
         didSet{
             momentTV.tableFooterView = UIView()
@@ -22,19 +22,25 @@ class MyMomentVC: UIViewController {
         self.momentTV.register(LinkMomentCell.nib(), forCellReuseIdentifier: LinkMomentCell.cellReuseIdentifier())
         self.momentTV.register(TextMomentCell.nib(), forCellReuseIdentifier: TextMomentCell.cellReuseIdentifier())
         self.momentTV.register(ImageMomentCell.nib(), forCellReuseIdentifier: ImageMomentCell.cellReuseIdentifier())
+        
+        momentData.getPersonData { (status) in
+            if status == .success {
+                self.momentTV.reloadData()
+            }
+        }
     }
 }
 
 extension MyMomentVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.moments.count
+        return self.momentData.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
-        let moment = self.moments[indexPath.row]
+        let moment = self.momentData.data[indexPath.row]
         if moment.type == "text" {
             cell = tableView.dequeueReusableCell(withIdentifier: TextMomentCell.cellReuseIdentifier(), for: indexPath) as! TextMomentCell
             
@@ -62,6 +68,8 @@ extension MyMomentVC: UITableViewDelegate, UITableViewDataSource{
             cell = tableView.dequeueReusableCell(withIdentifier: ImageMomentCell.cellReuseIdentifier(), for: indexPath) as! ImageMomentCell
             
             (cell as! ImageMomentCell).messageLbl.text = moment.body
+            (cell as! ImageMomentCell).messageLbl.numberOfLines = 0
+            (cell as! ImageMomentCell).messageLbl.sizeToFit()
             let labelHeight = (cell as! ImageMomentCell).messageLbl.heightForLabel(text: moment.body, font: (cell as! ImageMomentCell).messageLbl.font, width: (cell as! ImageMomentCell).messageLbl.font.pointSize)
             if labelHeight > 80 {
                 (cell as! ImageMomentCell).messageLblHeightConstraints.constant = 80
@@ -73,34 +81,27 @@ extension MyMomentVC: UITableViewDelegate, UITableViewDataSource{
                 imageView.sd_setImage(with: URL(string: (moment.photoArray.first?.small)!), placeholderImage: UIImage(named: "placeholder.png"))
                 (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
             }else if moment.photoArray.count == 2 {
-                for i in 0..<2 {
-                    let imageWidth: CGFloat = containerWidth / 2
-                    
-                    let imageView = UIImageView(frame: CGRect(x: CGFloat(i)*imageWidth, y: 0, width: imageWidth, height: (cell as! ImageMomentCell).imageContainer.frame.height))
-                    imageView.contentMode = .scaleAspectFill
-                    imageView.clipsToBounds = true
-                    imageView.sd_setImage(with: URL(string: moment.photoArray[i].small), placeholderImage: UIImage(named: "placeholder.png"))
-                    (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
-                }
+                let twoImageView = TwoImageView(frame: (cell as! ImageMomentCell).imageContainer.bounds)
+                twoImageView.image1Iv.sd_setImage(with: URL(string: moment.photoArray[0].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                twoImageView.image2Iv.sd_setImage(with: URL(string: moment.photoArray[1].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                (cell as! ImageMomentCell).imageContainer.addSubview(twoImageView)
+            }else if moment.photoArray.count == 3 {
+                let threeImageView = ThreeImageView(frame: (cell as! ImageMomentCell).imageContainer.bounds)
+                threeImageView.image1Iv.sd_setImage(with: URL(string: moment.photoArray[0].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                threeImageView.image2Iv.sd_setImage(with: URL(string: moment.photoArray[1].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                threeImageView.image3Iv.sd_setImage(with: URL(string: moment.photoArray[1].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                (cell as! ImageMomentCell).imageContainer.addSubview(threeImageView)
+            }else if moment.photoArray.count > 3{
+                let forthImageView = ForthImageView(frame: (cell as! ImageMomentCell).imageContainer.bounds)
+                forthImageView.image1Iv.sd_setImage(with: URL(string: moment.photoArray[0].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                forthImageView.image2Iv.sd_setImage(with: URL(string: moment.photoArray[1].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                forthImageView.image3Iv.sd_setImage(with: URL(string: moment.photoArray[2].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                forthImageView.image4Iv.sd_setImage(with: URL(string: moment.photoArray[3].origin), placeholderImage: UIImage(named: "placeholder.png"))
+                (cell as! ImageMomentCell).imageContainer.addSubview(forthImageView)
             }else{
-                for i in 0..<4 {
-                    let imageWidth: CGFloat = (cell as! ImageMomentCell).imageContainer.frame.size.width / 2
-                    let imageHeight: CGFloat = imageWidth
-                    var imageX: CGFloat = 0
-                    var imageY: CGFloat = 0
-                    if(i == 1 || i == 3){
-                        imageX = imageWidth
-                    }
-                    if(i > 1){
-                        imageY = imageHeight
-                    }
-                    
-                    let imageView = UIImageView(frame: CGRect(x: imageX, y: imageY, width: imageWidth, height: imageHeight))
-                    imageView.contentMode = .scaleAspectFill
-                    imageView.clipsToBounds = true
-                    imageView.sd_setImage(with: URL(string: moment.photoArray[i].small), placeholderImage: UIImage(named: "placeholder.png"))
-                    (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
-                }
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: containerWidth))
+                imageView.image = UIImage(named: "placeholder.png")
+                (cell as! ImageMomentCell).imageContainer.addSubview(imageView)
             }
             
         }

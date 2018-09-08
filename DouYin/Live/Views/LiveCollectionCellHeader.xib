@@ -17,6 +17,7 @@
                 <outlet property="coinAmountWidthConst" destination="duv-Sf-YjH" id="Fwi-jk-aOD"/>
                 <outlet property="coinContainer" destination="d6E-OH-Sde" id="uUu-xm-ppl"/>
                 <outlet property="followBtn" destination="rdb-6X-88T" id="C7m-6G-gtb"/>
+                <outlet property="followLoadingBar" destination="GN4-Hx-Vq4" id="JJM-uz-6Sd"/>
                 <outlet property="followerContainer" destination="elZ-HA-866" id="GIy-Pt-EeE"/>
                 <outlet property="nameLbl" destination="hwW-Vb-d2b" id="Qwk-Mp-Jf9"/>
                 <outlet property="userInfoContainer" destination="JKg-LD-bbr" id="ali-rZ-KJH"/>
@@ -94,11 +95,15 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="GN4-Hx-Vq4">
+                    <rect key="frame" x="100" y="8" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="rdb-6X-88T" firstAttribute="leading" secondItem="iaP-bl-gYf" secondAttribute="trailing" constant="8" id="4T3-F7-IGx"/>
                 <constraint firstItem="JKg-LD-bbr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8Nr-Vw-LlD"/>
+                <constraint firstItem="GN4-Hx-Vq4" firstAttribute="centerX" secondItem="rdb-6X-88T" secondAttribute="centerX" id="9Lq-mT-kn5"/>
                 <constraint firstItem="JKg-LD-bbr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ADf-rs-UUr"/>
                 <constraint firstAttribute="trailing" secondItem="elZ-HA-866" secondAttribute="trailing" id="IGm-wB-0cA"/>
                 <constraint firstItem="iaP-bl-gYf" firstAttribute="top" secondItem="hwW-Vb-d2b" secondAttribute="bottom" constant="-4" id="K28-6a-SVa"/>
@@ -113,6 +118,7 @@
                 <constraint firstAttribute="bottom" secondItem="d6E-OH-Sde" secondAttribute="bottom" id="ZsW-9W-aYN"/>
                 <constraint firstItem="hwW-Vb-d2b" firstAttribute="leading" secondItem="cr9-iC-lIn" secondAttribute="trailing" constant="4" id="bNJ-Lr-caS"/>
                 <constraint firstItem="rdb-6X-88T" firstAttribute="leading" secondItem="hwW-Vb-d2b" secondAttribute="trailing" constant="8" id="byJ-dg-cTR"/>
+                <constraint firstItem="GN4-Hx-Vq4" firstAttribute="centerY" secondItem="rdb-6X-88T" secondAttribute="centerY" id="cGp-he-w3D"/>
                 <constraint firstItem="d6E-OH-Sde" firstAttribute="top" secondItem="iaP-bl-gYf" secondAttribute="bottom" constant="10" id="ca5-uU-sWs"/>
                 <constraint firstItem="elZ-HA-866" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dqn-cb-8yV"/>
                 <constraint firstItem="cr9-iC-lIn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gVg-rX-7S0"/>

@@ -38,7 +38,7 @@ class BeautyBarView: ReusableViewFromXib {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-
+    
 }
 
 extension BeautyBarView: UICollectionViewDelegate, UICollectionViewDataSource{

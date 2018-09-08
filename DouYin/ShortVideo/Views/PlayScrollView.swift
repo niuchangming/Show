@@ -23,6 +23,7 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
     var currentIndex: NSInteger = 0
     var previousIndex: NSInteger = 0
     var lives: [Video] = []
+    var currentPlayerView: PlayerView?
     
     override init(frame: CGRect) {
        super.init(frame:frame)
@@ -118,7 +119,7 @@ class PlayScrollView: UIScrollView, UIScrollViewDelegate {
     func prepareForVideo(playerView: PlayerView, video: Video) {
         playerView.video = video
         playerView.videoPlayer.reset(false)
-        playerView.videoPlayer.setUrl(URL(string: video.url))
+        playerView.videoPlayer.setUrl(URL(string: video.resourceUri))
         playerView.videoPlayer.shouldAutoplay = false
         playerView.videoPlayer.bufferSizeMax = 1
         playerView.videoPlayer.shouldLoop = true

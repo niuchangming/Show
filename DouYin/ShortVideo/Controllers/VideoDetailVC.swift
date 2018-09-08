@@ -8,9 +8,9 @@
 
 import UIKit
 import KSYMediaPlayer
+import IQKeyboardManagerSwift
 
-class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
-    
+class VideoDetailVC: UIViewController{
     var videos:[Video] = [Video]()
     var currentIndex: Int = 0
     var playScrollView: PlayScrollView!
@@ -25,21 +25,33 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
     var titleLbl: UILabel!
     var descriLbl: UILabel!
     var cateLbl: UILabel!
+    var tmpVideo: Video?
+    
+    lazy var chatInputBar: ChatInputBar = {
+        let chatInputBar = ChatInputBar(frame: CGRect(x: 0, y: self.view.frame.size.height, width: self.view.frame.size.width, height: 48))
+        chatInputBar.delegate = self
+        self.view.addSubview(chatInputBar)
+        return chatInputBar
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        initPlayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.keyWindow?.windowLevel = UIWindowLevelStatusBar
+        NotificationCenter.default.addObserver(self, selector: #selector(VideoDetailVC.handlePlayerNotify(notify:)), name: NSNotification.Name.MPMoviePlayerFirstVideoFrameRendered, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VideoDetailVC.handlePlayerPreparedToPlayNotify(notify:)), name: NSNotification.Name.MPMediaPlaybackIsPreparedToPlayDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VideoDetailVC.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VideoDetailVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        IQKeyboardManager.shared.enable = false
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        UIApplication.shared.keyWindow?.windowLevel = UIWindowLevelNormal
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DBUtils.share.saveContext()
     }
     
     func initUI() {
@@ -66,12 +78,6 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-    func initPlayer(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerNotify(notify:)), name: NSNotification.Name.MPMoviePlayerFirstVideoFrameRendered, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerPreparedToPlayNotify(notify:)), name: NSNotification.Name.MPMediaPlaybackIsPreparedToPlayDidChange, object: nil)
-    }
-    
     @objc func handlePlayerPreparedToPlayNotify(notify: NSNotification){
         let cor: KSYMoviePlayerController = notify.object as! KSYMoviePlayerController
         
@@ -79,16 +85,19 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
         case 10001:
             if(playScrollView.upperPlayer.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT){
                 playScrollView.upperPlayer.videoPlayer.play()
+                playScrollView.currentPlayerView = playScrollView.upperPlayer
             }
             break
         case 10002:
             if(playScrollView.middlePlayer.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT){
                 playScrollView.middlePlayer.videoPlayer.play()
+                playScrollView.currentPlayerView = playScrollView.middlePlayer
             }
             break
         case 10003:
             if(playScrollView.downPlayer.frame.origin.y == Constants.Dimension.SCREEN_HEIGHT){
                 playScrollView.downPlayer.videoPlayer.play()
+                playScrollView.currentPlayerView = playScrollView.downPlayer
             }
             break
         default:
@@ -120,10 +129,42 @@ class VideoDetailVC: UIViewController, PlayerScrollViewDelegate{
             break
         }
     }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight: CGFloat = keyboardFrame.cgRectValue.height
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        
+        
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.chatInputBar.transform = CGAffineTransform(translationX: 0, y: -self.chatInputBar.frame.size.height-keyboardHeight)
+        })
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        let animationTime: TimeInterval = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! TimeInterval
+        
+        UIView.animate(withDuration: animationTime, animations: { () -> Void in
+            self.chatInputBar.transform = CGAffineTransform.identity
+        })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = true
+        UIApplication.shared.keyWindow?.windowLevel = UIWindowLevelNormal
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
 
 }
 
-extension VideoDetailVC{
+extension VideoDetailVC: PlayerScrollViewDelegate{
     func playerScrollView(playerScrollView: PlayScrollView, index: NSInteger) {
 
         if(self.currentIndex==index){
@@ -137,6 +178,7 @@ extension VideoDetailVC{
                     playerScrollView.upperPlayer.isHidden = false
                 }
                 playerScrollView.upperPlayer.videoPlayer.play()
+                playerScrollView.currentPlayerView = playerScrollView.upperPlayer
             }
 
             playerScrollView.middlePlayer.videoPlayer.pause()
@@ -153,6 +195,7 @@ extension VideoDetailVC{
                     playerScrollView.middlePlayer.isHidden = false
                 }
                 playerScrollView.middlePlayer.videoPlayer.play()
+                playerScrollView.currentPlayerView = playerScrollView.middlePlayer
             }
             
             playerScrollView.upperPlayer.videoPlayer.pause()
@@ -169,6 +212,7 @@ extension VideoDetailVC{
                     playerScrollView.downPlayer.isHidden = false
                 }
                 playerScrollView.downPlayer.videoPlayer.play()
+                playerScrollView.currentPlayerView = playerScrollView.downPlayer
             }
             
             playerScrollView.upperPlayer.videoPlayer.pause()
@@ -177,5 +221,22 @@ extension VideoDetailVC{
             playerScrollView.middlePlayer.isHidden = true
         }
         self.currentIndex = index
+    }
+}
+
+extension VideoDetailVC: ChatInputBarDelegate{
+    func send() {
+        guard let video = self.tmpVideo else { return }
+        
+        self.chatInputBar.commentResource(resource: video) { (video, error) in
+            guard let v = video, let playView = self.playScrollView.currentPlayerView  else { return }
+
+            DispatchQueue.main.async {
+                playView.commentAmountLbl.text = String((v as! Video).commentCount)
+            }
+            
+            self.chatInputBar.messageInputTv.resignFirstResponder()
+        }
+        
     }
 }

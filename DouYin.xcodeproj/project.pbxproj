@@ -165,6 +165,14 @@
 		70F272482101D8F300FD62CA /* IncomingUserMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F272462101D8F300FD62CA /* IncomingUserMessageCell.xib */; };
 		70F2724B2101EF0600FD62CA /* OutgoingUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F272492101EF0600FD62CA /* OutgoingUserMessageCell.swift */; };
 		70F2724C2101EF0600FD62CA /* OutgoingUserMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F2724A2101EF0600FD62CA /* OutgoingUserMessageCell.xib */; };
+		70F69D94214375BB000FAFD2 /* DBUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F69D93214375BB000FAFD2 /* DBUtils.swift */; };
+		70F69D992143A62C000FAFD2 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F69D982143A62C000FAFD2 /* Resource.swift */; };
+		70F69D9B2143FAF2000FAFD2 /* TwoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F69D9A2143FAF2000FAFD2 /* TwoImageView.swift */; };
+		70F69D9D2143FB03000FAFD2 /* TwoImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F69D9C2143FB03000FAFD2 /* TwoImageView.xib */; };
+		70F69D9F2143FD0A000FAFD2 /* ThreeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F69D9E2143FD0A000FAFD2 /* ThreeImageView.swift */; };
+		70F69DA12143FD1A000FAFD2 /* ThreeImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F69DA02143FD1A000FAFD2 /* ThreeImageView.xib */; };
+		70F69DA3214400C7000FAFD2 /* ForthImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F69DA2214400C7000FAFD2 /* ForthImageView.swift */; };
+		70F69DA5214400D6000FAFD2 /* ForthImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F69DA4214400D6000FAFD2 /* ForthImageView.xib */; };
 		70FB861A2113595100D12833 /* FavoriteVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB86182113595100D12833 /* FavoriteVideoVC.swift */; };
 		70FB861B2113595100D12833 /* FavoriteVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FB86192113595100D12833 /* FavoriteVideoVC.xib */; };
 		70FB861E2113597300D12833 /* MyMomentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB861C2113597300D12833 /* MyMomentVC.swift */; };
@@ -470,6 +478,14 @@
 		70F272462101D8F300FD62CA /* IncomingUserMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingUserMessageCell.xib; sourceTree = "<group>"; };
 		70F272492101EF0600FD62CA /* OutgoingUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingUserMessageCell.swift; sourceTree = "<group>"; };
 		70F2724A2101EF0600FD62CA /* OutgoingUserMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingUserMessageCell.xib; sourceTree = "<group>"; };
+		70F69D93214375BB000FAFD2 /* DBUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUtils.swift; sourceTree = "<group>"; };
+		70F69D982143A62C000FAFD2 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		70F69D9A2143FAF2000FAFD2 /* TwoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoImageView.swift; sourceTree = "<group>"; };
+		70F69D9C2143FB03000FAFD2 /* TwoImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoImageView.xib; sourceTree = "<group>"; };
+		70F69D9E2143FD0A000FAFD2 /* ThreeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeImageView.swift; sourceTree = "<group>"; };
+		70F69DA02143FD1A000FAFD2 /* ThreeImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThreeImageView.xib; sourceTree = "<group>"; };
+		70F69DA2214400C7000FAFD2 /* ForthImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForthImageView.swift; sourceTree = "<group>"; };
+		70F69DA4214400D6000FAFD2 /* ForthImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForthImageView.xib; sourceTree = "<group>"; };
 		70FB86182113595100D12833 /* FavoriteVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideoVC.swift; sourceTree = "<group>"; };
 		70FB86192113595100D12833 /* FavoriteVideoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteVideoVC.xib; sourceTree = "<group>"; };
 		70FB861C2113597300D12833 /* MyMomentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMomentVC.swift; sourceTree = "<group>"; };
@@ -768,6 +784,7 @@
 				702793C020F60C0A00D4FA91 /* AuthUtils.swift */,
 				70F2722521007E3800FD62CA /* ChatManager.swift */,
 				70FB86A0211AD62900D12833 /* LocationManager.swift */,
+				70F69D93214375BB000FAFD2 /* DBUtils.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -814,6 +831,7 @@
 		7072A95320E2435C000ECA1C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				70F69D982143A62C000FAFD2 /* Resource.swift */,
 				70402552211017AE00C2A3B3 /* CountryData.swift */,
 			);
 			path = Models;
@@ -1021,6 +1039,12 @@
 				70FB86512115BEA200D12833 /* LinkMomentCell.xib */,
 				70D5F0D921310B44003D2B04 /* PersonActionBar.swift */,
 				70D5F0DB21310B5E003D2B04 /* PersonActionBar.xib */,
+				70F69D9A2143FAF2000FAFD2 /* TwoImageView.swift */,
+				70F69D9C2143FB03000FAFD2 /* TwoImageView.xib */,
+				70F69D9E2143FD0A000FAFD2 /* ThreeImageView.swift */,
+				70F69DA02143FD1A000FAFD2 /* ThreeImageView.xib */,
+				70F69DA2214400C7000FAFD2 /* ForthImageView.swift */,
+				70F69DA4214400D6000FAFD2 /* ForthImageView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1311,13 +1335,16 @@
 			files = (
 				7027939E20F4C3CE00D4FA91 /* login_vd.mov in Resources */,
 				7060ECB52105AC2E00C902C8 /* Verify2faVC.xib in Resources */,
+				70F69DA5214400D6000FAFD2 /* ForthImageView.xib in Resources */,
 				70D5F13221345B12003D2B04 /* CircleCell.xib in Resources */,
 				70402559211050BE00C2A3B3 /* DescribeCell.xib in Resources */,
 				706966DE210883B000A2B5F9 /* GenderCell.xib in Resources */,
 				70FB86232113598900D12833 /* MyVideoVC.xib in Resources */,
+				70F69DA12143FD1A000FAFD2 /* ThreeImageView.xib in Resources */,
 				7098234420F7041300B1292E /* README.txt in Resources */,
 				70F272412101CAEB00FD62CA /* ChatView.xib in Resources */,
 				70FB861F2113597300D12833 /* MyMomentVC.xib in Resources */,
+				70F69D9D2143FB03000FAFD2 /* TwoImageView.xib in Resources */,
 				70D5F12C21345B12003D2B04 /* BeautyBarView.xib in Resources */,
 				70D5F12E21345B12003D2B04 /* VideoPreviewHeader.xib in Resources */,
 				7060ECD121074B9900C902C8 /* AnchorFormVC.xib in Resources */,
@@ -1459,6 +1486,7 @@
 				70FB862B2113F69400D12833 /* Account.swift in Sources */,
 				70663DEB20D251E000707F87 /* FlowLayout.swift in Sources */,
 				70D5F0DA21310B44003D2B04 /* PersonActionBar.swift in Sources */,
+				70F69D992143A62C000FAFD2 /* Resource.swift in Sources */,
 				7027939B20F4BB7B00D4FA91 /* LoginVC.swift in Sources */,
 				70D5F13D213463E2003D2B04 /* FilterOperationTypes.swift in Sources */,
 				704E960120DA00BE002881FA /* UIColor+hex.swift in Sources */,
@@ -1468,6 +1496,7 @@
 				70FB86552115E8E300D12833 /* Meaturable+Label.swift in Sources */,
 				7060ECAB2103793300C902C8 /* ChatInputBar.swift in Sources */,
 				703E236921032DC8007D65BF /* AdminMessageCell.swift in Sources */,
+				70F69D94214375BB000FAFD2 /* DBUtils.swift in Sources */,
 				70FB861A2113595100D12833 /* FavoriteVideoVC.swift in Sources */,
 				70FB861E2113597300D12833 /* MyMomentVC.swift in Sources */,
 				7072A95820E248FE000ECA1C /* LiveVC.swift in Sources */,
@@ -1487,6 +1516,7 @@
 				70696713210E022200A2B5F9 /* EdgeShadowLayer.swift in Sources */,
 				7086967820FA49E200E8BAE1 /* GiftData.swift in Sources */,
 				70402558211050BE00C2A3B3 /* DescribeCell.swift in Sources */,
+				70F69DA3214400C7000FAFD2 /* ForthImageView.swift in Sources */,
 				7098236120F7517F00B1292E /* ViewerActionView.swift in Sources */,
 				70F2723F2101CAD600FD62CA /* ChatView.swift in Sources */,
 				7011EB1520EE06AA00D1A033 /* Utils.swift in Sources */,
@@ -1554,10 +1584,12 @@
 				70F2724B2101EF0600FD62CA /* OutgoingUserMessageCell.swift in Sources */,
 				706966DD210883B000A2B5F9 /* GenderCell.swift in Sources */,
 				704E95F720D8B334002881FA /* UIView+constraints.swift in Sources */,
+				70F69D9B2143FAF2000FAFD2 /* TwoImageView.swift in Sources */,
 				70FB86592116A32900D12833 /* ZSCWebController.swift in Sources */,
 				7072A97720E3AC8E000ECA1C /* UIImage+NDImage.swift in Sources */,
 				70D5F13021345B12003D2B04 /* BeautyBarView.swift in Sources */,
 				7098236220F7517F00B1292E /* AppHelper.swift in Sources */,
+				70F69D9F2143FD0A000FAFD2 /* ThreeImageView.swift in Sources */,
 				70FB86402115660900D12833 /* MyVideoCell.swift in Sources */,
 				704E961920DCAB00002881FA /* ShortVideoVC.swift in Sources */,
 				70D5F13121345B12003D2B04 /* VideoPreviewHeader.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class MomentCell: UITableViewCell, GiftViewDelegate {
-    var moment: Moment?
+    var moment: Moment!
     
     @IBOutlet weak var publishTimeLbl: UILabel!
     
@@ -61,12 +61,6 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
         let context = appDelegate.persistentContainer.viewContext
         return context
     }()
-    
-    lazy var likeManagedObject: NSManagedObject = {
-        let entity = NSEntityDescription.entity(forEntityName: "ResourceLikeMap", in: dataContext)
-        let likeManagedObj = NSManagedObject(entity: entity!, insertInto: dataContext)
-        return likeManagedObj
-    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -94,17 +88,17 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
 
     func updateUI(moment: Moment){
         self.moment = moment
-        if let avarar = moment.creator.avatar {
+        if let avarar = moment.creator?.avatar {
             self.avatarIV.sd_setImage(with: URL(string: avarar.origin), placeholderImage: UIImage(named: "placeholder.png"))
         }
         
-        self.nameLbl.text = moment.creator.name
+        self.nameLbl.text = moment.creator?.name
         self.bodyLbl.text = moment.body
         self.likeCountLbl.text = String(moment.likeCount)
         self.publishTimeLbl.text = Date(timeIntervalSince1970: TimeInterval(moment.uploadTime / 1000)).getElapsedInterval()
         self.likeCountLbl.text = String(moment.likeCount)
         
-        if fetchMomentLike() > 0 {
+        if  DBUtils.share.fetchLike(resourceId: moment.resourceId) > 0 {
             self.likeBtn.tag = 1
             self.likeBtn.setImage(UIImage(named: "heart"), for: .normal)
         }else{
@@ -303,10 +297,29 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
     }
     
     @IBAction func likeBtnClicked(_ sender: UIButton) {
-        if sender.tag == 1 {
-            unlike()
+        self.likeBtn.isEnabled = false
+        if self.likeBtn.tag == 1 {
+            DBUtils.share.unlike(resourceId: moment.resourceId) { (status) in
+                if (status == .success) {
+                    self.moment.likeCount = self.moment.likeCount - 1
+                    self.likeCountLbl.text = String(self.moment.likeCount)
+                    self.likeBtn.setImage(UIImage(named: "heart_line"), for: .normal)
+                    self.likeBtn.tag = 0
+                    self.configLikeBtnColor()
+                }
+                self.likeBtn.isEnabled = true
+            }
         }else{
-            like()
+            DBUtils.share.like(resourceId: moment.resourceId) { (status) in
+                if (status == .success) {
+                    self.moment.likeCount = self.moment.likeCount + 1
+                    self.likeCountLbl.text = String(self.moment.likeCount)
+                    self.likeBtn.setImage(UIImage(named: "heart"), for: .normal)
+                    self.likeBtn.tag = 1
+                    self.configLikeBtnColor()
+                }
+                self.likeBtn.isEnabled = true
+            }
         }
     }
     
@@ -320,105 +333,6 @@ class MomentCell: UITableViewCell, GiftViewDelegate {
                 self.giftView.collectionView.reloadData()
             }
         }
-    }
-    
-    func like(){
-        likeBtn.isEnabled = false
-        let likeAPI = String(format: "%@likes/like", Constants.HOST)
-        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
-            
-            let response = responseJson as! NSDictionary
-            let errorCode = response["errorCode"] as! Int
-            let message = response["message"] as! String
-            if errorCode == 1 {
-                self.likeBtn.setImage(UIImage(named: "heart"), for: .normal)
-                self.configLikeBtnColor()
-                self.save()
-            } else {
-                print("Like Error: \(message)")
-            }
-            self.likeBtn.isEnabled = true
-        }) { (error) in
-            print("Like Error: \(String(describing: error?.localizedDescription))")
-            self.likeBtn.isEnabled = true
-        }
-    }
-    
-    func unlike(){
-        likeBtn.isEnabled = false
-        let likeAPI = String(format: "%@likes/unlike", Constants.HOST)
-        ConnectionManager.shareManager.request(method: .post, url: likeAPI, parames: ["resourceId": moment?.momentId, "token": AuthUtils.share.apiToken()] as [String: AnyObject], succeed: { (responseJson) in
-            
-            let response = responseJson as! NSDictionary
-            let errorCode = response["errorCode"] as! Int
-            let message = response["message"] as! String
-            if errorCode == 1 {
-                self.likeBtn.setImage(UIImage(named: "heart_line"), for: .normal)
-                self.configLikeBtnColor()
-                self.delete()
-            } else {
-                print("Unlike Error: \(message)")
-            }
-            self.likeBtn.isEnabled = true
-        }) { (error) in
-            print("Unlike Error: \(String(describing: error?.localizedDescription))")
-            self.likeBtn.isEnabled = true
-        }
-    }
-    
-    func save(){
-        guard let m = moment else { return }
-        
-        self.likeManagedObject.setValue(m.momentId, forKey: "resourceId")
-        self.likeManagedObject.setValue(m.likeCount+1, forKey: "likeCount")
-        
-        do {
-            try dataContext.save()
-        } catch {
-            print("Failed Save Moment Like")
-        }
-    }
-    
-    func delete() {
-        guard let m = moment else { return }
-        
-        do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ResourceLikeMap")
-            request.fetchLimit = 1
-            request.predicate = NSPredicate(format: "resourceId = %@", m.momentId)
-            request.returnsObjectsAsFaults = false
-            
-            let fetchResult = try dataContext.fetch(request)
-            let likeObj = fetchResult.first as! NSManagedObject
-            
-            dataContext.delete(likeObj)
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.saveContext()
-        } catch {
-            print("Failed Delete Moment Like")
-        }
-    }
-    
-    func fetchMomentLike() -> Int32{
-        guard let m = moment else { return 0 }
-        
-        var likeCount: Int32 = 0
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ResourceLikeMap")
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "resourceId = %@", m.momentId)
-        request.returnsObjectsAsFaults = false
-    
-        do {
-            let result = try dataContext.fetch(request)
-            
-            if result.count == 1 {
-                let likeObj = result.first as! NSManagedObject
-                likeCount = likeObj.value(forKey: "likeCount") as! Int32
-            }
-        } catch {
-            print("Fetch Moment Like Failed")
-        }
-        return likeCount
     }
     
     @objc func alertControllerBackgroundTapped(){

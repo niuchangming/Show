@@ -23,6 +23,7 @@
                 <outlet property="favoriteAmountLbl" destination="GRI-1V-a7T" id="dgx-bG-Yev"/>
                 <outlet property="favoriteBtn" destination="V29-5V-fgc" id="ITz-TQ-XtO"/>
                 <outlet property="followBtn" destination="kto-MX-bhR" id="tQy-Ks-KJA"/>
+                <outlet property="followLoadingBar" destination="Pdu-N7-ltz" id="B09-A1-crh"/>
                 <outlet property="headeView" destination="vjn-us-a7W" id="6BS-Ol-mO6"/>
                 <outlet property="likeAmountLbl" destination="Y10-tG-oXa" id="lHF-TF-4Q0"/>
                 <outlet property="likeBtn" destination="1N4-ts-sSW" id="SnD-nm-ga3"/>
@@ -86,6 +87,9 @@
                                 <action selector="dismissBtnClicked:" destination="-1" eventType="touchUpInside" id="sBr-F2-ngD"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Pdu-N7-ltz">
+                            <rect key="frame" x="115" y="8" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -95,7 +99,9 @@
                         <constraint firstItem="kto-MX-bhR" firstAttribute="leading" secondItem="z4a-wW-0AX" secondAttribute="trailing" constant="-58" id="4bN-lq-spy"/>
                         <constraint firstItem="kto-MX-bhR" firstAttribute="leading" secondItem="EcI-Ak-yvT" secondAttribute="trailing" constant="8" id="59f-gm-XZY"/>
                         <constraint firstItem="2Vb-xs-SoZ" firstAttribute="top" secondItem="vjn-us-a7W" secondAttribute="top" id="7cc-VS-TG4"/>
+                        <constraint firstItem="Pdu-N7-ltz" firstAttribute="centerY" secondItem="kto-MX-bhR" secondAttribute="centerY" id="Qzw-IW-XaF"/>
                         <constraint firstAttribute="width" secondItem="vjn-us-a7W" secondAttribute="height" multiplier="25:4" constant="150" id="Tp2-31-ydp"/>
+                        <constraint firstItem="Pdu-N7-ltz" firstAttribute="centerX" secondItem="kto-MX-bhR" secondAttribute="centerX" id="XvU-YP-bYR"/>
                         <constraint firstItem="VxK-5T-ZY4" firstAttribute="centerY" secondItem="vjn-us-a7W" secondAttribute="centerY" id="a7w-Ym-zqb"/>
                         <constraint firstAttribute="trailing" secondItem="VxK-5T-ZY4" secondAttribute="trailing" constant="8" id="g3P-dg-n7R"/>
                         <constraint firstItem="z4a-wW-0AX" firstAttribute="leading" secondItem="vjn-us-a7W" secondAttribute="leading" constant="15" id="gS7-61-bn6"/>

@@ -44,7 +44,7 @@ class ChatInputBar: ReusableViewFromXib {
         }
     }
     
-    func commentMoment(moment: Moment?, completed: @escaping(_ moment: Moment?, _ error: String) -> () ) {
+    func commentResource(resource: Resource, completed: @escaping(_ resource: Resource?, _ error: String) -> () ) {
         if self.messageInputTv.text.count > 0 {
             let body = self.messageInputTv.text!
             self.messageInputTv.text = ""
@@ -52,7 +52,7 @@ class ChatInputBar: ReusableViewFromXib {
             
             let commentAPI = String(format: "%@comments/comment", Constants.HOST)
     
-            let params = ["body": body, "token": AuthUtils.share.apiToken(), "resourceId": moment?.momentId, "resourceType": "moment"] as [String : AnyObject]
+            let params = ["body": body, "token": AuthUtils.share.apiToken(), "resourceId": resource.resourceId] as [String : AnyObject]
         
             ConnectionManager.shareManager.request(method: .post, url: commentAPI, parames: params, succeed: { (responseJson) in
                 let response = responseJson as! NSDictionary
@@ -62,8 +62,15 @@ class ChatInputBar: ReusableViewFromXib {
                     let newComment = Comment.deserialize(from: response["data"] as? NSDictionary)
                     
                     if let comm = newComment {
-                        moment?.comments.append(comm)
-                        completed(moment, message)
+                        if String(describing: resource.self).range(of: "Moment") != nil {
+                            let moment = resource as! Moment
+                            moment.comments.append(comm)
+                            completed(moment, message)
+                        } else if String(describing: resource.self).range(of: "Video") != nil {
+                            let video = resource as! Video
+                            video.commentCount = video.commentCount + 1
+                            completed(video, message)
+                        }
                     }
 
                 }else{
@@ -85,7 +92,7 @@ class ChatInputBar: ReusableViewFromXib {
             
             let commentAPI = String(format: "%@comments/comment", Constants.HOST)
             
-            let params = ["body": body, "token": AuthUtils.share.apiToken(), "commentId": comment?.commentId, "resourceType": "moment"] as [String : AnyObject]
+            let params = ["body": body, "token": AuthUtils.share.apiToken(), "commentId": comment?.commentId] as [String : AnyObject]
             
             ConnectionManager.shareManager.request(method: .post, url: commentAPI, parames: params, succeed: { (responseJson) in
                 let response = responseJson as! NSDictionary

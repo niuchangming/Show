@@ -14,6 +14,9 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
     @IBOutlet weak var avatarIV: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var viewerAmountLbl: UILabel!
+    
+    @IBOutlet weak var followLoadingBar: UIActivityIndicatorView!
+    
     @IBOutlet weak var followBtn: UIButton!
     @IBOutlet weak var followerContainer: UIScrollView!
     @IBOutlet weak var coinContainer: UIView!
@@ -44,18 +47,24 @@ class LiveCollectionCellHeader: ReusableViewFromXib {
     
     @IBAction func followBtnClicked(_ sender: UIButton) {
         if(Utils.isNotNil(obj: AuthUtils.share.apiToken())){
-            let apiFunc: String = sender.titleLabel?.text == "关注" ? "follows/follow" : "follows/unfollow"
+            let apiFunc: String = sender.titleLabel?.text == "关注" ? "follows/add" : "follows/cancel"
             
-            ConnectionManager.shareManager.request(method: .post, url: String(format: "%@%@", Constants.HOST, apiFunc), parames: ["broadcastId": live.id as AnyObject, "token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
+            self.followLoadingBar.startAnimating()
+            self.followBtn.isHidden = true
+            ConnectionManager.shareManager.request(method: .post, url: String(format: "%@%@", Constants.HOST, apiFunc), parames: ["userCode": live.userCode as AnyObject, "token": AuthUtils.share.apiToken() as AnyObject], succeed: { (responseJson) in
                 
                 let response = responseJson as! NSDictionary
                 let errorCode = response["errorCode"] as! Int
                 if errorCode == 1 {
-                    self.followBtn.titleLabel?.text = "取消"
+                    apiFunc == "follows/add" ? (self.followBtn.titleLabel?.text = "取消") : (self.followBtn.titleLabel?.text = "关注")
                 }else{
                     self.popupAlert(title: "Failed", message: response["message"] as! String)
                 }
+                self.followLoadingBar.stopAnimating()
+                self.followBtn.isHidden = false
             }) { (error) in
+                self.followLoadingBar.stopAnimating()
+                self.followBtn.isHidden = false
                 print("Follow user error: \(String(describing: error?.localizedDescription))")
             }
         }else {

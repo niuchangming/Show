@@ -120,6 +120,11 @@ class MomentVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DBUtils.share.saveContext()
+    }
 
 }
 
@@ -135,13 +140,13 @@ extension MomentVC: ChatInputBarDelegate{
     }
     
     func sendCommentForMoment(moment: Moment){
-        self.chatInputBar.commentMoment(moment: moment) { (moment, error) in
+        self.chatInputBar.commentResource(resource: moment) { (moment, error) in
 
             guard let m = moment else { return }
             
             var row = -1
             for i in 0..<self.momentData.data.count {
-                if self.momentData.data[i].momentId == m.momentId {
+                if self.momentData.data[i].resourceId == m.resourceId {
                     row = i
                     break
                 }
@@ -157,10 +162,10 @@ extension MomentVC: ChatInputBarDelegate{
     }
     
     func replyComment(comment: Comment){
-        self.chatInputBar.replyComment(comment: comment) { (comment, error) in
-            
-            print("---------> %@", comment)
-            
+        self.chatInputBar.replyComment(comment: comment) { (status, error) in
+            if (status == .failure) {
+                print("Reply Comment Failed: \(error)")
+            }
         }
     }
 }

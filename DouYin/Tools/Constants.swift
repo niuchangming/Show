@@ -32,6 +32,7 @@ struct Constants {
     static let IS_RETINA: Bool = UIScreen.main.scale == 2.0
     
     struct ColorScheme {
+        static let whiteColor = "#FFFFFF"
         static let blackColor = "#5B5A62"
         static let darkBlackColor = "#333"
         static let orangeColor = "#FC5C1B"

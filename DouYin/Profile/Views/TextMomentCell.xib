@@ -39,9 +39,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1Q-jB-Igh">
-                        <rect key="frame" x="62" y="10" width="248" height="40"/>
+                        <rect key="frame" x="62" y="10" width="248" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="hYo-qd-Aqq"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="hYo-qd-Aqq"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,7 +57,7 @@
                     <constraint firstItem="w1Q-jB-Igh" firstAttribute="leading" secondItem="JYJ-8o-gn8" secondAttribute="trailing" constant="8" id="QCy-pB-zVK"/>
                     <constraint firstItem="JYJ-8o-gn8" firstAttribute="leading" secondItem="VRR-rm-isp" secondAttribute="trailing" id="QYX-oZ-IOt"/>
                     <constraint firstItem="VRR-rm-isp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Rjk-Mg-DJt"/>
-                    <constraint firstAttribute="bottom" secondItem="w1Q-jB-Igh" secondAttribute="bottom" constant="9.5" id="WgW-JD-4e7"/>
+                    <constraint firstAttribute="bottom" secondItem="VRR-rm-isp" secondAttribute="bottom" constant="29.5" id="ckA-Vf-YaN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
